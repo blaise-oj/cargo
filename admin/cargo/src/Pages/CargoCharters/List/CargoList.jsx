@@ -27,7 +27,7 @@ const CargoList = () => {
   // Fetch cargo list
   const fetchCargoBills = async () => {
     try {
-      const res = await fetch("${API_URL}/cargo");
+      const res = await fetch(`${API_URL}/cargo`);
       if (!res.ok) throw new Error("Failed to fetch cargo airwaybills");
       const data = await res.json();
 

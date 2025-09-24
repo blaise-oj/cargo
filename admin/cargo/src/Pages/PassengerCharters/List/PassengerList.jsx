@@ -11,7 +11,7 @@ const PassengerList = () => {
   useEffect(() => {
     const fetchPassengerBills = async () => {
       try {
-        const res = await fetch("${API_URL}/passengers");
+        const res = await fetch(`${API_URL}/passengers`);
         if (!res.ok) throw new Error("Failed to fetch passenger airwaybills");
         const data = await res.json();
         setPassengerBills(data.data || data);
