@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CargoList.css";
+import { API_URL } from "../../../config/api.js";
 
 const CargoList = () => {
   const [cargoBills, setCargoBills] = useState([]);
@@ -26,7 +27,7 @@ const CargoList = () => {
   // Fetch cargo list
   const fetchCargoBills = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/cargo");
+      const res = await fetch("${API_URL}/cargo");
       if (!res.ok) throw new Error("Failed to fetch cargo airwaybills");
       const data = await res.json();
 
@@ -53,7 +54,7 @@ const CargoList = () => {
   const downloadReceipt = async (airwaybill) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/cargo/${airwaybill}/receipt`,
+        `${API_URL}/cargo/${airwaybill}/receipt`,
         { method: "GET" }
       );
 

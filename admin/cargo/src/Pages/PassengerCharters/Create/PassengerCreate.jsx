@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./PassengerCreate.css";
 import countries from "world-countries";
 import { City } from "country-state-city";
+import { API_URL } from "../../../config/api.js";
 
 const PassengerCreate = () => {
   const navigate = useNavigate();
@@ -114,7 +115,7 @@ const PassengerCreate = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:4000/api/passengers", {
+      const res = await fetch("${API_URL}/passengers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

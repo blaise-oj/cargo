@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./PassengerList.css";
+import { API_URL } from "../../../config/api.js";
 
 const PassengerList = () => {
   const [passengerBills, setPassengerBills] = useState([]);
@@ -10,7 +11,7 @@ const PassengerList = () => {
   useEffect(() => {
     const fetchPassengerBills = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/passengers");
+        const res = await fetch("${API_URL}/passengers");
         if (!res.ok) throw new Error("Failed to fetch passenger airwaybills");
         const data = await res.json();
         setPassengerBills(data.data || data);

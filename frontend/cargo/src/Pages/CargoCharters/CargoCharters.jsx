@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./CargoCharters.css";
 import jet6 from "../../assets/jet6.png";
+import { API_URL } from "../../config/api.js";
 
 // Helper: interpolate position along route
 const interpolatePosition = (points, ratio) => {
@@ -63,7 +64,7 @@ const CargoCharters = () => {
     setShowDetails(false);
 
     try {
-      const res = await fetch(`http://localhost:4000/api/cargo/track/${trackingNumber}`);
+      const res = await fetch(`${API_URL}/cargo/track/${trackingNumber}`);
       const data = await res.json();
 
       if (!data.success) setError(data.message || "Cargo not found");

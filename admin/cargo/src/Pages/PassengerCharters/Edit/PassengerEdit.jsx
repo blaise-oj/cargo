@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Country, City } from "country-state-city";
 import "./PassengerEdit.css";
+import { API_URL } from "../../../config/api.js";
+
 
 const emptyPassenger = {
   name: "",
@@ -51,7 +53,7 @@ const PassengerEdit = () => {
     const fetchPassenger = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/api/passengers/track/${airwaybill}`
+          `${API_URL}/passengers/track/${airwaybill}`
         );
         const data = await res.json();
 
@@ -203,7 +205,7 @@ const PassengerEdit = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:4000/api/passengers/track/${airwaybill}`,
+        `${API_URL}/passengers/track/${airwaybill}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -232,7 +234,7 @@ const PassengerEdit = () => {
     if (!window.confirm("Delete this passenger?")) return;
     try {
       const res = await fetch(
-        `http://localhost:4000/api/passengers/track/${airwaybill}`,
+        `${API_URL}/passengers/track/${airwaybill}`,
         { method: "DELETE" }
       );
       if (!res.ok) throw new Error("Delete failed");

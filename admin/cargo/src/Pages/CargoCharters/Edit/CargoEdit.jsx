@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Country, City } from "country-state-city";
 import "./CargoEdit.css";
+import { API_URL } from "../../../config/api.js";
 
 const emptyCargoDetails = { weight: 0, quantity: 0, description: "" };
 
@@ -20,7 +21,7 @@ const CargoEdit = () => {
   useEffect(() => {
     const fetchCargo = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/cargo/track/${airwaybill}`);
+        const res = await fetch(`${API_URL}/cargo/track/${airwaybill}`);
         const data = await res.json();
         if (!data.success || !data.cargo) throw new Error("No cargo data found");
         const cargo = data.cargo;
@@ -129,7 +130,7 @@ const CargoEdit = () => {
     };
 
     try {
-      const res = await fetch(`http://localhost:4000/api/cargo/track/${airwaybill}`, {
+      const res = await fetch(`${API_URL}/cargo/track/${airwaybill}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -147,7 +148,7 @@ const CargoEdit = () => {
   const handleDelete = async () => {
     if (!window.confirm("Delete this cargo?")) return;
     try {
-      const res = await fetch(`http://localhost:4000/api/cargo/${airwaybill}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/cargo/${airwaybill}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       alert("Cargo deleted!");
       navigate("/cargocharters");
@@ -158,7 +159,7 @@ const CargoEdit = () => {
   };
 
   const handleDownloadReceipt = () => {
-    window.open(`http://localhost:4000/api/cargo/${airwaybill}/receipt`, "_blank");
+    window.open(`${API_URL}/cargo/${airwaybill}/receipt`, "_blank");
   };
 
   const renderCityOptions = (citiesList) =>

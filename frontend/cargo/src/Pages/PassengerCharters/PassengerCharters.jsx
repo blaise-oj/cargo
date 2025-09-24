@@ -5,6 +5,7 @@ import L from "leaflet";
 import "./PassengerCharters.css";
 import jet4 from "../../assets/jet4.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { API_URL } from "../../config/api.js";
 
 // Default Leaflet marker fix
 delete L.Icon.Default.prototype._getIconUrl;
@@ -74,7 +75,7 @@ const PassengerCharters = () => {
       if (!query.startsWith("PASS_")) query = `PASS_${query}`;
 
       const res = await fetch(
-        `http://localhost:4000/api/passengers/track/${query}`
+        `${API_URL}/passengers/track/${query}`
       );
 
       if (!res.ok) {
