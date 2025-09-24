@@ -1,0 +1,107 @@
+.passenger-list {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: hidden; /* ✅ prevent horizontal scroll */
+}
+
+.passenger-list h2 {
+  margin-bottom: 1rem;
+  color: #05469b;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* ✅ allow table scroll if needed on small-mid screens */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: #05469b;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+/* Create button (link at the top) */
+.create-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 10px 16px;
+  background: #28a745; /* green */
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.create-link:hover {
+  background: #218838;
+}
+
+/* Edit button inside table */
+.edit-btn {
+  background: #05469b; /* your theme blue */
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-btn:hover {
+  background: #08306b; /* darker blue on hover */
+}
+
+/* ✅ Card View on Mobile */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none; /* hide table header on mobile */
+  }
+
+  tr {
+    background: #fff;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+  }
+
+  td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #05469b;
+    flex: 1;
+    margin-right: 10px;
+  }
+}

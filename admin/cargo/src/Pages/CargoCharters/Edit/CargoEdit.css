@@ -1,0 +1,125 @@
+.cargo-edit-container {
+  max-width: 800px;
+  margin: 2rem 0 2rem 20rem; /* pushed to the left */
+  padding: 2rem;
+  background: #f5f6fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.cargo-edit-container h2 {
+  margin-bottom: 1.5rem;
+  color: #1d3557;
+}
+
+.cargo-edit-container h2 span {
+  font-weight: normal;
+  color: #457b9d;
+}
+
+.cargo-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #1d3557;
+}
+
+input, select, textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1d3557;
+  box-shadow: 0 0 3px rgba(29,53,87,0.3);
+}
+
+/* Form actions: aligned buttons */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start; /* align left */
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  transition: 0.2s;
+}
+
+.save-btn {
+  background-color: #2a9d8f;
+}
+.save-btn:hover { background-color: #21867a; }
+
+.delete-btn {
+  background-color: #e63946;
+}
+.delete-btn:hover { background-color: #c5303f; }
+
+.back-btn {
+  background-color: #457b9d;
+}
+.back-btn:hover { background-color: #3a6486; }
+
+.receipt-btn {
+  background-color: #f4a261;
+  margin-top: 0.5rem;
+}
+.receipt-btn:hover { background-color: #d98c50; }
+
+.loading {
+  text-align: left;
+  font-size: 1.2rem;
+  color: #1d3557;
+}
+
+.error {
+  text-align: left;
+  color: red;
+  font-weight: bold;
+}
+@media (min-width: 1200px) {
+  .cargo-edit-container {
+    margin-left: 20rem; /* pushed further left for large screens */
+  }
+}
+
+/* Medium screens */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cargo-edit-container {
+    margin-left: 4rem;
+  }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+  .cargo-edit-container {
+    margin: 1rem; /* almost full width */
+    padding: 1rem;
+  }
+}

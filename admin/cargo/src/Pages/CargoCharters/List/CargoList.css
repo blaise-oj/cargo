@@ -1,0 +1,211 @@
+/* --- Container --- */
+.cargo-list {
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cargo-list h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #1d3557;
+  font-weight: 600;
+}
+
+/* --- Create Button --- */
+.cargo-list .create-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  background-color: #28a745 !important;
+  color: white !important;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.cargo-list .create-btn:hover {
+  background-color: #33a04d !important;
+}
+
+/* --- Table --- */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #1d3557;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* --- Actions cell --- */
+.actions-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* --- Buttons (High Specificity) --- */
+.actions-cell .edit-btn {
+  background-color: #28a745 !important;
+  color: white !important;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.actions-cell .edit-btn:hover {
+  background-color: #004c99 !important;
+}
+
+.actions-cell .download-btn {
+  background-color: #8e44ad !important;
+  color: white !important;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.actions-cell .download-btn:hover {
+  background-color: #732d91 !important;
+}
+
+/* --- Status Badges --- */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 90px;
+
+  /* Push downward slightly for desktop table alignment */
+  margin-top: 4px;
+}
+
+.status-badge.arrived {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.in-transit {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.booked {
+  background-color: #e0f2fe;
+  color: #1e40af;
+}
+
+.status-badge.withdrawn {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+.status-badge.cancelled {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* --- Responsive (Cards on Small Screens) --- */
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  td {
+    padding: 8px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f1f1f1;
+    align-items: center; /* vertically center label and value */
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #374151;
+    flex: 1; /* label takes left side */
+  }
+
+  .actions-cell {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .actions-cell .edit-btn,
+  .actions-cell .download-btn {
+    width: auto;
+    flex: 1;
+  }
+
+  /* Keep status badge on the right without moving the label */
+  td[data-label="Status"] {
+    justify-content: flex-start; /* label stays left */
+    gap: 10px; /* spacing between label and badge */
+  }
+
+  td[data-label="Status"] .status-badge {
+    margin-left: auto; /* pushes badge to right side */
+    margin-top: 0; /* reset top margin in card view */
+  }
+}

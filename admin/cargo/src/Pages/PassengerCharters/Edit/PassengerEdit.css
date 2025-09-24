@@ -1,0 +1,119 @@
+/* PassengerEdit.css */
+
+/* Container */
+.passenger-edit {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.passenger-edit h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Form styling */
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Edit actions (Back + Save buttons) */
+.edit-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.edit-actions .back-btn,
+.edit-actions .save-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.edit-actions .back-btn {
+  background: #004c99;
+  color: #fff;
+}
+
+.edit-actions .back-btn:hover {
+  background: #2c649c;
+}
+
+.edit-actions .save-btn {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.edit-actions .save-btn:hover {
+  background: #27ae60;
+}
+
+/* Delete button */
+.delete-btn-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.delete-btn {
+  padding: 12px 25px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+/* Passenger list (textarea) styling */
+.edit-form textarea {
+  min-height: 100px;
+  resize: vertical;
+  padding: 10px;
+}
+
+/* Labels */
+.edit-form label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .edit-actions {
+    flex-direction: column;
+  }
+}

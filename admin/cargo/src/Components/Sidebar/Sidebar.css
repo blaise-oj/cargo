@@ -1,0 +1,83 @@
+/* Sidebar.css */
+
+/* --- Sidebar Container --- */
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background-color: #1d3557; /* Dark blue sidebar */
+  color: #ffffff;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: width 0.3s ease;
+}
+
+/* --- Sidebar Options Container --- */
+.sidebar-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- Each Sidebar Option --- */
+.sidebar-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-option img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background-color: #ffffff;
+}
+
+/* Hover Effect */
+.sidebar-option:hover {
+  background-color: #457b9d;
+  transform: translateX(3px);
+}
+
+/* Active Link Styling */
+.sidebar-option.active {
+  background-color: #a8dadc;
+  color: #1d3557;
+}
+
+.sidebar-option.active p {
+  font-weight: 600;
+}
+
+/* Sidebar Text */
+.sidebar-option p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* --- Responsive: Collapse on small screens --- */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* collapsed width */
+    padding: 20px 5px;
+  }
+
+  .sidebar-option p {
+    display: none; /* hide text */
+  }
+
+  .sidebar-option img {
+    margin: 0 auto;
+  }
+
+  .sidebar-options {
+    gap: 10px;
+  }
+}

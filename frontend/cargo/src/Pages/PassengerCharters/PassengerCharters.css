@@ -1,0 +1,266 @@
+/* ============================= */
+/* Passenger Charters Page Styles */
+/* ============================= */
+.passenger-charters {
+  font-family: Arial, sans-serif;
+  color: #1d3557;
+  line-height: 1.6;
+}
+
+/* Hero */
+.pc-hero {
+  position: relative;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.pc-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+.pc-hero-text {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+}
+.pc-hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.pc-hero-text button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #e63946;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.pc-hero-text button:hover {
+  background: #d62828;
+}
+
+/* About */
+.pc-about, .pc-features, .pc-tracking, .pc-booking, .pc-testimonials, .pc-contact {
+  width: 90%;
+  margin: 60px auto;
+  text-align: center;
+}
+.pc-about p {
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+/* Features */
+.pc-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.feature {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Tracking */
+.pc-tracking form {
+  margin-top: 20px;
+}
+.pc-tracking input {
+  padding: 10px;
+  width: 60%;
+  max-width: 400px;
+  margin-right: 10px;
+}
+.pc-tracking button {
+  padding: 10px 20px;
+  border: none;
+  background: #1d3557;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pc-tracking button:hover {
+  background: #457b9d;
+}
+
+/* Booking */
+.pc-booking form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.pc-booking input, .pc-booking textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.pc-booking button {
+  background: #178842;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.pc-booking button:hover {
+  background: #087c63;
+}
+
+/* Testimonials */
+.pc-testimonials .testimonial {
+  background: #f1f1f1;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+.pc-testimonials span {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+/* Contact */
+.pc-contact .pc-buttons {
+  margin-top: 20px;
+}
+.pc-contact a {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 12px 25px;
+  background: #1d3557;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.pc-contact a:hover {
+  background: #457b9d;
+}
+
+/* ============================= */
+/* Plane Icon + Animated Waves   */
+/* ============================= */
+.plane-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  text-align: center;
+  line-height: 40px;
+  transform-origin: center;
+}
+
+/* The actual plane (Font Awesome icon) */
+.plane-icon i {
+  font-size: 24px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Pulsing wave effect */
+.plane-icon::before,
+.plane-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Different colors for different statuses */
+.plane-icon.checked-in::before,
+.plane-icon.checked-in::after {
+  background: rgba(0, 123, 255, 0.4); /* Blue waves */
+}
+
+.plane-icon.in-transit::before,
+.plane-icon.in-transit::after {
+  background: rgba(220, 53, 69, 0.4); /* Red waves */
+}
+
+.plane-icon.arrived::before,
+.plane-icon.arrived::after {
+  background: rgba(40, 167, 69, 0.4); /* Green waves */
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* Plane Wrapper */
+.plane-wrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Plane Icon */
+.plane-icon {
+  font-size: 24px;
+  color: #222; /* plane color */
+  z-index: 3;
+  text-shadow: 0 0 2px #fff;
+}
+
+/* Pulse Waves */
+.pulse-wave {
+  position: absolute;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+.pulse-wave:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.pulse-wave:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

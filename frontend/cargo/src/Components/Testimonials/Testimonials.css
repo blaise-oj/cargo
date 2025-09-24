@@ -1,0 +1,337 @@
+.testimonials-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+}
+
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.testimonials-header h2 {
+  font-size: 2.5rem;
+  color: #1d3557;
+  margin-bottom: 15px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.testimonials-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1d3557, #457b9d);
+  border-radius: 2px;
+}
+
+.testimonials-header p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.testimonials-slider {
+  margin-bottom: 40px;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #212EA0;
+  border: 2px solid #457b9d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.control-btn:hover {
+  background: #457b9d;
+  transform: scale(1.1);
+}
+
+.control-btn:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.control-btn img {
+  width: 20px;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  position: relative;
+  text-align: center;
+  transition: all 1.5s ease;
+  animation: fadeIn 1.5s ease;
+  flex: 1; /* Allow card to grow but not shrink */
+  min-width: 0; /* Allow card to shrink properly */
+}
+
+.quote-icon {
+  font-size: 4rem;
+  color: #457b9d;
+  line-height: 1;
+  margin-bottom: 20px;
+  font-family: Georgia, serif;
+}
+
+.testimonial-text {
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.user-info img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #457b9d;
+}
+
+.user-info div {
+  text-align: left;
+}
+
+.user-info h3 {
+  color: #1d3557;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+.user-info span {
+  color: #e63946;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.company {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 3px;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cbd5e0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.8s ease;
+}
+
+.dot.active {
+  background: #457b9d;
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  background: #1d3557;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design - Fixed for mobile */
+@media (max-width: 992px) {
+  .testimonials-header h2 {
+    font-size: 2rem;
+  }
+  
+  .slider-controls {
+    gap: 20px;
+  }
+  
+  .testimonial-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 80px 0;
+  }
+  
+  .testimonials-header {
+    margin-bottom: 40px;
+  }
+  
+  /* Keep buttons beside the card on mobile */
+  .slider-controls {
+    gap: 15px;
+  }
+  
+  .control-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .control-btn img {
+    width: 18px;
+  }
+  
+  .testimonial-card {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonials-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .testimonials-header p {
+    font-size: 1rem;
+  }
+  
+  /* Adjust layout for very small screens but keep buttons beside card */
+  .slider-controls {
+    gap: 10px;
+  }
+  
+  .testimonial-card {
+    padding: 20px;
+  }
+  
+  .testimonial-text {
+    font-size: 1rem;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .user-info div {
+    text-align: center;
+  }
+  
+  .control-btn {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .control-btn img {
+    width: 16px;
+  }
+}
+
+/* For very small screens - keep buttons beside card but adjust spacing */
+@media (max-width: 400px) {
+  .slider-controls {
+    gap: 8px;
+  }
+  
+  .testimonial-card {
+    padding: 15px;
+  }
+  
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+  
+  .user-info img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .user-info h3 {
+    font-size: 1rem;
+  }
+  
+  .user-info span {
+    font-size: 0.8rem;
+  }
+  
+  .company {
+    font-size: 0.8rem;
+  }
+  
+  .control-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .control-btn img {
+    width: 14px;
+  }
+}
+
+/* Ensure buttons stay on sides even on the smallest screens */
+@media (max-width: 350px) {
+  .slider-controls {
+    gap: 5px;
+  }
+  
+  .testimonial-card {
+    padding: 12px;
+  }
+  
+  .control-btn {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .control-btn img {
+    width: 12px;
+  }
+}

@@ -1,0 +1,235 @@
+.cargo-charters {
+  font-family: Arial, sans-serif;
+  color: #1d3557;
+  line-height: 1.6;
+}
+
+/* Hero */
+.cc-hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.cc-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+.cc-hero-text {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+}
+.cc-hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.cc-hero-text button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #1d3557;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cc-hero-text button:hover { background: #2a4b7c; }
+
+/* Sections */
+.cc-about, .cc-features, .cc-tracking, .cc-booking, .cc-sla, .cc-contact {
+  width: 90%;
+  margin: 60px auto;
+  text-align: center;
+}
+.cc-about p { max-width: 760px; margin: 16px auto; }
+
+/* Features grid */
+.cc-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.feature {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Tracking */
+.cc-tracking form { margin-top: 16px; }
+.cc-tracking input {
+  padding: 10px;
+  width: 60%;
+  max-width: 420px;
+  margin-right: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+.cc-tracking button {
+  padding: 10px 20px;
+  border: none;
+  background: #e63946;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.cc-tracking button:hover { background: #d62828; }
+.cc-tracking .hint { font-size: 0.9rem; color: #6b7280; margin-top: 8px; }
+.cc-tracking .error { color: #e63946; margin-top: 10px; font-weight: 600; }
+
+/* Map Result */
+.cc-map {
+  width: 90%;
+  margin: 40px auto;
+}
+.cc-map h3 {
+  margin-bottom: 16px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Toggle details button */
+.details-toggle {
+  margin-top: 16px;
+  text-align: center;
+}
+.details-toggle button {
+  padding: 10px 20px;
+  background: #1d3557;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.details-toggle button:hover { background: #2a4b7c; }
+
+/* Cargo details receipt */
+.cargo-details {
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 700px;
+  text-align: left;
+}
+.cargo-details h4 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.cargo-details ul { list-style: none; padding: 0; }
+.cargo-details li {
+  margin: 6px 0;
+  padding: 6px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.cargo-details li:last-child { border-bottom: none; }
+.cargo-details strong { color: #1d3557; }
+
+/* Booking */
+.cc-booking form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.cc-booking .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cc-booking input, .cc-booking select, .cc-booking textarea {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+.cc-booking textarea { min-height: 110px; }
+.cc-booking button {
+  background: #1d3557;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cc-booking button:hover { background: #2a4b7c; }
+.cc-booking .note { color: #6b7280; font-size: 0.95rem; margin-top: 6px; }
+
+/* SLA / Coverage */
+.cc-sla ul { list-style: disc; max-width: 760px; margin: 0 auto; text-align: left; }
+.cc-sla li { margin: 6px 0; }
+
+/* Contact */
+.cc-contact .cc-buttons { margin-top: 16px; }
+.cc-contact a {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 12px 22px;
+  background: #1d3557;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.cc-contact a:hover { background: #2a4b7c; }
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .cc-hero { height: 50vh; }
+  .cc-booking .grid-2 { grid-template-columns: 1fr; }
+  .cc-tracking input { width: 100%; margin: 0 0 10px 0; }
+  .cargo-details { padding: 14px; }
+}
+
+/* --- Plane + Pulse Animation --- */
+.plane-wrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plane-icon {
+  font-size: 22px;
+  z-index: 2;
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pulse-wave {
+  position: absolute;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  opacity: 0.6;
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+.pulse-wave:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.pulse-wave:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}

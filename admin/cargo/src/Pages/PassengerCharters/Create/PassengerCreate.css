@@ -1,0 +1,158 @@
+/* PassengerCreate.css */
+
+/* Container */
+.passenger-create {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.passenger-create h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Error message */
+.error {
+  color: #e74c3c;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Form styling */
+.create-form input,
+.create-form select,
+.create-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.create-form input:focus,
+.create-form select:focus,
+.create-form textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Passenger list section */
+.passenger-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.passenger-row label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.passenger-row input,
+.passenger-row select {
+  margin-bottom: 0;
+}
+
+.passenger-row button {
+  align-self: flex-end;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.passenger-row button:hover {
+  background: #c0392b;
+}
+
+/* Add passenger button */
+.create-form > button[type="button"] {
+  display: block;
+  margin: 15px 0;
+  padding: 10px 15px;
+  background: #3498db;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.create-form > button[type="button"]:hover {
+  background: #2980b9;
+}
+
+/* Submit button */
+.create-form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #2ecc71;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.create-form button[type="submit"]:hover {
+  background: #27ae60;
+}
+
+/* Hint */
+.hint {
+  font-size: 0.9rem;
+  margin-top: 15px;
+  color: #555;
+  text-align: center;
+}
+/* Back button */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 14px;
+  background: #6c757d;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #5a6268;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .passenger-row {
+    padding: 12px;
+  }
+}
+
