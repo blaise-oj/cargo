@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Navbar.css';
-import logo1 from '../../assets/logo1.png';
+import logo3 from '../../assets/logo3.png';
 import menu_icon from '../../assets/menu-icon.png';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <nav className={`container ${sticky ? 'dark-nav' : ''}`}>
-      <img src={logo1} alt="" className='logo1' />
+      <img src={logo3} alt="" className='logo' />
       <ul ref={menuRef} className={mobileMenu ? '' : 'hide-mobile-menu'}>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/passenger-charters">Passenger Charters</Link></li>
