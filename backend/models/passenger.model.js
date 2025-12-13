@@ -4,11 +4,12 @@ import mongoose from "mongoose";
 const locationSchema = new mongoose.Schema(
   {
     city: { type: String, trim: true },
+    country: { type: String, trim: true }, // ✅ Added country field (optional but useful)
     coordinates: {
       lat: { type: Number },
       lng: { type: Number },
     },
-    displayName: { type: String, trim: true },
+    displayName: { type: String, trim: true }, // e.g. "Nairobi, Kenya"
   },
   { _id: false }
 );
@@ -30,6 +31,7 @@ const passengerOnboardSchema = new mongoose.Schema(
 const passengerRoutePointSchema = new mongoose.Schema(
   {
     city: { type: String, trim: true },
+    country: { type: String, trim: true }, // ✅ Added for consistency
     coordinates: {
       lat: { type: Number },
       lng: { type: Number },
@@ -44,6 +46,7 @@ const passengerRoutePointSchema = new mongoose.Schema(
 // 📍 Default JKIA Nairobi location
 const defaultJKIALocation = {
   city: "Nairobi",
+  country: "Kenya", // ✅ Explicitly added
   coordinates: { lat: -1.319167, lng: 36.9275 },
   displayName: "JKIA Nairobi, Kenya",
 };
@@ -53,7 +56,7 @@ const passengerSchema = new mongoose.Schema(
   {
     airwaybill: { type: String, required: true, unique: true, index: true },
 
-    // Client Info (the person who booked)
+    // Client Info
     customerName: { type: String, required: true, trim: true },
     customerEmail: { type: String, required: true, trim: true, lowercase: true },
     phone: { type: String, default: null, trim: true },
@@ -62,7 +65,7 @@ const passengerSchema = new mongoose.Schema(
     origin: { type: locationSchema, required: true },
     destination: { type: locationSchema, required: true },
 
-    // Passengers onboard (editable)
+    // Passenger Info
     passengerDetails: {
       numberOfPassengers: { type: Number, default: 0, min: 0 },
       passengerList: { type: [passengerOnboardSchema], default: [] },
@@ -94,13 +97,13 @@ const passengerSchema = new mongoose.Schema(
     // Route History
     route: { type: [passengerRoutePointSchema], default: [] },
 
-    // Current Location (default JKIA)
+    // Current Location
     currentLocation: { type: locationSchema, default: defaultJKIALocation },
   },
   { timestamps: true }
 );
 
-// Optional: auto-update numberOfPassengers before saving
+// Auto-update numberOfPassengers before saving
 passengerSchema.pre("save", function (next) {
   if (this.passengerDetails?.passengerList?.length != null) {
     this.passengerDetails.numberOfPassengers = this.passengerDetails.passengerList.length;

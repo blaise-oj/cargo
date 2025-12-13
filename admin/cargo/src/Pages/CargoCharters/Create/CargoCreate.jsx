@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import countries from "world-countries";
 import { City } from "country-state-city";
@@ -25,11 +25,27 @@ const CargoCreate = () => {
     description: "",
     price: "",
     departureDate: "",
+    length: "",
+    width: "",
+    height: "",
+    volume: "",
   };
 
   const [formData, setFormData] = useState(defaultForm);
   const [cities, setCities] = useState({ origin: [], destination: [] });
   const [error, setError] = useState("");
+
+  // Auto-calculate volume
+  useEffect(() => {
+    const { length, width, height } = formData;
+    if (length && width && height) {
+      const volCm3 = length * width * height; // volume in cm³
+      setFormData((prev) => ({ ...prev, volume: volCm3 }));
+    } else {
+      setFormData((prev) => ({ ...prev, volume: 0 }));
+    }
+  }, [formData.length, formData.width, formData.height]);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -95,7 +111,12 @@ const CargoCreate = () => {
         weight: parseFloat(formData.weight) || 0,
         quantity: parseInt(formData.quantity) || 0,
         description: formData.description,
+        length: parseFloat(formData.length) || 0,
+        width: parseFloat(formData.width) || 0,
+        height: parseFloat(formData.height) || 0,
+        volume: parseFloat(formData.volume) || 0
       },
+
       price: parseFloat(formData.price) || 0,
       departureDate: formData.departureDate
         ? new Date(formData.departureDate).toISOString()
@@ -115,7 +136,6 @@ const CargoCreate = () => {
       }
 
       await res.json();
-
       navigate("/cargocharters");
       setFormData(defaultForm);
       setCities({ origin: [], destination: [] });
@@ -130,8 +150,8 @@ const CargoCreate = () => {
       <div className="cargo-create">
         <h2>Create Cargo Airwaybill</h2>
         {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit} className="cargo-form">
 
+        <form onSubmit={handleSubmit} className="cargo-form">
           {/* Customer Info */}
           <label>Customer Name</label>
           <input
@@ -176,10 +196,7 @@ const CargoCreate = () => {
           >
             <option value="">Select City</option>
             {cities.origin.map((city) => (
-              <option
-                key={`${city.name}-${city.latitude}-${city.longitude}`}
-                value={city.name}
-              >
+              <option key={city.name} value={city.name}>
                 {city.name}
               </option>
             ))}
@@ -211,10 +228,7 @@ const CargoCreate = () => {
           >
             <option value="">Select City</option>
             {cities.destination.map((city) => (
-              <option
-                key={`${city.name}-${city.latitude}-${city.longitude}`}
-                value={city.name}
-              >
+              <option key={city.name} value={city.name}>
                 {city.name}
               </option>
             ))}
@@ -237,6 +251,40 @@ const CargoCreate = () => {
             value={formData.quantity}
             onChange={handleChange}
             required
+          />
+
+          {/* Dimensions */}
+          <label>Length (cm)</label>
+          <input
+            name="length"
+            type="number"
+            value={formData.length}
+            onChange={handleChange}
+          />
+
+          <label>Width (cm)</label>
+          <input
+            name="width"
+            type="number"
+            value={formData.width}
+            onChange={handleChange}
+          />
+
+          <label>Height (cm)</label>
+          <input
+            name="height"
+            type="number"
+            value={formData.height}
+            onChange={handleChange}
+          />
+
+          <label>Volume (cm³)</label>
+          <input
+            name="volume"
+            type="number"
+            value={formData.volume || 0}
+            readOnly
+            className="volume-display"
           />
 
           <label>Description</label>
@@ -263,10 +311,12 @@ const CargoCreate = () => {
           />
 
           <div className="form-buttons">
-            <button type="submit">Create</button>
+            <button type="submit" className="cargo-create-btn">
+              Create
+            </button>
             <button
               type="button"
-              className="back-btn"
+              className="cargo-create-back-btn"
               onClick={() => navigate(-1)}
             >
               Back

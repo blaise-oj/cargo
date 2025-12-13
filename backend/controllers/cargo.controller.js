@@ -108,11 +108,13 @@ export const updateCargoByAirwaybill = async (req, res) => {
       "destination",
       "cargoDetails",
       "price",
+      "volume",
       "departureDate",
       "arrivalDate",
       "currentLocation",
       "status",
       "withdrawnAt",
+      "withdrawReason",
     ];
 
     let routeUpdated = false;
@@ -211,6 +213,7 @@ export const markCargoWithdrawn = async (req, res) => {
 
     cargo.status = "Withdrawn";
     cargo.withdrawnAt = new Date();
+    cargo.withdrawReason = req.body.withdrawReason || "";
     cargo.route.push({
       ...cargo.currentLocation,
       status: "Withdrawn",

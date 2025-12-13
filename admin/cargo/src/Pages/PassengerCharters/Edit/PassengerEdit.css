@@ -110,6 +110,60 @@
   display: block;
   color: #333;
 }
+/* ===== Add & Remove Passenger Buttons ===== */
+
+/* Add Passenger Button */
+.add-passenger-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #6c63ff; /* purple tone for distinction */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  margin: 10px 0;
+}
+
+.add-passenger-btn:hover {
+  background-color: #5a52e0;
+  transform: scale(1.03);
+}
+
+/* Remove Passenger Button (inside list items) */
+.remove-passenger-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  margin-left: 10px;
+}
+
+.remove-passenger-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+/* For cleaner layout of passenger items */
+.passenger-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

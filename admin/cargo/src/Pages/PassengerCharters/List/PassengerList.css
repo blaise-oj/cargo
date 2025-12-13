@@ -1,6 +1,6 @@
 .passenger-list {
   padding: 1rem;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   overflow-x: hidden; /* ✅ prevent horizontal scroll */
 }
@@ -10,37 +10,19 @@
   color: #05469b;
 }
 
-.table-container {
-  width: 100%;
-  overflow-x: auto; /* ✅ allow table scroll if needed on small-mid screens */
+/* --- Top Bar with Create + Search --- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap; /* allows wrapping on small screens */
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-  font-size: 14px;
-}
-
-th {
-  background: #05469b;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 13px;
-}
-
-/* Create button (link at the top) */
+/* Create button */
 .create-link {
   display: inline-block;
-  margin-bottom: 1rem;
   padding: 10px 16px;
   background: #28a745; /* green */
   color: #fff;
@@ -55,9 +37,68 @@ th {
   background: #218838;
 }
 
+/* --- Search Input with Icon --- */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: #666;
+  font-size: 16px;
+  pointer-events: none; /* allows click through */
+}
+
+.search-input {
+  padding: 8px 12px 8px 32px; /* extra left padding for icon */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 250px;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* --- Table --- */
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* ✅ allow table scroll if needed on small-mid screens */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: #05469b;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
 /* Edit button inside table */
 .edit-btn {
-  background: #05469b; /* your theme blue */
+  background: #218838; 
   color: #fff;
   border: none;
   padding: 6px 12px;
@@ -68,12 +109,39 @@ th {
 }
 
 .edit-btn:hover {
-  background: #08306b; /* darker blue on hover */
+  background: #70a07a; /* darker blue on hover */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .create-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .search-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
 }
 
 /* ✅ Card View on Mobile */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
@@ -85,7 +153,7 @@ th {
     background: #fff;
     margin-bottom: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
   }
 

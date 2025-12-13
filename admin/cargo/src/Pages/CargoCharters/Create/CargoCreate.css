@@ -90,35 +90,59 @@
 }
 
 /* Buttons */
+/* Unified Button Style */
 .cargo-form button {
-  padding: 10px 18px;
+  flex: 1;
+  min-width: 130px;
+  padding: 12px 0;
   border-radius: 6px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
   border: none;
+  color: white;
+  transition: all 0.25s ease;
+  text-align: center;
 }
 
-/* Primary button */
+/* Create (Submit) Button - Blue */
 .cargo-form button[type="submit"] {
-  background: #3498db;
-  color: white;
+  background: #007bff; /* blue */
 }
 
 .cargo-form button[type="submit"]:hover {
-  background: #2980b9;
+  background: #0056b3;
 }
 
-/* Back button style */
+/* Back Button - Green */
 .back-btn {
-  background: #95a5a6;
-  color: white;
+  background: #28a745; /* green */
 }
 
 .back-btn:hover {
-  background: #7f8c8d;
+  background: #1e7e34;
 }
+
+/* Form buttons container */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 600px) {
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
+}
+
 
 /* Form buttons container */
 .form-buttons {
@@ -191,4 +215,51 @@
   margin-bottom: 10px;
   text-align: center;
 }
+.volume-display {
+  background-color: #f4f8ff;
+  border: 1px solid #b0c4de;
+  color: #003366;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 6px;
+}
+/* Fix all form button alignments globally */
+/* Buttons (scoped to this page only) */
+.cargo-create-container button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  font-family: inherit;
+  text-align: center;
+  transition: 0.2s;
+  border: none;
+}
 
+/* Create button */
+.cargo-create-btn {
+  background-color: #2a9d8f;
+}
+.cargo-create-btn:hover {
+  background-color: #21867a;
+}
+
+/* Back button */
+.cargo-create-back-btn {
+  background-color: #457b9d;
+}
+.cargo-create-back-btn:hover {
+  background-color: #3a6486;
+}
+
+/* Buttons layout */
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.cargo-create-container button:hover {
+  transform: scale(1.03);
+}

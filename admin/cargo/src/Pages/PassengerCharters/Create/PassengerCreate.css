@@ -1,10 +1,10 @@
-/* PassengerCreate.css */
+/* ===== PassengerCreate.css ===== */
 
-/* Container */
+/* === Container === */
 .passenger-create {
   max-width: 900px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -14,17 +14,19 @@
 .passenger-create h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: #333;
+  color: #1d3557;
+  font-size: 1.8rem;
 }
 
-/* Error message */
+/* === Error message === */
 .error {
-  color: #e74c3c;
+  color: #e63946;
   text-align: center;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
-/* Form styling */
+/* === Form styling === */
 .create-form input,
 .create-form select,
 .create-form textarea {
@@ -34,23 +36,24 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .create-form input:focus,
 .create-form select:focus,
 .create-form textarea:focus {
-  border-color: #3498db;
+  border-color: #1d3557;
+  box-shadow: 0 0 4px rgba(29, 53, 87, 0.3);
   outline: none;
 }
 
-/* Passenger list section */
+/* === Passenger list section === */
 .passenger-row {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 18px;
+  margin-bottom: 25px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -69,90 +72,83 @@
   margin-bottom: 0;
 }
 
-.passenger-row button {
-  align-self: flex-end;
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
+/* === Passenger Row Buttons === */
+.passenger-row .passenger-add-btn,
+.passenger-row .passenger-remove-btn {
+  display: inline-block;
+  min-width: 150px;
+  padding: 8px 16px;
   border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
-}
-
-.passenger-row button:hover {
-  background: #c0392b;
-}
-
-/* Add passenger button */
-.create-form > button[type="button"] {
-  display: block;
-  margin: 15px 0;
-  padding: 10px 15px;
-  background: #3498db;
-  color: #fff;
   font-weight: 600;
-  border: none;
-  border-radius: 8px;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: background 0.3s;
-}
-
-.create-form > button[type="button"]:hover {
-  background: #2980b9;
-}
-
-/* Submit button */
-.create-form button[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  background: #2ecc71;
+  border: none;
   color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
+  transition: background 0.25s ease;
   margin-top: 10px;
-}
-
-.create-form button[type="submit"]:hover {
-  background: #27ae60;
-}
-
-/* Hint */
-.hint {
-  font-size: 0.9rem;
-  margin-top: 15px;
-  color: #555;
   text-align: center;
 }
-/* Back button */
-.back-btn {
+
+/* Add Passenger */
+.passenger-add-btn {
+  background-color: #2a9d8f;
+}
+.passenger-add-btn:hover {
+  background-color: #21867a;
+}
+
+/* Remove Passenger */
+.passenger-remove-btn {
+  background-color: #e63946;
+}
+.passenger-remove-btn:hover {
+  background-color: #c5303f;
+}
+
+/* === Unified Bottom Buttons (Back, Create, etc.) === */
+.create-form button {
   display: inline-block;
-  margin-bottom: 20px;
-  padding: 8px 14px;
-  background: #6c757d;
-  color: #fff;
-  font-weight: 600;
-  border: none;
+  min-width: 180px;
+  padding: 0.8rem 1.5rem;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.3s;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  margin-right: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.back-btn:hover {
-  background: #5a6268;
+/* Back Button */
+.passenger-back-btn {
+  background-color: #457b9d;
+}
+.passenger-back-btn:hover {
+  background-color: #3a6486;
 }
 
+/* Create Airwaybill Button */
+.passenger-create-btn {
+  background-color: #1d3557;
+}
+.passenger-create-btn:hover {
+  background-color: #16324f;
+}
 
-/* Responsive adjustments */
+/* === Responsive Adjustments === */
 @media (max-width: 768px) {
+  .create-form button,
+  .passenger-row .passenger-add-btn,
+  .passenger-row .passenger-remove-btn {
+    width: 100%;
+    margin-right: 0;
+  }
+
   .passenger-row {
-    padding: 12px;
+    padding: 14px;
   }
 }
-

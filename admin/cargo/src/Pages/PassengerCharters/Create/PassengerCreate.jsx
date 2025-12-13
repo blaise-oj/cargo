@@ -65,14 +65,14 @@ const PassengerCreate = () => {
     // Resolve origin city
     const originCityObj = formData.originCountry
       ? City.getCitiesOfCountry(formData.originCountry)?.find(
-          (c) => c.name === formData.origin
-        )
+        (c) => c.name === formData.origin
+      )
       : null;
 
     const destinationCityObj = formData.destinationCountry
       ? City.getCitiesOfCountry(formData.destinationCountry)?.find(
-          (c) => c.name === formData.destination
-        )
+        (c) => c.name === formData.destination
+      )
       : null;
 
     const payload = {
@@ -81,23 +81,23 @@ const PassengerCreate = () => {
       phone: formData.phone || null,
       origin: originCityObj
         ? {
-            city: originCityObj.name,
-            coordinates: {
-              lat: parseFloat(originCityObj.latitude),
-              lng: parseFloat(originCityObj.longitude),
-            },
-            displayName: `${originCityObj.name}, ${formData.originCountry}`,
-          }
+          city: originCityObj.name,
+          coordinates: {
+            lat: parseFloat(originCityObj.latitude),
+            lng: parseFloat(originCityObj.longitude),
+          },
+          displayName: `${originCityObj.name}, ${formData.originCountry}`,
+        }
         : null,
       destination: destinationCityObj
         ? {
-            city: destinationCityObj.name,
-            coordinates: {
-              lat: parseFloat(destinationCityObj.latitude),
-              lng: parseFloat(destinationCityObj.longitude),
-            },
-            displayName: `${destinationCityObj.name}, ${formData.destinationCountry}`,
-          }
+          city: destinationCityObj.name,
+          coordinates: {
+            lat: parseFloat(destinationCityObj.latitude),
+            lng: parseFloat(destinationCityObj.longitude),
+          },
+          displayName: `${destinationCityObj.name}, ${formData.destinationCountry}`,
+        }
         : null,
       departureDate: formData.departureDate || null,
       arrivalDate: formData.arrivalDate || null,
@@ -348,23 +348,35 @@ const PassengerCreate = () => {
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
+            <button type="button" className="passenger-add-btn" onClick={addPassenger}>
+              + Add Passenger
+            </button>
 
-            <button type="button" onClick={() => removePassenger(index)}>
+            <button
+              type="button"
+              className="passenger-remove-btn"
+              onClick={() => removePassenger(index)}
+            >
               ❌ Remove
             </button>
           </div>
         ))}
 
-        <button type="button" onClick={addPassenger}>
-          + Add Passenger
-        </button>
 
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          Back
-        </button>
 
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          className="passenger-create-btn"
+          disabled={loading}
+        >
           {loading ? "Creating..." : "Create Airwaybill"}
+        </button>
+        <button
+          type="button"
+          className="passenger-back-btn"
+          onClick={() => navigate(-1)}
+        >
+          Back
         </button>
       </form>
     </div>

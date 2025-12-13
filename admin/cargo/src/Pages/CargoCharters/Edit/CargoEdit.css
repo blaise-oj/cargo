@@ -1,6 +1,7 @@
+/* Cargo Edit Container */
 .cargo-edit-container {
   max-width: 800px;
-  margin: 2rem 0 2rem 20rem; /* pushed to the left */
+  margin: 2rem 0 2rem 20rem;
   padding: 2rem;
   background: #f5f6fa;
   border-radius: 12px;
@@ -8,6 +9,7 @@
   font-family: Arial, sans-serif;
 }
 
+/* Title */
 .cargo-edit-container h2 {
   margin-bottom: 1.5rem;
   color: #1d3557;
@@ -18,6 +20,7 @@
   color: #457b9d;
 }
 
+/* Form */
 .cargo-form {
   display: grid;
   gap: 1rem;
@@ -52,46 +55,54 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 3px rgba(29,53,87,0.3);
 }
 
-/* Form actions: aligned buttons */
+/* Buttons */
+.cargo-edit-container button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  font-family: inherit;
+  text-align: center;
+  transition: 0.2s;
+  border: none;
+}
+
+.cargo-save-btn {
+  background-color: #2a9d8f;
+}
+.cargo-save-btn:hover {
+  background-color: #21867a;
+}
+
+.cargo-delete-btn {
+  background-color: #e63946;
+}
+.cargo-delete-btn:hover {
+  background-color: #c5303f;
+}
+
+.cargo-back-btn {
+  background-color: #457b9d;
+}
+.cargo-back-btn:hover {
+  background-color: #3a6486;
+}
+.cargo-edit-container button:hover {
+  transform: scale(1.03);
+}
+
+/* Actions layout */
 .form-actions {
   display: flex;
   gap: 1rem;
-  justify-content: flex-start; /* align left */
+  justify-content: flex-start;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
 
-button {
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  color: white;
-  transition: 0.2s;
-}
-
-.save-btn {
-  background-color: #2a9d8f;
-}
-.save-btn:hover { background-color: #21867a; }
-
-.delete-btn {
-  background-color: #e63946;
-}
-.delete-btn:hover { background-color: #c5303f; }
-
-.back-btn {
-  background-color: #457b9d;
-}
-.back-btn:hover { background-color: #3a6486; }
-
-.receipt-btn {
-  background-color: #f4a261;
-  margin-top: 0.5rem;
-}
-.receipt-btn:hover { background-color: #d98c50; }
-
+/* Messages */
 .loading {
   text-align: left;
   font-size: 1.2rem;
@@ -103,23 +114,23 @@ button {
   color: red;
   font-weight: bold;
 }
+
+/* Responsive */
 @media (min-width: 1200px) {
   .cargo-edit-container {
-    margin-left: 20rem; /* pushed further left for large screens */
+    margin-left: 20rem;
   }
 }
 
-/* Medium screens */
 @media (min-width: 768px) and (max-width: 1199px) {
   .cargo-edit-container {
     margin-left: 4rem;
   }
 }
 
-/* Small screens */
 @media (max-width: 767px) {
   .cargo-edit-container {
-    margin: 1rem; /* almost full width */
+    margin: 1rem;
     padding: 1rem;
   }
 }

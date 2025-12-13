@@ -136,9 +136,8 @@ const PassengerEdit = () => {
           lat: parseFloat(cityObj.latitude),
           lng: parseFloat(cityObj.longitude),
         },
-        displayName: `${cityObj.name}, ${
-          Country.getCountryByCode(countryCode)?.name || ""
-        }`,
+        displayName: `${cityObj.name}, ${Country.getCountryByCode(countryCode)?.name || ""
+          }`,
       };
     }
 
@@ -220,8 +219,7 @@ const PassengerEdit = () => {
 
       const data = await res.json();
       alert(
-        `✅ Passenger updated! Current location: ${
-          data.data.currentLocation?.city || "Not set"
+        `✅ Passenger updated! Current location: ${data.data.currentLocation?.city || "Not set"
         }`
       );
       navigate("/passengercharters");
@@ -471,13 +469,17 @@ const PassengerEdit = () => {
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
-            <button type="button" onClick={() => removePassenger(i)}>
-              ❌
+            <button
+              type="button"
+              className="remove-passenger-btn"
+              onClick={() => removePassenger(i)}
+            >
+              ❌ Remove
             </button>
           </div>
         ))}
 
-        <button type="button" onClick={addPassenger}>
+        <button type="button" className="add-passenger-btn" onClick={addPassenger}>
           + Add Passenger
         </button>
 

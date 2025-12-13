@@ -2,6 +2,10 @@ import Passenger from "../models/passenger.model.js";
 import crypto from "crypto";
 import fetch from "node-fetch";
 import { sendStatusEmail } from "../utils/emailService.js";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+import countries from "i18n-iso-countries";
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 /** Default JKIA Nairobi location */
 const DEFAULT_JKIA = {
@@ -76,32 +80,73 @@ export const geocodeCity = async (cityRaw) => {
   }
 };
 
+/** Normalize country name from code or full name */
+const normalizeCountry = (value) => {
+  if (!value || typeof value !== "string") return null;
+  const code = value.trim().toUpperCase();
+  const fullName = countries.getName(code, "en");
+  return fullName || value.trim();
+};
+
 /** Normalize location input */
 const resolveLocationInput = async (input, fallbackDefault = null) => {
   if (!input && fallbackDefault) return fallbackDefault;
 
+  let cityCandidate = null;
+  let countryCandidate = null;
+
   if (typeof input === "object" && input !== null) {
-    const cityCandidate = input.city?.trim() || input.displayName || "Unknown";
+    cityCandidate = input.city?.trim() || input.displayName?.split(",")[0]?.trim() || "Unknown";
+
+    // Detect country code or full country
+    if (input.country) countryCandidate = normalizeCountry(input.country);
+    else if (input.displayName?.includes(",")) {
+      const parts = input.displayName.split(",");
+      const lastPart = parts[parts.length - 1].trim();
+      countryCandidate = normalizeCountry(lastPart);
+    }
+
     if (input.coordinates?.lat != null && input.coordinates?.lng != null) {
+      const displayName = countryCandidate
+        ? `${cityCandidate}, ${countryCandidate}`
+        : input.displayName || cityCandidate;
       return {
         city: cityCandidate,
         coordinates: { lat: input.coordinates.lat, lng: input.coordinates.lng },
-        displayName: input.displayName || cityCandidate,
+        displayName,
+        country: countryCandidate || null,
       };
     }
+
     const geoc = await geocodeCity(cityCandidate);
     if (!geoc) return fallbackDefault;
+    const displayName = countryCandidate
+      ? `${cityCandidate}, ${countryCandidate}`
+      : geoc.displayName || cityCandidate;
     return {
       city: cityCandidate,
       coordinates: { lat: geoc.lat, lng: geoc.lng },
-      displayName: geoc.displayName || cityCandidate,
+      displayName,
+      country: countryCandidate || null,
     };
   }
 
   if (typeof input === "string") {
-    const geoc = await geocodeCity(input);
+    const parts = input.split(",");
+    cityCandidate = parts[0].trim();
+    countryCandidate = parts.length > 1 ? normalizeCountry(parts[1]) : null;
+
+    const geoc = await geocodeCity(cityCandidate);
     if (!geoc) return fallbackDefault;
-    return { city: input.trim(), coordinates: { lat: geoc.lat, lng: geoc.lng }, displayName: geoc.displayName || input.trim() };
+    const displayName = countryCandidate
+      ? `${cityCandidate}, ${countryCandidate}`
+      : geoc.displayName || cityCandidate;
+    return {
+      city: cityCandidate,
+      coordinates: { lat: geoc.lat, lng: geoc.lng },
+      displayName,
+      country: countryCandidate || null,
+    };
   }
 
   return fallbackDefault;
@@ -247,9 +292,25 @@ export const addPassengerCheckpoint = async (req, res) => {
     const passenger = await Passenger.findOne({ airwaybill });
     if (!passenger) return res.status(404).json({ success: false, message: "Passenger not found" });
 
-    if (!city || !coordinates?.lat || !coordinates?.lng) return res.status(400).json({ success: false, message: "Invalid checkpoint" });
+    if (!city || !coordinates?.lat || !coordinates?.lng)
+      return res.status(400).json({ success: false, message: "Invalid checkpoint" });
 
-    const checkpoint = { city, coordinates, displayName: displayName || city, note: note || null, timestamp: new Date() };
+    let country = null;
+    if (displayName?.includes(",")) {
+      const parts = displayName.split(",");
+      const last = parts[parts.length - 1].trim();
+      country = normalizeCountry(last);
+    }
+
+    const checkpoint = {
+      city,
+      coordinates,
+      displayName: country ? `${city}, ${country}` : displayName || city,
+      country,
+      note: note || null,
+      timestamp: new Date(),
+    };
+
     passenger.route.push(checkpoint);
     passenger.currentLocation = { ...checkpoint };
     await passenger.save();
