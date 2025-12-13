@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Destinations.css';
-import jet22 from '../../assets/jet22.png';
+import jet23 from '../../assets/jet23.jpg';
 import jet8 from '../../assets/jet8.png';
 import jet14 from '../../assets/jet14.png';
 
@@ -10,10 +10,10 @@ const Destinations = () => {
   const destinations = [
     {
       id: 1,
-      title: "USA Headquarters",
-      location: "New York, USA",
+      title: "South Africa Headquarters",
+      location: "Cape Town, SOUTH AFRICA",
       description: "Our global headquarters managing worldwide operations and strategic planning.",
-      image: jet22,
+      image: jet23,
       details: "Strategic planning center with state-of-the-art logistics technology and executive team."
     },
     {

@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-main">
           {/* Company Info */}
           <div className="footer-section">
-            <h3>Global Cargo & Charter Solutions</h3>
+            <h3>Airrush Charters</h3>
             <p className="footer-description">
               Your trusted partner for reliable air cargo services worldwide. 
               We deliver excellence in logistics with precision and care.
@@ -17,15 +17,16 @@ const Footer = () => {
             <div className="footer-contact">
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
-                <span>+254 700 123 456</span>
+                <span>+447401149968</span>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">✉️</span>
-                <span>info@globalcargoandchartersolutions.com</span>
+                <span>info@airrushcharters.com</span>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">📍</span>
-                <span>123 Aviation Way, New York, NY 10001</span>
+                <span>Location: South Africa<br/>
+                  Branch - NAIROBI</span>
               </div>
             </div>
           </div>
@@ -89,7 +90,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>&copy; 2025 Global Cargo & Charter Solutions. All rights reserved.</p>
+            <p>&copy; 2025 Airrush Charters. All rights reserved.</p>
             <div className="footer-legal">
               <a href="/privacy">Privacy Policy</a>
               <span className="divider">|</span>
