@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-main">
           {/* Company Info */}
           <div className="footer-section">
-            <h3>Airrush Charters</h3>
+            <h3>Goldstrike Enterprise Limited</h3>
             <p className="footer-description">
               Your trusted partner for reliable air cargo services worldwide. 
               We deliver excellence in logistics with precision and care.
@@ -90,7 +90,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="footer-bottom">
           <div className="footer-bottom-content">
-            <p>&copy; 2025 Airrush Charters. All rights reserved.</p>
+            <p>&copy; 2025 Gold Strike Enterprise Limited. All rights reserved.</p>
             <div className="footer-legal">
               <a href="/privacy">Privacy Policy</a>
               <span className="divider">|</span>

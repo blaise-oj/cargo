@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className='hero container'>
         <div className='hero-text'> 
-            <h1>AIRRUSH CHARTERS</h1>
+            <h1>GOLDSTRIKE ENTERPRISE LIMITED</h1>
             <p>Your Trusted Partner in Air Freight and Charter Services</p>
             <button className='btn'>Explore more<img src={dark_arrow} alt=''></img></button>
         </div>
