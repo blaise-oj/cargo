@@ -11,10 +11,12 @@ import ServicesPage from "./Pages/ServicesPage/ServicesPage";
 import Contact from "./Pages/Contact/Contact";
 import LoginForm from "./Pages/Login/Login";
 import RegisterForm from "./Pages/Register/Register";
+import ScrollMemory from "./Components/ScrollMemory/ScrollMemory";
 
 const App = () => {
   return (
     <>
+      <ScrollMemory /> {/* store & restore scroll per page */}
       <Navbar />
 
       <Routes>

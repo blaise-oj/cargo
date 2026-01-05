@@ -5,28 +5,36 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Main Footer Content */}
+
         <div className="footer-main">
+
           {/* Company Info */}
           <div className="footer-section">
             <h3>Airrush Charters</h3>
             <p className="footer-description">
-              Your trusted partner for reliable air cargo services worldwide. 
-              We deliver excellence in logistics with precision and care.
+              Your trusted partner for reliable air cargo and passenger transport
+              services worldwide. Precision, safety, and speed—every flight.
             </p>
+
             <div className="footer-contact">
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
-                <span>+447401149968</span>
+                <a href="tel:+447401149968">+44 7401 149968</a>
               </div>
+
               <div className="contact-item">
                 <span className="contact-icon">✉️</span>
-                <span>info@airrushcharters.com</span>
+                <a href="mailto:info@airrushcharters.com">
+                  info@airrushcharters.com
+                </a>
               </div>
+
               <div className="contact-item">
                 <span className="contact-icon">📍</span>
-                <span>Location: South Africa<br/>
-                  Branch - NAIROBI</span>
+                <span>
+                  South Africa <br />
+                  Branch – Nairobi
+                </span>
               </div>
             </div>
           </div>
@@ -61,47 +69,38 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Stay Updated</h4>
             <p className="newsletter-text">
-              Subscribe to our newsletter for the latest updates and offers
+              Get flight updates, cargo alerts, and service announcements.
             </p>
+
             <div className="newsletter-form">
-              <input 
-                type="email" 
-                placeholder="Enter your email address" 
+              <input
+                type="email"
+                placeholder="Enter your email"
                 className="newsletter-input"
               />
-              <button className="newsletter-btn">
-                <span className="send-icon">✈️</span>
+              <button className="newsletter-btn" aria-label="Subscribe">
+                ✈️
               </button>
             </div>
-            <div className="footer-social">
-              <h4>Follow Us</h4>
-              <div className="social-icons">
-                <a href="#" className="social-link facebook">FB</a>
-                <a href="#" className="social-link twitter">TW</a>
-                <a href="#" className="social-link instagram">IG</a>
-                <a href="#" className="social-link whatsapp">WA</a>
-                <a href="#" className="social-link linkedin">IN</a>
-                <a href="#" className="social-link youtube">YT</a>
-              </div>
+          </div>
+
+        </div>
+
+        {/* Bottom */}
+        <div className="footer-bottom">
+          <div className="footer-bottom-content">
+            <p>© 2026 Airrush Charters. All rights reserved.</p>
+
+            <div className="footer-legal">
+              <a href="/privacy">Privacy</a>
+              <span className="divider">|</span>
+              <a href="/terms">Terms</a>
+              <span className="divider">|</span>
+              <a href="/cookies">Cookies</a>
             </div>
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <div className="footer-bottom-content">
-            <p>&copy; 2025 Airrush Charters. All rights reserved.</p>
-            <div className="footer-legal">
-              <a href="/privacy">Privacy Policy</a>
-              <span className="divider">|</span>
-              <a href="/terms">Terms of Service</a>
-              <span className="divider">|</span>
-              <a href="/cookies">Cookie Policy</a>
-              <span className="divider">|</span>
-              <a href="/sitemap">Sitemap</a>
-            </div>
-          </div>
-        </div>
       </div>
     </footer>
   );

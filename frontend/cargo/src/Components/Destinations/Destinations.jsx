@@ -12,25 +12,25 @@ const Destinations = () => {
       id: 1,
       title: "South Africa Headquarters",
       location: "Cape Town, SOUTH AFRICA",
-      description: "Our global headquarters managing worldwide operations and strategic planning.",
+      description: "Our corporate headquarters overseeing global operations and strategic initiatives.",
       image: jet23,
-      details: "Strategic planning center with state-of-the-art logistics technology and executive team."
+      details: "The strategic hub for executive management, global planning, and innovative logistics solutions, equipped with advanced communication and tracking systems to coordinate worldwide operations efficiently."
     },
     {
       id: 2,
       title: "Kenya Operations Base",
       location: "JKIA North Wing, Nairobi",
-      description: "Our main operational hub for African and international cargo services.",
+      description: "Primary operational center facilitating African and international cargo services.",
       image: jet8,
-      details: "Primary operational base with 24/7 cargo handling facilities and customs clearance services."
+      details: "A fully equipped operations base featuring 24/7 cargo handling, customs clearance support, and state-of-the-art aviation facilities, ensuring reliable, timely, and secure transport of goods across regional and international routes."
     },
     {
       id: 3,
       title: "Global Network",
       location: "Worldwide Coverage",
-      description: "Extensive international routes connecting major cities across continents.",
+      description: "Comprehensive international air cargo network connecting major global cities.",
       image: jet14,
-      details: "Comprehensive air cargo network with partnerships in over 50 countries worldwide."
+      details: "Our extensive global network spans over 50 countries, providing seamless logistics solutions, partnerships with leading carriers, and integrated tracking systems to guarantee efficiency, transparency, and on-time delivery for clients worldwide."
     }
   ];
 
@@ -47,7 +47,9 @@ const Destinations = () => {
       <div className="destinations-container">
         <div className="destinations-header">
           <h2>Explore Our Global Destinations</h2>
-          <p>Connecting You to Major Cities Worldwide with Our Extensive Air Cargo Network</p>
+          <p>
+            Airrush Charters connects businesses and travelers to key cities across the globe, leveraging a highly reliable and efficient air cargo network designed for maximum reach and operational excellence.
+          </p>
         </div>
 
         <div className="destinations-content">
