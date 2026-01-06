@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './About.css';
 import play_icon from '../../assets/play-icon.png';
 import jet15 from '../../assets/jet15.png';
@@ -16,8 +17,7 @@ const About = () => {
   // Intersection Observer for stats animation
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
+      ([entry]) => {
         if (entry.isIntersecting && !isVisible) {
           setIsVisible(true);
         }
@@ -120,8 +120,8 @@ const About = () => {
               </div>
             </div>
 
-            {/* CTA */}
-            <button className="about-btn">
+            {/* CTA → SERVICES */}
+            <Link to="/services" className="about-btn">
               <span>Discover Our Services</span>
               <svg
                 width="24"
@@ -138,7 +138,7 @@ const About = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </button>
+            </Link>
 
           </div>
         </div>
@@ -173,4 +173,3 @@ const AnimatedNumber = ({ value, isVisible, suffix = "" }) => {
 };
 
 export default About;
-

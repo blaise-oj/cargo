@@ -1,19 +1,29 @@
+/* ===============================
+   BASE
+================================ */
 .contact-page {
-  font-family: Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
+  color: #1f2937;
+  background: #f8fafc;
 }
 
-/* Hero */
+/* ===============================
+   HERO
+================================ */
 .contact-hero {
   position: relative;
   height: 50vh;
-  background: url("../../assets/jet3.png") center/cover no-repeat;
+  background: url("../../assets/jet3.png") center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .contact-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.75)
+  );
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,58 +32,122 @@
 }
 
 .contact-hero-content {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   padding: 2rem;
+  max-width: 700px;
 }
 
 .contact-hero-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
 }
 
 .contact-hero-content p {
   font-size: 1.2rem;
+  opacity: 0.9;
 }
 
-/* Contact Section */
+/* ===============================
+   CONTACT SECTION
+================================ */
 .contact-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 2rem;
-  max-width: 1200px;   /* keep content centered */
-  margin: 0 auto;      /* center horizontally */
+  gap: 3.5rem;
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* ===============================
+   CONTACT INFO
+================================ */
 .contact-info h2,
 .contact-form h2 {
+  font-size: 1.9rem;
   margin-bottom: 1rem;
-  font-size: 1.8rem;
+  color: #0b2545;
 }
 
-.contact-info p {
-  margin-bottom: 2rem;
-  color: #444;
+.contact-intro {
+  margin-bottom: 2.5rem;
+  color: #475569;
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
 .info-cards {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.4rem;
 }
 
+/* ===============================
+   INFO CARD
+================================ */
 .info-card {
   display: flex;
-  align-items: flex-start; /* icon aligns to top */
+  align-items: flex-start;
   gap: 1rem;
+  background: #ffffff;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.15);
+}
+
+.info-card.no-link {
+  cursor: default;
+}
+
+.info-card.no-link:hover {
+  transform: none;
+}
+
+/* ===============================
+   ICONS
+================================ */
 .info-icon {
-  font-size: 1.5rem;
-  color: #0a58ca; /* optional */
+  font-size: 1.7rem;
+  margin-top: 4px;
 }
 
+/* Brand Colors */
+.info-icon.phone {
+  color: #1abc9c;
+}
+
+.info-icon.whatsapp {
+  color: #25d366;
+}
+
+.info-icon.email {
+  color: #0072c6;
+}
+
+.info-icon.location {
+  color: #e63946;
+}
+
+.info-icon.support {
+  color: #f4a261;
+}
+
+.info-icon.hours {
+  color: #38bdf8;
+}
+
+/* ===============================
+   INFO TEXT
+================================ */
 .info-text {
   display: flex;
   flex-direction: column;
@@ -81,13 +155,36 @@
 }
 
 .info-text h3 {
-  margin: 0;
   font-size: 1rem;
+  margin: 0;
+  color: #0b2545;
 }
 
 .info-text p {
   margin: 0;
-  color: #555;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.info-text span {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* ===============================
+   CONTACT FORM
+================================ */
+.contact-form {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+.form-note {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1.8rem;
 }
 
 .contact-form form {
@@ -99,51 +196,83 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 0.95rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
 }
 
 .submit-btn {
-  background: #0077ff;
-  color: #fff;
-  padding: 0.9rem;
+  background: linear-gradient(135deg, #0077ff, #005fcc);
+  color: #ffffff;
+  padding: 0.95rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: #005fcc;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 119, 255, 0.45);
 }
 
-/* Map */
+/* ===============================
+   MAP
+================================ */
 .map-section {
-  max-width: 1200px;   /* same width as content */
-  margin: 2rem auto;   /* add spacing */
-  padding: 0 1rem;     /* small side padding */
+  max-width: 1200px;
+  margin: 2.5rem auto 4rem;
+  padding: 0 1rem;
 }
 
 .map-section iframe {
   width: 100%;
-  height: 400px;
+  height: 420px;
   border: none;
-  border-radius: 10px; /* optional: rounded corners */
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
   .contact-section {
     grid-template-columns: 1fr;
-    padding: 2rem 1rem;
+    gap: 3rem;
+    padding: 3rem 1.2rem;
   }
 
+  .contact-form {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
   .contact-hero-content h1 {
     font-size: 2rem;
   }
 
   .contact-hero-content p {
     font-size: 1rem;
+  }
+
+  .info-card {
+    padding: 1rem;
+  }
+
+  .map-section iframe {
+    height: 300px;
   }
 }

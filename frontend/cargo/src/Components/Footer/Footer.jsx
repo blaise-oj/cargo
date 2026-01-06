@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
@@ -17,25 +19,27 @@ const Footer = () => {
             </p>
 
             <div className="footer-contact">
+
               <div className="contact-item">
-                <span className="contact-icon">📞</span>
-                <a href="tel:+447401149968">+44 7401 149968</a>
+                <FaPhoneAlt className="contact-icon" />
+                <a href="tel:+254715293884">+254 715 293 884</a>
               </div>
 
               <div className="contact-item">
-                <span className="contact-icon">✉️</span>
+                <FaEnvelope className="contact-icon" />
                 <a href="mailto:info@airrushcharters.com">
                   info@airrushcharters.com
                 </a>
               </div>
 
               <div className="contact-item">
-                <span className="contact-icon">📍</span>
+                <FaMapMarkerAlt className="contact-icon" />
                 <span>
                   South Africa <br />
                   Branch – Nairobi
                 </span>
               </div>
+
             </div>
           </div>
 
@@ -43,12 +47,13 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/about">About Us</a></li>
-              <li><a href="/services">Services</a></li>
-              <li><a href="/destinations">Destinations</a></li>
-              <li><a href="/tracking">Track Shipment</a></li>
-              <li><a href="/contact">Contact Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/passenger-charters">Passenger Charters</Link></li>
+              <li><Link to="/cargo-charters">Cargo Charters</Link></li>
+              <li><Link to="/services">Services</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/register">Register</Link></li>
             </ul>
           </div>
 
@@ -56,12 +61,12 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Our Services</h4>
             <ul className="footer-links">
-              <li><a href="/air-freight">Air Freight</a></li>
-              <li><a href="/charter-services">Charter Services</a></li>
-              <li><a href="/customs-clearance">Customs Clearance</a></li>
-              <li><a href="/warehousing">Warehousing</a></li>
-              <li><a href="/logistics">Logistics Solutions</a></li>
-              <li><a href="/dangerous-goods">Dangerous Goods Handling</a></li>
+              <li><Link to="/services">Worldwide Air Freight</Link></li>
+              <li><Link to="/passenger-charters">Passenger Charter Flights</Link></li>
+              <li><Link to="/services">Customs Clearance</Link></li>
+              <li><Link to="/services">Warehousing & Storage</Link></li>
+              <li><Link to="/services">End-to-End Logistics</Link></li>
+              <li><Link to="/services">Cargo & Flight Tracking</Link></li>
             </ul>
           </div>
 
@@ -92,11 +97,11 @@ const Footer = () => {
             <p>© 2026 Airrush Charters. All rights reserved.</p>
 
             <div className="footer-legal">
-              <a href="/privacy">Privacy</a>
+              <Link to="/contact">Privacy</Link>
               <span className="divider">|</span>
-              <a href="/terms">Terms</a>
+              <Link to="/contact">Terms</Link>
               <span className="divider">|</span>
-              <a href="/cookies">Cookies</a>
+              <Link to="/contact">Cookies</Link>
             </div>
           </div>
         </div>
