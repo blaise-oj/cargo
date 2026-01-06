@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Services.css';
+
 import jet2 from '../../assets/jet2.png';
 import jet11 from '../../assets/jet11.png';
 import jet6 from '../../assets/jet6.png';
@@ -24,7 +26,7 @@ const Services = () => {
         {/* Services Grid */}
         <div className="services-grid">
 
-          {/* Cargo – Worldwide Air Freight */}
+          {/* Worldwide Air Freight */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet2} alt="Worldwide Air Freight" />
@@ -37,12 +39,12 @@ const Services = () => {
                 with reliable delivery timelines.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
 
-          {/* Cargo – Customs Clearance */}
+          {/* Customs Clearance */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet11} alt="Customs Clearance" />
@@ -55,12 +57,12 @@ const Services = () => {
                 movement across borders.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
 
-          {/* Cargo – Warehousing */}
+          {/* Warehousing */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet6} alt="Warehousing Solutions" />
@@ -73,12 +75,12 @@ const Services = () => {
                 inventory controls.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
 
-          {/* Passenger – Charter Flights */}
+          {/* Passenger Charter Flights */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet19} alt="Passenger Charter Flights" />
@@ -91,12 +93,12 @@ const Services = () => {
                 privacy, and efficiency.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
 
-          {/* Tracking – Cargo & Passenger */}
+          {/* Real-Time Tracking */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet5} alt="Real-time Tracking" />
@@ -109,12 +111,12 @@ const Services = () => {
                 anywhere.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
 
-          {/* Logistics – End-to-End */}
+          {/* End-to-End Logistics */}
           <div className="service-card">
             <div className="service-image">
               <img src={jet4} alt="End-to-End Logistics" />
@@ -127,7 +129,7 @@ const Services = () => {
                 customs expertise.
               </p>
               <div className="service-cta">
-                <a href="/services">View Services <span>→</span></a>
+                <Link to="/services">View Services <span>→</span></Link>
               </div>
             </div>
           </div>
