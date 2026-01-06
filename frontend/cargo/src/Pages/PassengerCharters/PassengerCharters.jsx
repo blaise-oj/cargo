@@ -7,7 +7,7 @@ import jet4 from "../../assets/jet4.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { API_URL } from "../../config/api.js";
 
-// Default Leaflet marker fix
+/* Fix Leaflet default marker icons */
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-// Helper to interpolate position along route (ratio = 0 → origin, 1 → dest)
+/* Helpers */
 function interpolatePosition(points, ratio) {
   if (!points || points.length < 2) return points[0];
   const origin = points[0];
@@ -27,7 +27,6 @@ function interpolatePosition(points, ratio) {
   };
 }
 
-// Bearing calculation for rotation
 function calculateBearing(start, end) {
   const toRad = (deg) => (deg * Math.PI) / 180;
   const toDeg = (rad) => (rad * 180) / Math.PI;
@@ -44,7 +43,6 @@ function calculateBearing(start, end) {
   return (toDeg(Math.atan2(y, x)) + 360) % 360;
 }
 
-// Plane position by status
 function getPlanePosition(routeData) {
   const { origin, destination, status, points } = routeData;
   if (!origin?.coordinates || !destination?.coordinates) return null;
@@ -74,9 +72,7 @@ const PassengerCharters = () => {
       let query = trackingNumber.trim();
       if (!query.startsWith("PASS_")) query = `PASS_${query}`;
 
-      const res = await fetch(
-        `${API_URL}/passengers/track/${query}`
-      );
+      const res = await fetch(`${API_URL}/passengers/track/${query}`);
 
       if (!res.ok) {
         alert("Passenger not found");
@@ -84,11 +80,6 @@ const PassengerCharters = () => {
       }
 
       const { data } = await res.json();
-
-      if (!data.origin || !data.destination) {
-        alert("Incomplete route data.");
-        return;
-      }
 
       const safeCoords = (loc) =>
         loc?.coordinates?.lat != null && loc?.coordinates?.lng != null
@@ -103,10 +94,6 @@ const PassengerCharters = () => {
 
       setRouteData({
         ...data,
-        origin: data.origin,
-        destination: data.destination,
-        currentLocation: data.currentLocation,
-        checkpoints: data.checkpoints || [],
         points,
       });
       setShowReceipt(false);
@@ -123,42 +110,22 @@ const PassengerCharters = () => {
         <img src={jet4} alt="Passenger Charters" />
         <div className="pc-hero-text">
           <h1>Passenger Charters</h1>
-          <p>Luxury, comfort, and flexibility for your travel needs.</p>
-        </div>
-      </section>
-
-      {/* About */}
-      <section className="pc-about">
-        <h2>About Our Passenger Charters</h2>
-        <p>
-          We provide customized passenger charter services for individuals,
-          groups, and corporate travel.
-        </p>
-      </section>
-
-      {/* Features */}
-      <section className="pc-features">
-        <div className="feature">
-          <h3>Luxury Experience</h3>
-          <p>VIP lounges, onboard catering, and ultimate privacy.</p>
-        </div>
-        <div className="feature">
-          <h3>Flexible Scheduling</h3>
-          <p>Depart at your convenience, not the airline’s.</p>
-        </div>
-        <div className="feature">
-          <h3>Global Reach</h3>
-          <p>Flights across East Africa and worldwide destinations.</p>
-        </div>
-        <div className="feature">
-          <h3>Safety & Reliability</h3>
-          <p>Certified aircraft and experienced pilots you can trust.</p>
+          <p>
+            Experience private aviation redefined — seamless travel, absolute
+            comfort, and total control of your journey.
+            You can track your flight right here below.
+          </p>
         </div>
       </section>
 
       {/* Tracking */}
       <section className="pc-tracking">
         <h2>Track Your Flight</h2>
+        <p className="pc-tracking-intro">
+          Stay informed every step of the way. Enter your booking reference to
+          view real-time flight status, route progress, and booking details.
+        </p>
+
         <form onSubmit={handleTrack}>
           <input
             type="text"
@@ -178,10 +145,9 @@ const PassengerCharters = () => {
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  attribution='&copy; OpenStreetMap contributors'
                 />
 
-                {/* Route polyline */}
                 <Polyline
                   positions={routeData.points.map((p) => [p.lat, p.lng])}
                   color="blue"
@@ -189,7 +155,6 @@ const PassengerCharters = () => {
                   dashArray="5"
                 />
 
-                {/* Origin */}
                 <Marker
                   position={[
                     routeData.origin.coordinates.lat,
@@ -199,7 +164,6 @@ const PassengerCharters = () => {
                   <Popup>Origin: {routeData.origin.city}</Popup>
                 </Marker>
 
-                {/* Destination */}
                 <Marker
                   position={[
                     routeData.destination.coordinates.lat,
@@ -209,20 +173,19 @@ const PassengerCharters = () => {
                   <Popup>Destination: {routeData.destination.city}</Popup>
                 </Marker>
 
-                {/* Checkpoints */}
-                {routeData.checkpoints.map((c, i) => (
+                {routeData.checkpoints?.map((c, i) => (
                   <Marker
                     key={i}
                     position={[c.coordinates.lat, c.coordinates.lng]}
                   >
                     <Popup>
-                      {c.city} <br />
+                      {c.city}
+                      <br />
                       Updated: {new Date(c.updatedAt).toLocaleString()}
                     </Popup>
                   </Marker>
                 ))}
 
-                {/* Plane marker */}
                 {(() => {
                   const planePos = getPlanePosition(routeData);
                   if (!planePos) return null;
@@ -258,8 +221,10 @@ const PassengerCharters = () => {
                       icon={planeIcon}
                     >
                       <Popup>
-                        Status: {routeData.status} <br />
-                        Location: {routeData.currentLocation?.city || "En route"}
+                        Status: {routeData.status}
+                        <br />
+                        Location:{" "}
+                        {routeData.currentLocation?.city || "En route"}
                       </Popup>
                     </Marker>
                   );
@@ -267,7 +232,6 @@ const PassengerCharters = () => {
               </MapContainer>
             </div>
 
-            {/* Receipt toggle */}
             <div className="pc-receipt-toggle">
               <button onClick={() => setShowReceipt(!showReceipt)}>
                 {showReceipt ? "Hide Receipt" : "Show Receipt"}
@@ -306,28 +270,93 @@ const PassengerCharters = () => {
         )}
       </section>
 
+      {/* About */}
+      <section className="pc-about">
+        <h2>About Our Passenger Charters</h2>
+        <p>
+          Our passenger charter services are designed for travelers who value
+          time, privacy, and personalized service. Whether you are flying for
+          business, leisure, government missions, or special events, we tailor
+          every flight to your exact needs.
+        </p>
+        <p>
+          From flexible departure schedules to premium onboard amenities, we
+          ensure that every journey is smooth, secure, and memorable — from
+          takeoff to touchdown.
+        </p>
+      </section>
+
+      {/* Features */}
+      <section className="pc-features">
+        <div className="feature">
+          <h3>Luxury Experience</h3>
+          <p>
+            Enjoy spacious seating, premium interiors, onboard catering, and a
+            quiet, private environment designed for your comfort.
+          </p>
+        </div>
+
+        <div className="feature">
+          <h3>Flexible Scheduling</h3>
+          <p>
+            Fly on your terms. Choose departure times and routes that suit your
+            plans, without the limitations of commercial airline schedules.
+          </p>
+        </div>
+
+        <div className="feature">
+          <h3>Regional & Global Reach</h3>
+          <p>
+            We operate across East Africa and beyond, connecting you to key
+            cities, remote destinations, and international hubs with ease.
+          </p>
+        </div>
+
+        <div className="feature">
+          <h3>Safety & Reliability</h3>
+          <p>
+            Your safety comes first. Our aircraft are fully certified and
+            operated by experienced, highly trained flight crews.
+          </p>
+        </div>
+      </section>
+
+      
+
       {/* Testimonials */}
       <section className="pc-testimonials">
-        <h2>What Our Clients Say</h2>
+        <h2>Trusted by Our Clients</h2>
+
         <div className="testimonial">
-          <p>"Smooth process from booking to landing. Truly first-class service."</p>
-          <span>- John M.</span>
+          <p>
+            “From booking to arrival, everything was handled professionally. The
+            comfort and privacy exceeded our expectations.”
+          </p>
+          <span>— John M., Corporate Client</span>
         </div>
+
         <div className="testimonial">
-          <p>"Highly professional team, flexible and reliable. Recommended!"</p>
-          <span>- Sarah K.</span>
+          <p>
+            “Reliable, flexible, and extremely responsive. This is now our
+            preferred way to travel for executive trips.”
+          </p>
+          <span>— Sarah K., Business Executive</span>
         </div>
       </section>
 
       {/* Contact */}
       <section className="pc-contact">
-        <h2>Ready to Fly?</h2>
-        <p>Contact us today via WhatsApp or Email to plan your journey.</p>
+        <h2>Ready to Take Off?</h2>
+        <p>
+          Let us handle your next journey with precision and care. Speak to our
+          team today and experience the freedom of private air travel.
+        </p>
+
         <div className="pc-buttons">
           <a href="https://wa.me/254113410633" target="_blank" rel="noreferrer">
-            WhatsApp
+            Chat on WhatsApp
           </a>
-          <a href="mailto:info@yourdomain.com">Email Us</a>
+          <a href="mailto:info@yourdomain.com">Email Our Team</a>
         </div>
       </section>
     </div>
@@ -335,3 +364,4 @@ const PassengerCharters = () => {
 };
 
 export default PassengerCharters;
+

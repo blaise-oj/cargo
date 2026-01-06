@@ -23,69 +23,139 @@
   position: absolute;
   color: #fff;
   text-align: center;
+  padding: 0 20px;
 }
 .cc-hero-text h1 {
   font-size: 3rem;
   margin-bottom: 10px;
 }
-.cc-hero-text button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background: #1d3557;
-  color: white;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
+.cc-hero-text p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
-.cc-hero-text button:hover { background: #2a4b7c; }
 
 /* Sections */
-.cc-about, .cc-features, .cc-tracking, .cc-booking, .cc-sla, .cc-contact {
+.cc-about, .cc-services, .cc-industries, .cc-why, .cc-tracking, .cc-map, .cc-cta {
   width: 90%;
   margin: 60px auto;
   text-align: center;
 }
-.cc-about p { max-width: 760px; margin: 16px auto; }
+.cc-about p, .cc-why p {
+  max-width: 760px;
+  margin: 16px auto;
+}
 
-/* Features grid */
-.cc-features {
+/* Services grid */
+.cc-services h2, .cc-why h2, .cc-industries h2, .cc-cta h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.cc-service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  margin-top: 30px;
 }
-.feature {
+.cc-service-card {
   background: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 25px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cc-service-card i {
+  font-size: 2rem;
+  color: #1d3557;
+  margin-bottom: 12px;
+}
+.cc-service-card h3 {
+  margin-bottom: 10px;
+}
+.cc-service-card p {
+  font-size: 0.95rem;
+  color: #333;
+}
+.cc-service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+/* Industries */
+.cc-industries ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+.cc-industries li {
+  background: #f8f9fa;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* Why choose us grid */
+.cc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.cc-why-grid div {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cc-why-grid div h4 {
+  margin-bottom: 8px;
+  color: #1d3557;
+}
+.cc-why-grid div p {
+  font-size: 0.95rem;
+}
+.cc-why-grid div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
 /* Tracking */
-.cc-tracking form { margin-top: 16px; }
+.cc-tracking form { margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap; /* <- prevent wrapping */ }
 .cc-tracking input {
-  padding: 10px;
+   padding: 10px;
   width: 60%;
   max-width: 420px;
-  margin-right: 10px;
+  min-width: 200px; /* optional: prevent too small */
   border: 1px solid #cbd5e1;
   border-radius: 6px;
+  flex-shrink: 1; /* allow shrinking if needed */
 }
 .cc-tracking button {
   padding: 10px 20px;
   border: none;
-  background: #e63946;
+  background: green;
   color: #fff;
   border-radius: 6px;
   cursor: pointer;
 }
-.cc-tracking button:hover { background: #d62828; }
+.cc-tracking button:hover { background: #39e6bb; }
 .cc-tracking .hint { font-size: 0.9rem; color: #6b7280; margin-top: 8px; }
 .cc-tracking .error { color: #e63946; margin-top: 10px; font-weight: 600; }
 
 /* Map Result */
 .cc-map {
-  width: 90%;
+  width: 100%;
+  max-width: 1000px;
   margin: 40px auto;
 }
 .cc-map h3 {
@@ -134,58 +204,49 @@
 .cargo-details li:last-child { border-bottom: none; }
 .cargo-details strong { color: #1d3557; }
 
-/* Booking */
-.cc-booking form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-width: 680px;
-  margin: 0 auto;
-}
-.cc-booking .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.cc-booking input, .cc-booking select, .cc-booking textarea {
-  padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-}
-.cc-booking textarea { min-height: 110px; }
-.cc-booking button {
+/* CTA Section */
+.cc-cta {
   background: #1d3557;
   color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 50px 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 60px auto;
 }
-.cc-booking button:hover { background: #2a4b7c; }
-.cc-booking .note { color: #6b7280; font-size: 0.95rem; margin-top: 6px; }
-
-/* SLA / Coverage */
-.cc-sla ul { list-style: disc; max-width: 760px; margin: 0 auto; text-align: left; }
-.cc-sla li { margin: 6px 0; }
-
-/* Contact */
-.cc-contact .cc-buttons { margin-top: 16px; }
-.cc-contact a {
+.cc-cta p {
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
+.cc-cta-buttons a {
   display: inline-block;
-  margin: 0 10px;
-  padding: 12px 22px;
-  background: #1d3557;
-  color: #fff;
+  margin: 10px;
+  padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
 }
-.cc-contact a:hover { background: #2a4b7c; }
+.cc-cta-buttons a:first-child {
+  background: #39e6bb91;
+  color: #fff;
+}
+.cc-cta-buttons a:first-child:hover { background: #d62828; }
+.cc-cta-buttons a:last-child {
+  background: #f8f9fa;
+  color: #1d3557;
+}
+.cc-cta-buttons a:last-child:hover { background: #e0e0e0; }
 
 /* Responsive tweaks */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cc-hero { height: 50vh; }
-  .cc-booking .grid-2 { grid-template-columns: 1fr; }
+  .cc-service-grid, .cc-why-grid { grid-template-columns: 1fr; }
   .cc-tracking input { width: 100%; margin: 0 0 10px 0; }
   .cargo-details { padding: 14px; }
+  .cc-industries ul { flex-direction: column; gap: 12px; }
 }
 
-/* --- Plane + Pulse Animation --- */
+/* Plane + Pulse Animation */
 .plane-wrapper {
   position: relative;
   width: 40px;
@@ -194,14 +255,12 @@
   justify-content: center;
   align-items: center;
 }
-
 .plane-icon {
   font-size: 22px;
   z-index: 2;
   transform-origin: center;
   transition: transform 0.3s ease-in-out;
 }
-
 .pulse-wave {
   position: absolute;
   border-radius: 50%;
@@ -211,25 +270,10 @@
   animation: pulse 2s infinite;
   z-index: 1;
 }
-
-.pulse-wave:nth-child(2) {
-  animation-delay: 0.6s;
-}
-.pulse-wave:nth-child(3) {
-  animation-delay: 1.2s;
-}
-
+.pulse-wave:nth-child(2) { animation-delay: 0.6s; }
+.pulse-wave:nth-child(3) { animation-delay: 1.2s; }
 @keyframes pulse {
-  0% {
-    transform: scale(0.4);
-    opacity: 0.8;
-  }
-  70% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(0.4);
-    opacity: 0;
-  }
+  0% { transform: scale(0.4); opacity: 0.8; }
+  70% { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(0.4); opacity: 0; }
 }

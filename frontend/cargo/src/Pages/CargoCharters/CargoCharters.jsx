@@ -82,7 +82,9 @@ const CargoCharters = () => {
         <img src={jet6} alt="Cargo Charters" />
         <div className="cc-hero-text">
           <h1>Cargo Charters</h1>
-          <p>Fast, secure, and flexible air cargo solutions — regional & worldwide.</p>
+          <p>
+            Fast, secure, and flexible air cargo solutions — regional & worldwide.
+          </p>
         </div>
       </section>
 
@@ -119,7 +121,7 @@ const CargoCharters = () => {
               attribution="© OpenStreetMap"
             />
 
-            {/* Route Polyline (dotted) */}
+            {/* Route Polyline */}
             <Polyline
               positions={[
                 [cargo.origin.lat, cargo.origin.lng],
@@ -129,32 +131,27 @@ const CargoCharters = () => {
               pathOptions={{
                 color: "#1d3557",
                 weight: 3,
-                dashArray: "6, 10", // dotted line
+                dashArray: "6, 10",
               }}
             />
 
-            {/* Origin & Destination */}
+            {/* Markers */}
             <Marker position={[cargo.origin.lat, cargo.origin.lng]}>
               <Popup>Origin: {cargo.origin.city}</Popup>
             </Marker>
             <Marker position={[cargo.destination.lat, cargo.destination.lng]}>
               <Popup>Destination: {cargo.destination.city}</Popup>
             </Marker>
-
-            {/* Checkpoints */}
             {cargo.route?.map((cp, idx) => (
               <Marker key={idx} position={[cp.lat, cp.lng]}>
-                <Popup>
-                  {cp.city} — {cp.status}
-                </Popup>
+                <Popup>{cp.city} — {cp.status}</Popup>
               </Marker>
             ))}
 
-            {/* Plane (Font Awesome with rotation + pulse) */}
+            {/* Plane */}
             {(() => {
               const planePos = getPlanePosition(cargo);
               const bearing = getBearing(cargo.origin, cargo.destination);
-
               let pulseColor = "blue";
               if (cargo.status.toLowerCase() === "in transit") pulseColor = "red";
               if (cargo.status.toLowerCase() === "arrived") pulseColor = "green";
@@ -177,14 +174,12 @@ const CargoCharters = () => {
             })()}
           </MapContainer>
 
-          {/* Cargo Details Toggle */}
+          {/* Cargo Details */}
           <div className="details-toggle">
             <button onClick={() => setShowDetails(!showDetails)}>
               {showDetails ? "Hide Cargo Details" : "View Cargo Details"}
             </button>
           </div>
-
-          {/* Cargo Details */}
           {showDetails && (
             <div className="cargo-details">
               <h4>Cargo Receipt</h4>
@@ -202,6 +197,115 @@ const CargoCharters = () => {
           )}
         </section>
       )}
+
+      {/* About */}
+      <section className="cc-about">
+        <h2>About Our Cargo Charters</h2>
+        <p>
+          Our cargo charter services provide fast, secure, and flexible air
+          freight solutions for businesses, governments, and humanitarian
+          missions. From urgent deliveries to oversized cargo, we tailor every
+          flight to your logistical needs.
+        </p>
+        <p>
+          With access to regional and international routes, modern aircraft,
+          and experienced logistics teams, we ensure your shipment arrives
+          safely, on time, and fully tracked from origin to destination.
+        </p>
+      </section>
+
+      {/* Services */}
+      <section className="cc-services">
+        <h2>Our Cargo Services</h2>
+        <div className="cc-service-grid">
+          <div className="cc-service-card">
+            <i className="fa fa-box"></i>
+            <h3>General Cargo</h3>
+            <p>
+              Reliable transportation for commercial goods, retail products,
+              and industrial supplies.
+            </p>
+          </div>
+
+          <div className="cc-service-card">
+            <i className="fa fa-snowflake"></i>
+            <h3>Perishable Goods</h3>
+            <p>
+              Temperature-controlled logistics for food, flowers, and medical
+              supplies.
+            </p>
+          </div>
+
+          <div className="cc-service-card">
+            <i className="fa fa-industry"></i>
+            <h3>Heavy & Oversized Cargo</h3>
+            <p>
+              Specialized aircraft and handling for machinery, vehicles, and
+              project cargo.
+            </p>
+          </div>
+
+          <div className="cc-service-card">
+            <i className="fa fa-ambulance"></i>
+            <h3>Humanitarian & Emergency</h3>
+            <p>
+              Rapid-response airlift for relief operations and urgent missions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Industries */}
+      <section className="cc-industries">
+        <h2>Industries We Serve</h2>
+        <ul>
+          <li>✔ E-commerce & Retail</li>
+          <li>✔ Manufacturing & Construction</li>
+          <li>✔ Oil, Gas & Mining</li>
+          <li>✔ Healthcare & Pharmaceuticals</li>
+          <li>✔ Government & NGOs</li>
+        </ul>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="cc-why">
+        <h2>Why Choose Our Cargo Charters</h2>
+        <div className="cc-why-grid">
+          <div>
+            <h4>Speed & Reliability</h4>
+            <p>Direct flights with no unnecessary stops.</p>
+          </div>
+          <div>
+            <h4>Real-Time Tracking</h4>
+            <p>Full visibility of your shipment using Air Waybill tracking.</p>
+          </div>
+          <div>
+            <h4>Flexible Scheduling</h4>
+            <p>Fly when you need — day or night.</p>
+          </div>
+          <div>
+            <h4>Secure Handling</h4>
+            <p>Strict safety and compliance standards.</p>
+          </div>
+        </div>
+      </section>
+
+      
+
+      {/* Call To Action */}
+      <section className="cc-cta">
+        <h2>Need a Custom Cargo Solution?</h2>
+        <p>
+          Speak to our logistics experts today and get a tailored cargo charter
+          plan that fits your timeline and budget.
+        </p>
+        <div className="cc-cta-buttons">
+          <a href="https://wa.me/254113410633" target="_blank" rel="noreferrer">
+            Request a Quote
+          </a>
+          <a href="mailto:cargo@yourdomain.com">Contact Cargo Team</a>
+        </div>
+      </section>
     </div>
   );
 };
