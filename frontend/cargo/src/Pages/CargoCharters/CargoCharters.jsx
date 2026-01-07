@@ -303,7 +303,7 @@ const CargoCharters = () => {
           <a href="https://wa.me/254113410633" target="_blank" rel="noreferrer">
             Request a Quote
           </a>
-          <a href="mailto:cargo@yourdomain.com">Contact Cargo Team</a>
+          <a href="mailto:info@airrushcharters.com">Contact Airrush Team</a>
         </div>
       </section>
     </div>

@@ -6,6 +6,30 @@ import "./PassengerCharters.css";
 import jet4 from "../../assets/jet4.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { API_URL } from "../../config/api.js";
+import jeta from '../../assets/jeta.png';
+import jetb from '../../assets/jetb.png';
+import jetc from '../../assets/jetc.png';
+import jetd from '../../assets/jetd.png';
+import jete from '../../assets/jete.png';
+import jetf from '../../assets/jetf.png';
+import jetg from '../../assets/jetg.png';
+import jeth from '../../assets/jeth.png';
+import jeti from '../../assets/jeti.png';
+import jetj from '../../assets/jetj.png';
+import jetk from '../../assets/jetk.png';
+import jetl from '../../assets/jetl.png';
+import jetm from '../../assets/jetm.png';
+import jetn from '../../assets/jetn.png';
+import jeto from '../../assets/jeto.png';
+import jetp from '../../assets/jetp.png';
+import jetq from '../../assets/jetq.png';
+import jetr from '../../assets/jetr.png';
+import jets from '../../assets/jets.png';
+import jett from '../../assets/jett.png';
+import jetu from '../../assets/jetu.png';
+import jetv from '../../assets/jetv.png';
+import jetw from '../../assets/jetw.png';
+import jetx from '../../assets/jetx.png';
 
 /* Fix Leaflet default marker icons */
 delete L.Icon.Default.prototype._getIconUrl;
@@ -59,6 +83,170 @@ function getPlanePosition(routeData) {
       return origin.coordinates;
   }
 }
+const fleetData = [
+  {
+    category: "Very Light Jets",
+    jets: [
+      {
+        name: "Cessna Citation Mustang",
+        image: jeta,
+        description: "Efficient and economical jet for short regional trips and quick business travel."
+      },
+      {
+        name: "Embraer Phenom 100",
+        image: jetb,
+        description: "Modern very light jet offering comfort, speed, and excellent fuel efficiency."
+      },
+      {
+        name: "HondaJet HA-420",
+        image: jetc,
+        description: "Innovative design with over-the-wing engines and a quiet, refined cabin."
+      }
+    ]
+  },
+
+  {
+    category: "Light Jets",
+    jets: [
+      {
+        name: "Cessna Citation CJ3",
+        image: jetd,
+        description: "Reliable light jet with impressive range and performance for regional routes."
+      },
+      {
+        name: "Cessna Citation CJ4",
+        image: jete,
+        description: "Enhanced speed and cabin comfort with advanced avionics."
+      },
+      {
+        name: "Embraer Phenom 300",
+        image: jetf,
+        description: "One of the most popular light jets, balancing speed, range, and luxury."
+      },
+      {
+        name: "Beechcraft Premier 1A",
+        image: jetg,
+        description: "High-speed light jet ideal for executives requiring efficient point-to-point travel."
+      }
+    ]
+  },
+
+  {
+    category: "Midsize Jets",
+    jets: [
+      {
+        name: "Hawker 800XP",
+        image: jeth,
+        description: "Spacious midsize jet with excellent runway performance and reliability."
+      },
+      {
+        name: "Cessna Citation XLS+",
+        image: jeti,
+        description: "Stand-up cabin comfort with strong performance and flexible routing."
+      },
+      {
+        name: "Learjet 60",
+        image: jetj,
+        description: "Fast and powerful midsize jet designed for business-critical missions."
+      }
+    ]
+  },
+
+  {
+    category: "Super Midsize Jets",
+    jets: [
+      {
+        name: "Bombardier Challenger 350",
+        image: jetk,
+        description: "Industry-leading super midsize jet offering range, comfort, and reliability."
+      },
+      {
+        name: "Gulfstream G280",
+        image: jetl,
+        description: "High-speed super midsize jet with long-range capability and advanced avionics."
+      },
+      {
+        name: "Cessna Citation Longitude",
+        image: jetm,
+        description: "Large-cabin comfort combined with impressive efficiency and transcontinental range."
+      }
+    ]
+  },
+
+  {
+    category: "Heavy Jets",
+    jets: [
+      {
+        name: "Bombardier Challenger 650",
+        image: jetn,
+        description: "Long-range heavy jet offering exceptional comfort and cabin flexibility."
+      },
+      {
+        name: "Dassault Falcon 900",
+        image: jeto,
+        description: "Tri-jet design providing outstanding range, safety, and airport accessibility."
+      },
+      {
+        name: "Gulfstream G450",
+        image: jetp,
+        description: "Reliable heavy jet with long-range performance and luxurious interior."
+      }
+    ]
+  },
+
+  {
+    category: "Ultra-Long-Range Jets",
+    jets: [
+      {
+        name: "Gulfstream G650ER",
+        image: jetq,
+        description: "Ultra-long-range jet capable of connecting global city pairs nonstop."
+      },
+      {
+        name: "Gulfstream G700",
+        image: jetr,
+        description: "Next-generation flagship jet offering unmatched comfort and cabin technology."
+      },
+      {
+        name: "Bombardier Global 7500",
+        image: jets,
+        description: "Industry-leading range and luxury for nonstop intercontinental travel."
+      },
+      {
+        name: "Bombardier Global 8000",
+        image: jett,
+        description: "Fastest business jet designed for ultra-long-haul missions."
+      },
+      {
+        name: "Dassault Falcon 10X",
+        image: jetu,
+        description: "Advanced ultra-long-range jet with the widest cabin in its class."
+      }
+    ]
+  },
+
+  {
+    category: "VIP Airliners",
+    jets: [
+      {
+        name: "Boeing Business Jet (BBJ)",
+        image: jetv,
+        description: "Ultimate VIP aircraft offering unmatched space, range, and customization."
+      },
+      {
+        name: "Airbus ACJ320",
+        image: jetw,
+        description: "Corporate airliner with luxurious cabin layouts for heads of state and executives."
+      },
+      {
+        name: "Airbus ACJ350",
+        image: jetx,
+        description: "Ultra-long-range VIP airliner with exceptional comfort and global reach."
+      }
+    ]
+  }
+];
+
 
 const PassengerCharters = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
@@ -320,8 +508,36 @@ const PassengerCharters = () => {
           </p>
         </div>
       </section>
+      {/* Fleet */}
+      <section className="pc-fleet">
+        <h2>Our Aircraft Fleet</h2>
+        <p className="pc-fleet-intro">
+          Choose from a diverse range of modern aircraft — from efficient light jets
+          to ultra-luxurious VIP airliners — all maintained to the highest standards.
+        </p>
 
-      
+        {fleetData.map((group, idx) => (
+          <div key={idx} className="fleet-category">
+            <h3>{group.category}</h3>
+
+            <div className="fleet-grid">
+              {group.jets.map((jet, i) => (
+                <div key={i} className="fleet-card">
+                  <div className="fleet-image">
+                    <img src={jet.image} alt={jet.name} />
+                  </div>
+                  <div className="fleet-info">
+                    <h4>{jet.name}</h4>
+                    <p>{jet.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+
 
       {/* Testimonials */}
       <section className="pc-testimonials">
