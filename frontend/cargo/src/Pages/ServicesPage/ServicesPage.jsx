@@ -79,7 +79,7 @@ const ServicesPage = () => {
             <h2>About Our Company</h2>
             <p>
               Global Cargo & Charter Solutions is your premier aviation services provider,
-              specializing in passenger and cargo charter operations worldwide. 
+              specializing in passenger and cargo charter operations worldwide.
             </p>
             <p>
               Our mission is to make air transport safe, reliable, and effortless. With
@@ -141,17 +141,19 @@ const ServicesPage = () => {
 
             <div className="service-actions">
               <button
-                className="service-cta"
+                className="services-primary-btn"
                 onClick={() => navigate("/passenger-charters")}
               >
                 Request Passenger Quote
               </button>
+
               <button
-                className="service-secondary"
+                className="services-secondary-btn"
                 onClick={() => navigate("/passenger-charters")}
               >
                 Track Passenger Flight
               </button>
+
             </div>
           </div>
         </div>
@@ -183,17 +185,19 @@ const ServicesPage = () => {
 
             <div className="service-actions">
               <button
-                className="service-cta"
+                className="services-primary-btn"
                 onClick={() => navigate("/cargo-charters")}
               >
                 Request Cargo Quote
               </button>
+
               <button
-                className="service-secondary"
+                className="services-secondary-btn"
                 onClick={() => navigate("/cargo-charters")}
               >
                 Track Cargo Shipment
               </button>
+
             </div>
           </div>
         </div>
@@ -239,23 +243,25 @@ const ServicesPage = () => {
           </p>
           <div className="tracking-buttons">
             <button
-              className="cta-primary"
+              className="services-track-btn"
               onClick={() => navigate("/passenger-charters")}
             >
               Track Passenger Flight
             </button>
+
             <button
-              className="cta-primary"
+              className="services-track-btn"
               onClick={() => navigate("/cargo-charters")}
             >
               Track Cargo Shipment
             </button>
+
           </div>
         </div>
       </section>
 
       {/* ================= FINAL CTA ================= */}
-      <section className="services-cta">
+      <section className="services-final-cta">
         <div className="container">
           <h2>Ready to Fly or Ship with Confidence?</h2>
           <p>
@@ -263,8 +269,8 @@ const ServicesPage = () => {
             charter solution that meets your exact needs.
           </p>
           <div className="cta-buttons">
-            <button className="cta-primary">Get a Quote</button>
-            <button className="cta-secondary">Contact Us</button>
+            <button className="services-primary-btn">Get a Quote</button>
+            <button className="services-secondary-btn">Contact Us</button>
           </div>
         </div>
       </section>

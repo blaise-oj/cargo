@@ -129,31 +129,26 @@
 /* ===============================
    CTA
 ================================ */
-.service-cta {
-  margin-top: auto;
+.home-services-cta {
+  margin-top: 20px;
 }
 
-.service-cta a {
+.home-services-cta a {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #1f2a9d;
   color: #fff;
-  font-weight: 600;
+  border-radius: 30px;
+  font-weight: 500;
   text-decoration: none;
-  font-size: 0.95rem;
   transition: all 0.3s ease;
 }
 
-.service-cta a span {
-  margin-left: 8px;
-  transition: transform 0.3s ease;
-}
-
-.service-cta a:hover {
-  color: #b91c2c;
-}
-
-.service-cta a:hover span {
-  transform: translateX(6px);
+.home-services-cta a:hover {
+  background: #16207a;
+  transform: translateX(4px);
 }
 
 /* ===============================

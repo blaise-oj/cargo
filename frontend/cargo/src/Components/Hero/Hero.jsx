@@ -3,16 +3,26 @@ import './Hero.css'
 import dark_arrow from '../../assets/dark-arrow.png'
 
 const Hero = () => {
-  return (
-    <div className='hero container'>
-        <div className='hero-text'> 
-            <h1>AIRRUSH CHARTERS</h1>
-            <p>Your Trusted Partner in Air Freight and Charter Services</p>
-            <button className='btn'>Explore more<img src={dark_arrow} alt=''></img></button>
-        </div>
-      
-    </div>
-  )
-}
+  const scrollToServices = () => {
+    const section = document.getElementById('home-services');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-export default Hero
+  return (
+    <section className="hero">
+      <div className="hero-inner">
+        <div className="hero-text">
+          <h1>AIRRUSH CHARTERS</h1>
+          <p>Your Trusted Partner in Air Freight and Charter Services</p>
+          <button className="btn" onClick={scrollToServices}>
+            Explore more <img src={dark_arrow} alt="" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

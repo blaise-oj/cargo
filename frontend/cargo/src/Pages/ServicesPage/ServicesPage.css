@@ -217,7 +217,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
 }
 
-/* Buttons */
+/* ================= BUTTONS (RENAMED) ================= */
 .service-actions {
   display: flex;
   gap: 1rem;
@@ -225,8 +225,8 @@ h1, h2, h3, h4 {
   margin-top: 2rem;
 }
 
-.service-cta,
-.service-secondary {
+.services-primary-btn,
+.services-secondary-btn {
   height: 44px;
   padding: 0 1.8rem;
   font-weight: 600;
@@ -235,24 +235,24 @@ h1, h2, h3, h4 {
   transition: all 0.3s ease;
 }
 
-.service-cta {
+.services-primary-btn {
   background: #2563eb;
   color: #ffffff;
   border: none;
 }
 
-.service-cta:hover {
+.services-primary-btn:hover {
   background: #1e40af;
   transform: translateY(-2px);
 }
 
-.service-secondary {
+.services-secondary-btn {
   background: transparent;
   border: 2px solid #2563eb;
   color: #2563eb;
 }
 
-.service-secondary:hover {
+.services-secondary-btn:hover {
   background: #2563eb;
   color: #ffffff;
 }
@@ -319,38 +319,35 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
 }
 
-.tracking-buttons button {
+.services-track-btn {
   padding: 0.9rem 2rem;
   border-radius: 8px;
   font-weight: 600;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.tracking-buttons .cta-primary {
   background: #ffffff;
   color: #2563eb;
 }
 
-.tracking-buttons .cta-primary:hover {
+.services-track-btn:hover {
   background: #e0f2fe;
 }
 
 /* ================= FINAL CTA ================= */
-.services-cta {
+.services-final-cta {
   padding: 5rem 0;
   background: #020617;
   color: #ffffff;
   text-align: center;
 }
 
-.services-cta h2 {
+.services-final-cta h2 {
   font-size: 2.4rem;
   margin-bottom: 1rem;
 }
 
-.services-cta p {
+.services-final-cta p {
   max-width: 650px;
   margin: 0 auto 2rem;
   opacity: 0.9;
@@ -361,37 +358,6 @@ h1, h2, h3, h4 {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.cta-primary {
-  height: 46px;
-  padding: 0 2rem;
-  background: #2563eb;
-  color: #ffffff;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.cta-primary:hover {
-  background: #1e40af;
-}
-
-.cta-secondary {
-  height: 46px;
-  padding: 0 2rem;
-  background: transparent;
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
 }
 
 /* ================= RESPONSIVE ================= */
@@ -426,8 +392,9 @@ h1, h2, h3, h4 {
     flex-direction: column;
   }
 
-  .tracking-buttons button {
+  .services-track-btn {
     width: 100%;
     max-width: 300px;
   }
 }
+

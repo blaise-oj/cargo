@@ -11,7 +11,7 @@ import jet4 from '../../assets/jet4.png';
 
 const Services = () => {
   return (
-    <section className="services-section">
+    <section className="services-section" id="home-services">
       <div className="services-container">
 
         {/* Section Header */}
@@ -38,8 +38,8 @@ const Services = () => {
                 businesses of all sizes. We connect major international hubs
                 with reliable delivery timelines.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
@@ -56,8 +56,8 @@ const Services = () => {
                 and regulatory processes, ensuring smooth, delay-free cargo
                 movement across borders.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
@@ -74,8 +74,8 @@ const Services = () => {
                 short-term and long-term cargo storage with strict safety and
                 inventory controls.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
@@ -92,8 +92,8 @@ const Services = () => {
                 leisure, and special travel needs—designed for flexibility,
                 privacy, and efficiency.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
@@ -110,8 +110,8 @@ const Services = () => {
                 using your Airway Bill or flight reference number—anytime,
                 anywhere.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
@@ -128,8 +128,8 @@ const Services = () => {
                 solutions combining air transport, storage, tracking, and
                 customs expertise.
               </p>
-              <div className="service-cta">
-                <Link to="/services">View Services <span>→</span></Link>
+              <div className="home-services-cta">
+                <Link to="/services">View Services</Link>
               </div>
             </div>
           </div>
