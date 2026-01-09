@@ -8,6 +8,14 @@ import jet6 from '../../assets/jet6.png';
 import jet19 from '../../assets/jet19.png';
 import jet5 from '../../assets/jet5.png';
 import jet4 from '../../assets/jet4.png';
+import h1 from '../../assets/h1.png';
+import h2 from '../../assets/h2.png';
+import h3 from '../../assets/h3.png';
+import h4 from '../../assets/h4.png';
+import h5 from '../../assets/h5.png';
+import h6 from '../../assets/h6.png';
+import h7 from '../../assets/h7.png';
+
 
 const Services = () => {
   return (
@@ -29,7 +37,7 @@ const Services = () => {
           {/* Worldwide Air Freight */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet2} alt="Worldwide Air Freight" />
+              <img src={h1} alt="Worldwide Air Freight" />
             </div>
             <div className="service-content">
               <h3>Worldwide Air Freight</h3>
@@ -39,7 +47,7 @@ const Services = () => {
                 with reliable delivery timelines.
               </p>
               <div className="home-services-cta">
-                <Link to="/services">View Services</Link>
+                <Link to="/cargo-charters">View Charters</Link>
               </div>
             </div>
           </div>
@@ -47,7 +55,7 @@ const Services = () => {
           {/* Customs Clearance */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet11} alt="Customs Clearance" />
+              <img src={h2} alt="Customs Clearance" />
             </div>
             <div className="service-content">
               <h3>Customs Clearance</h3>
@@ -57,7 +65,7 @@ const Services = () => {
                 movement across borders.
               </p>
               <div className="home-services-cta">
-                <Link to="/services">View Services</Link>
+                <Link to="/cargo-charters">View Charters</Link>
               </div>
             </div>
           </div>
@@ -65,7 +73,7 @@ const Services = () => {
           {/* Warehousing */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet6} alt="Warehousing Solutions" />
+              <img src={h3} alt="Warehousing Solutions" />
             </div>
             <div className="service-content">
               <h3>Warehousing & Storage</h3>
@@ -83,7 +91,7 @@ const Services = () => {
           {/* Passenger Charter Flights */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet19} alt="Passenger Charter Flights" />
+              <img src={h4} alt="Passenger Charter Flights" />
             </div>
             <div className="service-content">
               <h3>Passenger Charter Flights</h3>
@@ -101,7 +109,7 @@ const Services = () => {
           {/* Real-Time Tracking */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet5} alt="Real-time Tracking" />
+              <img src={h6} alt="Real-time Tracking" />
             </div>
             <div className="service-content">
               <h3>Real-Time Cargo & Flight Tracking</h3>
@@ -111,7 +119,7 @@ const Services = () => {
                 anywhere.
               </p>
               <div className="home-services-cta">
-                <Link to="/services">View Services</Link>
+                <Link to="/passenger-charters">View Charters</Link>
               </div>
             </div>
           </div>
@@ -119,7 +127,7 @@ const Services = () => {
           {/* End-to-End Logistics */}
           <div className="service-card">
             <div className="service-image">
-              <img src={jet4} alt="End-to-End Logistics" />
+              <img src={h7} alt="End-to-End Logistics" />
             </div>
             <div className="service-content">
               <h3>End-to-End Logistics Solutions</h3>

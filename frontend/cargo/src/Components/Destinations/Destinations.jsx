@@ -4,6 +4,8 @@ import './Destinations.css';
 import jet23 from '../../assets/jet23.jpg';
 import jet8 from '../../assets/jet8.png';
 import jet14 from '../../assets/jet14.png';
+import h8 from '../../assets/h8.png';
+import h9 from '../../assets/h9.png';
 
 const Destinations = () => {
   const [activeCard, setActiveCard] = useState(null);
@@ -15,7 +17,7 @@ const Destinations = () => {
       location: "Cape Town, SOUTH AFRICA",
       description:
         "Our corporate headquarters overseeing global operations and strategic initiatives.",
-      image: jet23,
+      image: h9,
       details:
         "The strategic hub for executive management, global planning, and innovative logistics solutions, equipped with advanced communication and tracking systems to coordinate worldwide operations efficiently."
     },
@@ -25,7 +27,7 @@ const Destinations = () => {
       location: "JKIA North Wing, Nairobi",
       description:
         "Primary operational center facilitating African and international cargo services.",
-      image: jet8,
+      image: h8,
       details:
         "A fully equipped operations base featuring 24/7 cargo handling, customs clearance support, and state-of-the-art aviation facilities, ensuring reliable, timely, and secure transport of goods across regional and international routes."
     },
