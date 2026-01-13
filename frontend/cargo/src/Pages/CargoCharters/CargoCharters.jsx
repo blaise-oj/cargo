@@ -6,6 +6,28 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./CargoCharters.css";
 import jet6 from "../../assets/jet6.png";
 import { API_URL } from "../../config/api.js";
+import cj1 from "../../assets/cj1.png";
+import cj2 from "../../assets/cj2.png";
+import cj3 from "../../assets/cj3.png";
+import cj4 from "../../assets/cj4.png";
+import cj5 from "../../assets/cj5.png";
+import cj6 from "../../assets/cj6.png";
+import cj7 from "../../assets/cj7.png";
+import cj8 from "../../assets/cj8.png";
+import cj9 from "../../assets/cj9.png";
+import cj10 from "../../assets/cj10.png";
+import cj11 from "../../assets/cj11.png";
+import cj12 from "../../assets/cj12.png";
+import cj13 from "../../assets/cj13.png";
+import cj14 from "../../assets/cj14.png";
+import cj15 from "../../assets/cj15.png";
+import cj16 from "../../assets/cj16.png";
+import cj17 from "../../assets/cj17.png";
+import cj18 from "../../assets/cj18.png";
+import cj19 from "../../assets/cj19.png";
+import cj20 from "../../assets/cj20.png";
+import cj21 from "../../assets/cj21.png";
+
 
 // Helper: interpolate position along route
 const interpolatePosition = (points, ratio) => {
@@ -50,6 +72,171 @@ const getPlanePosition = (cargo) => {
       return cargo.origin;
   }
 };
+
+const cargoFleet = [
+  {
+    category: "Light Cargo & Utility Aircraft",
+    description:
+      "Ideal for short runways, remote destinations, and urgent regional cargo.",
+    aircraft: [
+      {
+        name: "Cessna 408 SkyCourier",
+        image: "cj1.png",
+        info: "Modern turboprop optimized for high-frequency regional cargo routes.",
+      },
+      {
+        name: "Beechcraft 1900D Cargo",
+        image: "cj2.png",
+        info: "Reliable twin-engine aircraft for regional logistics operations.",
+      },
+      {
+        name: "Dornier 228",
+        image: "cj3.png",
+        info: "STOL aircraft capable of operating in challenging environments.",
+      },
+      {
+        name: "Viking Twin Otter",
+        image: "cj4.png",
+        info: "Legendary aircraft for remote and short-runway operations.",
+      },
+    ],
+  },
+
+  {
+    category: "Regional Turboprop Freighters",
+    description:
+      "Balanced capacity and efficiency for domestic and regional cargo routes.",
+    aircraft: [
+      {
+        name: "ATR 42F",
+        image: "cj5.png",
+        info: "Efficient regional freighter optimized for scheduled cargo services.",
+      },
+      {
+        name: "ATR 72F",
+        image: "cj6.png",
+        info: "Higher payload turboprop for increased regional demand.",
+      },
+      {
+        name: "Dash 8-300F",
+        image: "cj7.png",
+        info: "Proven regional freighter with excellent runway performance.",
+      },
+      {
+        name: "Dash 8-400F",
+        image: "cj8.png",
+        info: "High-speed turboprop offering jet-like performance.",
+      },
+      {
+        name: "Fokker 50F",
+        image: "cj9.png",
+        info: "Durable turboprop designed for high-cycle cargo operations.",
+      },
+    ],
+  },
+
+  {
+    category: "Narrow-Body Jet Freighters",
+    description:
+      "Jet-powered cargo aircraft for medium-haul regional and continental routes.",
+    aircraft: [
+      {
+        name: "Boeing 737-300F / 400F",
+        image: "cj10.png",
+        info: "Reliable jet freighters with proven cargo performance.",
+      },
+      {
+        name: "Boeing 737-800BCF / BDSF",
+        image: "cj11.png",
+        info: "Next-generation converted freighter with improved efficiency.",
+      },
+      {
+        name: "McDonnell Douglas DC-9F",
+        image: "cj12.png",
+        info: "Rugged jet freighter ideal for short and medium-haul operations.",
+      },
+    ],
+  },
+
+  {
+    category: "Wide-Body & Heavy Freighters",
+    description:
+      "Long-haul, high-capacity aircraft for international and oversized cargo.",
+    aircraft: [
+      {
+        name: "Airbus A330-200F",
+        image: "cj13.png",
+        info: "Purpose-built wide-body freighter balancing payload and range.",
+      },
+      {
+        name: "Boeing 777F",
+        image: "cj14.png",
+        info: "Ultra-efficient long-haul freighter with exceptional payload.",
+      },
+      {
+        name: "Boeing 747-8F",
+        image: "cj15.png",
+        info: "Iconic heavy freighter with unmatched volume and payload.",
+      },
+      {
+        name: "Antonov An-124",
+        image: "cj16.png",
+        info: "One of the world’s largest cargo aircraft for oversized loads.",
+      },
+      {
+        name: "Ilyushin Il-76",
+        image: "cj17.png",
+        info: "Heavy-lift aircraft capable of operating from rough runways.",
+      },
+    ],
+  },
+
+  {
+    category: "Combi & Special Configuration Aircraft",
+    description:
+      "Flexible aircraft capable of carrying passengers and cargo together.",
+    aircraft: [
+      {
+        name: "Boeing 737 Combi",
+        image: "cj18.png",
+        info: "Flexible configuration for mixed passenger and cargo transport.",
+      },
+      {
+        name: "Airbus A320 Combi",
+        image: "cj19.png",
+        info: "Modern combi aircraft with enhanced comfort and efficiency.",
+      },
+      {
+        name: "Boeing 747 Combi",
+        image: "cj20.png",
+        info: "High-capacity long-haul aircraft for combined cargo and passengers.",
+      },
+    ],
+  },
+];
+const imageMap = {
+  "cj1.png": cj1,
+  "cj2.png": cj2,
+  "cj3.png": cj3,
+  "cj4.png": cj4,
+  "cj5.png": cj5,
+  "cj6.png": cj6,
+  "cj7.png": cj7,
+  "cj8.png": cj8,
+  "cj9.png": cj9,
+  "cj10.png": cj10,
+  "cj11.png": cj11,
+  "cj12.png": cj12,
+  "cj13.png": cj13,
+  "cj14.png": cj14,
+  "cj15.png": cj15,
+  "cj16.png": cj16,
+  "cj17.png": cj17,
+  "cj18.png": cj18,
+  "cj19.png": cj19,
+  "cj20.png": cj20,
+};
+
 
 const CargoCharters = () => {
   const [trackingNumber, setTrackingNumber] = useState("");
@@ -213,6 +400,32 @@ const CargoCharters = () => {
           safely, on time, and fully tracked from origin to destination.
         </p>
       </section>
+      {/* Fleet */}
+      <section className="cc-fleet">
+        <h2>Our Cargo Aircraft Fleet</h2>
+
+        {cargoFleet.map((group, index) => (
+          <div key={index} className="fleet-group">
+            <h3>{group.category}</h3>
+            <p className="fleet-description">{group.description}</p>
+
+            <div className="fleet-grid">
+              {group.aircraft.map((plane, idx) => (
+                <div key={idx} className="fleet-card">
+                  <img
+                    src={imageMap[plane.image]}
+                    alt={plane.name}
+                  />
+                  <h4>{plane.name}</h4>
+                  <p>{plane.info}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+
 
       {/* Services */}
       <section className="cc-services">
@@ -290,7 +503,7 @@ const CargoCharters = () => {
         </div>
       </section>
 
-      
+
 
       {/* Call To Action */}
       <section className="cc-cta">

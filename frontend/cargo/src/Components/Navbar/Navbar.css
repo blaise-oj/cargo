@@ -1,67 +1,112 @@
-nav{
-    width : 100%;
-    padding: 4px 0;
+/* ================= NAVBAR BASE ================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  z-index: 1000;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.navbar--sticky {
+  background: #212EA0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Inner container */
+.navbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar__logo {
+  width: 100px;
+  cursor: pointer;
+}
+
+/* ================= DESKTOP MENU ================= */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar__menu li {
+  margin: 0 18px;
+}
+
+.navbar__menu a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.navbar__menu a:hover {
+  color: #39e6bb;
+}
+
+/* ================= MENU ICON ================= */
+.navbar__menu-icon {
+  display: none;
+  width: 32px;
+  cursor: pointer;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1000px) {
+  .navbar__logo {
+    width: 80px;
+  }
+
+  .navbar__menu li {
+    margin: 0 14px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 840px) {
+  .navbar__menu-icon {
+    display: block;
+  }
+
+  /* Mobile menu panel */
+  .navbar__menu {
     position: fixed;
     top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 10;
-    color: #fff;
-}
-.logo{
-    width: 100px;
-}
-nav ul li{
-    display: inline-block;
-    list-style: none;
-    margin: 5px 20px;
-    font-size: 16px;
-}
-.dark-nav{
+    right: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    padding-top: 80px;
     background: #212EA0;
-    transition: 0.5s;
-}
-.menu-icon{
-    display: none;
-}
-/*---media query---*/
-@media(max-width: 1000px){
-    .logo{
-        width: 80px;
 
-    }
-    nav ul li{
-        margin: 10px 15px;
-    }
-}
-@media(max-width: 840px){
-    nav{
-        padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-    }
-    nav ul{
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        background: #212EA0;
-        z-index: -1;
-        width: 200px;
-        padding-top: 70px;
-        transition: 0.5s;
-    }
-    nav ul li{
-        display: block;
-        margin: 25px 40px;
-    }
-    .menu-icon{
-        display: block;
-        width: 30px;
-        cursor: pointer;
-    }
-    .hide-mobile-menu{
-        right: -200px;
-    }
+    transition: right 0.45s ease;
+    z-index: 999;
+  }
+
+  /* When active */
+  .navbar__menu.active {
+    right: 0;
+  }
+
+  .navbar__menu li {
+    width: 100%;
+    margin: 18px 0;
+    padding-left: 32px;
+  }
+
+  .navbar__menu a {
+    font-size: 16px;
+  }
 }
