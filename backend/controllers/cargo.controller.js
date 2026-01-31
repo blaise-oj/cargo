@@ -6,8 +6,8 @@ import { sendCargoStatusEmail } from "../utils/emailService.js";
 
 // Generate airwaybill in the format: CARGO_<12-char random code>
 const generateAirwaybill = () => {
-  const randomCode = crypto.randomBytes(6).toString("hex").toUpperCase();
-  return `CARGO_${randomCode}`;
+  const randomCode = crypto.randomBytes(3).toString("hex").toUpperCase();
+  return `NBO-${randomCode}`;
 };
 
 // ✅ Create Cargo Airwaybill
