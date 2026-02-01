@@ -52,9 +52,14 @@ export const createCargo = async (req, res) => {
     });
 
     await cargo.save();
-    await sendCargoStatusEmail(cargo); // Send email on creation
 
+    // respond immediately
     res.status(201).json(cargo);
+
+    // fire-and-forget (DO NOT await)
+    sendCargoStatusEmail(cargo).catch(err =>
+      console.error("Email failed:", err)
+    );
   } catch (err) {
     console.error("❌ Cargo creation failed:", err);
     res.status(400).json({ message: err.message });
