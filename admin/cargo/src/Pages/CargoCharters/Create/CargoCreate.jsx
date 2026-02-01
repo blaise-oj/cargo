@@ -34,6 +34,7 @@ const CargoCreate = () => {
   const [formData, setFormData] = useState(defaultForm);
   const [cities, setCities] = useState({ origin: [], destination: [] });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Auto-calculate volume
   useEffect(() => {
@@ -63,6 +64,10 @@ const CargoCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (loading) return; // prevent double clicks
+    setLoading(true);
+
     setError("");
 
     const originCityData = cities.origin.find(
@@ -142,7 +147,9 @@ const CargoCreate = () => {
     } catch (err) {
       console.error("Cargo creation error:", err);
       setError(err.message);
-    }
+    }finally {
+    setLoading(false); // ALWAYS runs
+  }
   };
 
   return (
@@ -311,13 +318,15 @@ const CargoCreate = () => {
           />
 
           <div className="form-buttons">
-            <button type="submit" className="cargo-create-btn">
-              Create
+            <button type="submit" className="cargo-create-btn" disabled={loading} > 
+              {loading ? "Creating..." : "Create"} 
+              
             </button>
             <button
               type="button"
               className="cargo-create-back-btn"
               onClick={() => navigate(-1)}
+              disabled={loading}
             >
               Back
             </button>

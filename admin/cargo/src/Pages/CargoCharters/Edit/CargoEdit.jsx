@@ -12,6 +12,7 @@ const CargoEdit = () => {
 
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState("");
 
   const [originCities, setOriginCities] = useState([]);
@@ -143,6 +144,8 @@ const CargoEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (actionLoading) return;
+    setActionLoading(true);
 
     const originData = originCities.find((c) => c.name === formData.originCity);
     const destinationData = destinationCities.find((c) => c.name === formData.destinationCity);
@@ -199,11 +202,16 @@ const CargoEdit = () => {
     } catch (err) {
       console.error(err);
       alert(err.message);
-    }
+    }finally {
+    setActionLoading(false);
+  }
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Delete this cargo?")) return;
+    if (actionLoading) return;
+    setActionLoading(true);
+    
     try {
       const res = await fetch(`${API_URL}/cargo/${airwaybill}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
@@ -212,7 +220,9 @@ const CargoEdit = () => {
     } catch (err) {
       console.error(err);
       alert(err.message);
-    }
+    }finally {
+    setActionLoading(false);
+  }
   };
 
   const handleDownloadReceipt = () => {
@@ -414,9 +424,9 @@ const CargoEdit = () => {
         )}
 
         <div className="form-actions">
-          <button type="button" className="cargo-back-btn" onClick={() => navigate(-1)}>Back</button>
-          <button type="submit" className="cargo-save-btn">Save Changes</button>
-          <button type="button" className="cargo-delete-btn" onClick={handleDelete}>Delete</button>
+          <button type="button" className="cargo-back-btn" onClick={() => navigate(-1)} disabled={actionLoading}>Back</button>
+          <button type="submit" className="cargo-save-btn" disabled={actionLoading}>{actionLoading ? "Saving..." : "Save Changes"}</button>
+          <button type="button" className="cargo-delete-btn" onClick={handleDelete} >Delete</button>
         </div>
 
       </form>
