@@ -425,7 +425,7 @@ const CargoEdit = () => {
 
         <div className="form-actions">
           <button type="button" className="cargo-back-btn" onClick={() => navigate(-1)} disabled={actionLoading}>Back</button>
-          <button type="submit" className="cargo-save-btn" disabled={actionLoading}>{actionLoading ? "Saving..." : "Save Changes"}</button>
+          <button type="submit" className="cargo-save-btn" disabled={actionLoading}>{actionLoading ? "Saved" : "Save Changes"}</button>
           <button type="button" className="cargo-delete-btn" onClick={handleDelete} >Delete</button>
         </div>
 
