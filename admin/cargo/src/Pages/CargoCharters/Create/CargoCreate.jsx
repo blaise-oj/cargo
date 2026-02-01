@@ -129,27 +129,36 @@ const CargoCreate = () => {
     };
 
     try {
-      const res = await fetch(`${API_URL}/cargo`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+  const res = await fetch(`${API_URL}/cargo`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Failed to create cargo airwaybill");
-      }
-
-      await res.json();
-      navigate("/cargocharters");
-      setFormData(defaultForm);
-      setCities({ origin: [], destination: [] });
-    } catch (err) {
-      console.error("Cargo creation error:", err);
-      setError(err.message);
-    }finally {
-    setLoading(false); // ALWAYS runs
+  // Safely read response (only if JSON exists)
+  let data = null;
+  const contentType = res.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    data = await res.json();
   }
+
+  if (!res.ok) {
+    throw new Error(data?.message || "Failed to create cargo airwaybill");
+  }
+
+  // ✅ SUCCESS (even if backend returns no body)
+  alert("✅ Cargo airwaybill created successfully");
+  navigate("/cargocharters");
+  setFormData(defaultForm);
+  setCities({ origin: [], destination: [] });
+
+} catch (err) {
+  console.error("Cargo creation error:", err);
+  setError(err.message);
+} finally {
+  setLoading(false);
+}
+
   };
 
   return (
