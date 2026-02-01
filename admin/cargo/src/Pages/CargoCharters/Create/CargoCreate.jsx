@@ -34,7 +34,6 @@ const CargoCreate = () => {
   const [formData, setFormData] = useState(defaultForm);
   const [cities, setCities] = useState({ origin: [], destination: [] });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   // Auto-calculate volume
   useEffect(() => {
@@ -64,10 +63,6 @@ const CargoCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (loading) return; // prevent double clicks
-    setLoading(true);
-
     setError("");
 
     const originCityData = cities.origin.find(
@@ -129,36 +124,25 @@ const CargoCreate = () => {
     };
 
     try {
-  const res = await fetch(`${API_URL}/cargo`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+      const res = await fetch(`${API_URL}/cargo`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  // Safely read response (only if JSON exists)
-  let data = null;
-  const contentType = res.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    data = await res.json();
-  }
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Failed to create cargo airwaybill");
+      }
 
-  if (!res.ok) {
-    throw new Error(data?.message || "Failed to create cargo airwaybill");
-  }
-
-  // ✅ SUCCESS (even if backend returns no body)
-  alert("✅ Cargo airwaybill created successfully");
-  navigate("/cargocharters");
-  setFormData(defaultForm);
-  setCities({ origin: [], destination: [] });
-
-} catch (err) {
-  console.error("Cargo creation error:", err);
-  setError(err.message);
-} finally {
-  setLoading(false);
-}
-
+      await res.json();
+      navigate("/cargocharters");
+      setFormData(defaultForm);
+      setCities({ origin: [], destination: [] });
+    } catch (err) {
+      console.error("Cargo creation error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -327,15 +311,13 @@ const CargoCreate = () => {
           />
 
           <div className="form-buttons">
-            <button type="submit" className="cargo-create-btn" disabled={loading} > 
-              {loading ? "Creating..." : "Create"} 
-              
+            <button type="submit" className="cargo-create-btn">
+              Create
             </button>
             <button
               type="button"
               className="cargo-create-back-btn"
               onClick={() => navigate(-1)}
-              disabled={loading}
             >
               Back
             </button>
