@@ -22,21 +22,11 @@ export const generateReceiptPDF = (cargo) => {
       if (cargo.status) {
         let color = "gray";
         switch (cargo.status.toUpperCase()) {
-          case "BOOKED":
-            color = "gray";
-            break;
-          case "CHECKED IN":
-            color = "orange";
-            break;
-          case "IN TRANSIT":
-            color = "blue";
-            break;
-          case "ARRIVED":
-            color = "green";
-            break;
-          case "WITHDRAWN":
-            color = "red";
-            break;
+          case "BOOKED": color = "gray"; break;
+          case "CHECKED IN": color = "orange"; break;
+          case "IN TRANSIT": color = "blue"; break;
+          case "ARRIVED": color = "green"; break;
+          case "WITHDRAWN": color = "red"; break;
         }
         doc.fontSize(80)
           .fillColor(color)
@@ -71,55 +61,70 @@ export const generateReceiptPDF = (cargo) => {
       doc.text(
         `Routing: ${cargo.route.map((r) => r.city).join(" → ") || cargo.origin.city + " → " + cargo.destination.city}`,
         35,
-        240
+        240,
+        { width: 400 } // ensures long routes wrap nicely
       );
       doc.text(`Flight Date: ${cargo.departureDate ? new Date(cargo.departureDate).toLocaleString() : "-"}`, 400, 225);
 
       // CARGO DETAILS TABLE
       const tableTop = 270;
-      const rowHeight = 25;
-      const colX = [30, 100, 180, 260, 340, 420];
+      const colX = [30, 80, 150, 230, 310]; // Description gets largest space
+      const colWidth = [50, 70, 80, 80, 235]; // perfect alignment
       const columns = ["Qty", "Weight (kg)", "Dimensions cm", "Volume cm³", "Description"];
+
+      // HEADER
       columns.forEach((col, i) => {
-        doc.rect(colX[i], tableTop, i === columns.length - 1 ? 145 : colX[i + 1] - colX[i], rowHeight)
-          .fillAndStroke(tableHeaderFill, borderColor);
-        doc.font("Helvetica-Bold").fontSize(10).fillColor("#000")
-          .text(col, colX[i] + 2, tableTop + 7);
+        doc.rect(colX[i], tableTop, colWidth[i], 25).fillAndStroke(tableHeaderFill, borderColor);
+        doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(col, colX[i] + 5, tableTop + 7);
       });
 
       const cargoDetails = cargo.cargoDetails;
       const dimensions = `${cargoDetails.length}×${cargoDetails.width}×${cargoDetails.height}`;
-      const rowY = tableTop + rowHeight;
+      const descriptionText = cargoDetails.description || "-";
+
+      // calculate row height based on description
+      const rowHeight = Math.max(25, doc.heightOfString(descriptionText, { width: colWidth[4] - 10 }) + 10);
+
+      // ROW CELLS
       const rowData = [
         cargoDetails.quantity,
         cargoDetails.weight,
         dimensions,
         cargoDetails.volume,
-        cargoDetails.description || "-"
+        descriptionText
       ];
+
       rowData.forEach((text, i) => {
-        doc.rect(colX[i], rowY, i === rowData.length - 1 ? 145 : colX[i + 1] - colX[i], rowHeight).stroke();
-        doc.font("Helvetica").fontSize(10).text(text.toString(), colX[i] + 2, rowY + 7);
+        doc.rect(colX[i], tableTop + 25, colWidth[i], rowHeight).stroke();
+        if (i === 4) {
+          // Description column wraps
+          doc.font("Helvetica").fontSize(10)
+            .text(text.toString(), colX[i] + 5, tableTop + 25 + 5, { width: colWidth[i] - 10 });
+        } else {
+          doc.font("Helvetica").fontSize(10)
+            .text(text.toString(), colX[i] + 5, tableTop + 25 + 7);
+        }
       });
 
       // CHARGES
-      doc.rect(30, 320, 250, 60).stroke();
-      doc.fontSize(10).text(`Currency: USD`, 35, 325);
-      doc.text(`Weight Charge: $${cargo.price || 0}`, 35, 340);
-      doc.text(`Other Charges: $0`, 35, 355);
-      doc.text(`Total Charges: $${cargo.price || 0}`, 35, 370);
+      doc.rect(30, tableTop + 25 + rowHeight + 10, 250, 60).stroke();
+      doc.fontSize(10).text(`Currency: USD`, 35, tableTop + 25 + rowHeight + 15);
+      doc.text(`Weight Charge: $${cargo.price || 0}`, 35, tableTop + 25 + rowHeight + 30);
+      doc.text(`Other Charges: $0`, 35, tableTop + 25 + rowHeight + 45);
+      doc.text(`Total Charges: $${cargo.price || 0}`, 35, tableTop + 25 + rowHeight + 60);
 
       // STATUS & HANDLING
-      doc.rect(315, 320, 250, 60).stroke();
-      doc.fontSize(10).text(`Status: ${cargo.status}`, 320, 325);
-      if (cargo.withdrawReason) doc.text(`Withdraw Reason: ${cargo.withdrawReason}`, 320, 340);
-      if (cargo.withdrawnAt) doc.text(`Withdrawn At: ${new Date(cargo.withdrawnAt).toLocaleString()}`, 320, 355);
+      doc.rect(315, tableTop + 25 + rowHeight + 10, 250, 60).stroke();
+      doc.fontSize(10).text(`Status: ${cargo.status}`, 320, tableTop + 25 + rowHeight + 15);
+      if (cargo.withdrawReason) doc.text(`Withdraw Reason: ${cargo.withdrawReason}`, 320, tableTop + 25 + rowHeight + 30);
+      if (cargo.withdrawnAt) doc.text(`Withdrawn At: ${new Date(cargo.withdrawnAt).toLocaleString()}`, 320, tableTop + 25 + rowHeight + 45);
 
       // DATES & SIGNATURE
-      doc.rect(30, 400, 535, 40).stroke();
-      doc.fontSize(10).text(`Issued Date: ${new Date(cargo.createdAt).toLocaleString()}`, 35, 405);
-      doc.text(`Place of Issue: ${cargo.origin.city}`, 200, 405);
-      doc.text(`Signature: For Airrush Charters Ltd`, 400, 405);
+      const bottomY = tableTop + 25 + rowHeight + 80;
+      doc.rect(30, bottomY, 535, 40).stroke();
+      doc.fontSize(10).text(`Issued Date: ${new Date(cargo.createdAt).toLocaleString()}`, 35, bottomY + 5);
+      doc.text(`Place of Issue: ${cargo.origin.city}`, 200, bottomY + 5);
+      doc.text(`Signature: For Airrush Charters Ltd`, 400, bottomY + 5);
 
       doc.end();
     } catch (err) {
