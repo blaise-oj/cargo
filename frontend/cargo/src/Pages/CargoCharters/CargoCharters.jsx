@@ -322,7 +322,7 @@ const CargoCharters = () => {
           />
           <button type="submit">Track</button>
         </form>
-        <p className="hint">Example: CARGO_B69C96789EC6</p>
+        <p className="hint">Example: NBO-ABC123</p>
         {error && <p className="error">{error}</p>}
       </section>
 

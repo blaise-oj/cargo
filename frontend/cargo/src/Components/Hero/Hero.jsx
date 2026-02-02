@@ -28,21 +28,25 @@ const Hero = () => {
               to="/cargo-charters"
               className="btn track-btn"
               style={{
-                marginTop: '15px',      // space below the previous button
+                marginTop: '15px',        // space below the previous button
                 backgroundColor: '#fff',
                 color: '#000',
                 textDecoration: 'none',
-                display: 'block',       // makes it appear below the first button
+                display: 'block',          // stacked below the first button
                 textAlign: 'center',
                 padding: '12px 25px',
-                borderRadius: '5px',
+                borderRadius: '30px',
+                width: '160px',            // shorter than before
+                marginLeft: 'auto',        // centers the button
+                marginRight: 'auto',
               }}
+
             >
-              Track Your Receipt
+              Track Your Cargo
             </Link>
+          </div>
         </div>
       </div>
-    </div>
     </section >
   );
 };
