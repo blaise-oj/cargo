@@ -156,6 +156,21 @@ th {
 .status-badge.withdrawn {
   background: #f3e8ff;
   color: #6b21a8;
+}/* === Table Improvements for Description Column === */
+
+/* Desktop */
+td[data-label="Description"] {
+  max-width: 250px;      /* allow wider column */
+  white-space: normal;    /* wrap text naturally */
+  word-break: break-word;
+  line-height: 1.6;       /* more spacing for readability */
+  padding: 12px 12px;     /* keep padding consistent */
+}
+
+/* Optional: Adjust all table cells for more vertical spacing */
+td {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 /* === Mobile view === */
@@ -218,5 +233,15 @@ th {
   .cargo-list-edit-btn,
   .cargo-list-download-btn {
     flex: 1;
+  }
+  td[data-label="Description"] {
+    flex-basis: 100%;       /* take full width on mobile */
+    line-height: 1.8;       /* more spacing between lines */
+    margin-top: 4px;        /* small gap from label */
+  }
+
+  td[data-label="Description"]::before {
+    flex: none;
+    margin-bottom: 4px;
   }
 }
