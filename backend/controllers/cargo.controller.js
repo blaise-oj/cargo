@@ -241,22 +241,28 @@ export const deleteCargoByAirwaybill = async (req, res) => {
   }
 };
 
-// 📄 Download receipt
+// 📄 Download receipt (available for ALL statuses)
 export const downloadCargoReceipt = async (req, res) => {
   const { airwaybill } = req.params;
 
   try {
     const cargo = await Cargo.findOne({ airwaybill });
-    if (!cargo) return res.status(404).json({ message: "Cargo not found" });
+    if (!cargo) {
+      return res.status(404).json({ message: "Cargo not found" });
+    }
 
-    if (cargo.status !== "Withdrawn")
-      return res.status(400).json({ message: "Receipt is only available after withdrawal" });
-
+    // Generate receipt regardless of status
     const pdfBuffer = await generateReceiptPDF(cargo);
+
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", `attachment; filename=Receipt_${airwaybill}.pdf`);
-    res.send(pdfBuffer);
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=Airwaybill_${airwaybill}.pdf`
+    );
+
+    res.status(200).send(pdfBuffer);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("❌ Receipt download failed:", err);
+    res.status(500).json({ message: "Failed to generate receipt" });
   }
 };

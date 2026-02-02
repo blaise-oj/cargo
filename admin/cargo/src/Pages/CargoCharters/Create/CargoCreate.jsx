@@ -335,7 +335,6 @@ const CargoCreate = () => {
               type="button"
               className="cargo-create-back-btn"
               onClick={() => navigate(-1)}
-              disabled={loading}
             >
               Back
             </button>

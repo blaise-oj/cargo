@@ -55,24 +55,39 @@ const CargoList = () => {
   // Download receipt
   const downloadReceipt = async (airwaybill) => {
     try {
-      const res = await fetch(`${API_URL}/cargo/${airwaybill}/receipt`, {
-        method: "GET",
-      });
-      if (!res.ok) throw new Error("Failed to download receipt");
+      const res = await fetch(
+        `${API_URL}/cargo/${airwaybill}/receipt`,
+        {
+          method: "GET",
+          credentials: "include", // important if you use cookies/auth
+        }
+      );
+
+      if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || "Download failed");
+      }
 
       const blob = await res.blob();
+
+      if (blob.type !== "application/pdf") {
+        throw new Error("Invalid file format received");
+      }
+
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `receipt_${airwaybill}.pdf`;
+      a.download = `Airwaybill_${airwaybill}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      alert(err.message);
+      console.error("Download error:", err);
+      alert("Failed to download airwaybill");
     }
   };
+
 
   // ✅ Filter cargo bills based on search query
   const filteredCargoBills = cargoBills.filter((bill) => {
@@ -176,14 +191,13 @@ const CargoList = () => {
                       <button className="cargo-list-edit-btn">Edit</button>
                     </Link>
 
-                    {bill.status === "Withdrawn" && (
-                      <button
-                        onClick={() => downloadReceipt(bill.airwaybill)}
-                        className="cargo-list-download-btn"
-                      >
-                        Download Receipt
-                      </button>
-                    )}
+                    <button
+                      onClick={() => downloadReceipt(bill.airwaybill)}
+                      className="cargo-list-download-btn"
+                    >
+                      Download Airwaybill
+                    </button>
+
                   </td>
                 </tr>
               ))}

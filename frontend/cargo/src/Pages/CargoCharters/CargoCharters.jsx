@@ -73,6 +73,8 @@ const getPlanePosition = (cargo) => {
   }
 };
 
+
+
 const cargoFleet = [
   {
     category: "Light Cargo & Utility Aircraft",
@@ -261,6 +263,38 @@ const CargoCharters = () => {
       setError("Error fetching cargo data");
     }
   };
+  // ← Move downloadReceipt inside the component
+  const downloadReceipt = async () => {
+    if (!cargo) {
+      alert("No cargo loaded to download");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/cargo/${cargo.airwaybill}/receipt`, {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to download receipt");
+      }
+
+      const blob = await res.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Airwaybill_${cargo.airwaybill}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Download error:", err);
+      alert("Failed to download airwaybill");
+    }
+  };
 
   return (
     <div className="cargo-charters">
@@ -362,12 +396,6 @@ const CargoCharters = () => {
           </MapContainer>
 
           {/* Cargo Details */}
-          <div className="details-toggle">
-            <button onClick={() => setShowDetails(!showDetails)}>
-              {showDetails ? "Hide Cargo Details" : "View Cargo Details"}
-            </button>
-          </div>
-          {showDetails && (
             <div className="cargo-details">
               <h4>Cargo Receipt</h4>
               <ul>
@@ -381,7 +409,23 @@ const CargoCharters = () => {
                 <li><strong>Updated:</strong> {new Date(cargo.updatedAt).toLocaleString()}</li>
               </ul>
             </div>
-          )}
+          
+          <button
+            onClick={downloadReceipt}
+            className="download-receipt-btn"
+            style={{
+              marginTop: "10px",
+              padding: "8px 16px",
+              backgroundColor: "#2E7D32",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Download Cargo Receipt
+          </button>
+
         </section>
       )}
 

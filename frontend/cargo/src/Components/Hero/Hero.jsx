@@ -1,6 +1,7 @@
-import React from 'react'
-import './Hero.css'
-import dark_arrow from '../../assets/dark-arrow.png'
+import React from 'react';
+import './Hero.css';
+import dark_arrow from '../../assets/dark-arrow.png';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const scrollToServices = () => {
@@ -16,12 +17,33 @@ const Hero = () => {
         <div className="hero-text">
           <h1>AIRRUSH CHARTERS</h1>
           <p>Your Trusted Partner in Air Freight and Charter Services</p>
-          <button className="btn" onClick={scrollToServices}>
-            Explore more <img src={dark_arrow} alt="" />
-          </button>
+
+          {/* Buttons stacked vertically */}
+          <div className="hero-buttons">
+            <button className="btn" onClick={scrollToServices}>
+              Explore more <img src={dark_arrow} alt="" />
+            </button>
+
+            <Link
+              to="/cargo-charters"
+              className="btn track-btn"
+              style={{
+                marginTop: '15px',      // space below the previous button
+                backgroundColor: '#fff',
+                color: '#000',
+                textDecoration: 'none',
+                display: 'block',       // makes it appear below the first button
+                textAlign: 'center',
+                padding: '12px 25px',
+                borderRadius: '5px',
+              }}
+            >
+              Track Your Receipt
+            </Link>
         </div>
       </div>
-    </section>
+    </div>
+    </section >
   );
 };
 
