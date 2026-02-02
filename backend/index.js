@@ -35,21 +35,26 @@ const allowedOrigins = [
   /^http:\/\/localhost:\d+$/,
   "https://www.airrushcharters.com",
   "https://airrushcharters.com",
+  "https://admin.airrushcharters.com",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // allow requests with no origin (Postman, server-to-server)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS not allowed"));
+      // Allow requests with no origin (like Postman, server-to-server)
+      if (!origin) return callback(null, true);
+
+      // Dynamically check allowed origins
+      if (allowedOrigins.some((o) => (typeof o === "string" ? o === origin : o.test(origin)))) {
+        return callback(null, true);
       }
+
+      callback(new Error("CORS not allowed"));
     },
-    credentials: true,
+    credentials: true, // must be true for cookies / auth
   })
 );
+
 
 // ---------- ROUTES ----------
 
