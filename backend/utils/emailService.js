@@ -128,6 +128,8 @@ export const sendCargoStatusEmail = async (cargo) => {
       ? "Your cargo is booked and awaiting departure."
       : status === "In Transit"
       ? "Your cargo is on the way."
+      : delayed === "Delayed"
+      ? "Your cargo shipment has been delayed. We apologize for the inconvenience."
       : status === "Arrived"
       ? "Your cargo has arrived at the destination. Please arrange for collection."
       : status === "Withdrawn"
@@ -153,6 +155,7 @@ export const sendCargoStatusEmail = async (cargo) => {
     <p><b>What’s next?</b></p>
     <p>${statusMessage}</p>
   `;
+  try {
 
   await transporter.sendMail({
     from: `"AirRush Charters" <${process.env.SMTP_USER}>`,
@@ -160,4 +163,8 @@ export const sendCargoStatusEmail = async (cargo) => {
     subject,
     html: wrapTemplate("Cargo Shipment Update", htmlBody, "AirRush Charters"),
   });
+  } catch (err) {
+    console.error("⚠️ Cargo email failed:", err.message);
+    // Fail silently — cargo creation/update still succeeds
+  }
 };
