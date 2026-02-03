@@ -15,7 +15,7 @@ const cargoRoutePointSchema = new mongoose.Schema(
     country: { type: String, required: true },
     status: {
       type: String,
-      enum: ["Booked", "Checked In", "In Transit", "Arrived", "Withdrawn"],
+      enum: ["Booked", "Checked In", "Delayed", "In Transit", "Arrived", "Withdrawn"],
       required: true,
     },
     timestamp: { type: Date, default: Date.now },
@@ -63,7 +63,7 @@ const cargoSchema = new mongoose.Schema(
     cargoDetails: { type: cargoDetailsSchema, required: true },
     status: {
       type: String,
-      enum: ["Booked", "Checked In", "In Transit", "Arrived", "Withdrawn"],
+      enum: ["Booked", "Checked In", "Delayed", "In Transit", "Arrived", "Withdrawn"],
       default: "Booked",
     },
     price: { type: Number, default: 0 },

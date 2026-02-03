@@ -48,6 +48,10 @@ const CargoEdit = () => {
             volume: cargo.cargoDetails?.volume || 0,
           },
           price: cargo.price || 0,
+          delayedAt: cargo.delayedAt
+            ? new Date(cargo.delayedAt).toISOString().slice(0, 16)
+            : "",
+          delayReason: cargo.delayReason || "",
           withdrawReason: cargo.withdrawReason || "",
           departureDate: cargo.departureDate ? new Date(cargo.departureDate).toISOString().slice(0, 16) : "",
           arrivalDate: cargo.arrivalDate ? new Date(cargo.arrivalDate).toISOString().slice(0, 16) : "",
@@ -115,32 +119,61 @@ const CargoEdit = () => {
     else if (type === "current") setCurrentCities(citiesList);
   };
 
+  const statusOrder = [
+    "Booked",
+    "Checked In",
+    "Delayed",
+    "In Transit",
+    "Arrived",
+    "Withdrawn",
+  ];
+
+
   const handleStatusChange = (e) => {
-    const newStatus = e.target.value;
-    let updated = { ...formData, status: newStatus };
+  const newStatus = e.target.value;
 
-    if (newStatus === "In Transit" && !formData.departureDate)
-      updated.departureDate = new Date().toISOString().slice(0, 16);
-    if (newStatus === "Arrived" && !formData.arrivalDate)
-      updated.arrivalDate = new Date().toISOString().slice(0, 16);
-    if (newStatus === "Withdrawn" && !formData.withdrawnAt)
-      updated.withdrawnAt = new Date().toISOString().slice(0, 16);
+  const currentIndex = statusOrder.indexOf(formData.status);
+  const nextIndex = statusOrder.indexOf(newStatus);
 
-    if (formData.status === "Withdrawn" && newStatus !== "Withdrawn") {
-      updated.withdrawnAt = "";
-      updated.withdrawReason = "";
-    }
+  if (nextIndex < currentIndex) {
+    alert("⚠️ You cannot move cargo backward in status.");
+    return;
+  }
 
-    if (["Booked", "Checked In"].includes(newStatus)) {
-      updated.currentCountry = updated.originCountry;
-      updated.currentCity = updated.originCity;
-    } else if (["Arrived", "Withdrawn"].includes(newStatus)) {
-      updated.currentCountry = updated.destinationCountry;
-      updated.currentCity = updated.destinationCity;
-    }
+  let updated = { ...formData, status: newStatus };
 
-    setFormData(updated);
-  };
+  if (newStatus === "In Transit" && !formData.departureDate) {
+    updated.departureDate = new Date().toISOString().slice(0, 16);
+  }
+
+  if (newStatus === "Arrived" && !formData.arrivalDate) {
+    updated.arrivalDate = new Date().toISOString().slice(0, 16);
+  }
+
+  if (newStatus === "Withdrawn" && !formData.withdrawnAt) {
+    updated.withdrawnAt = new Date().toISOString().slice(0, 16);
+  }
+
+  if (formData.status === "Withdrawn" && newStatus !== "Withdrawn") {
+    updated.withdrawnAt = "";
+    updated.withdrawReason = "";
+  }
+
+  if (formData.status === "Delayed" && newStatus !== "Delayed") {
+    updated.delayedAt = "";
+    updated.delayReason = "";
+  }
+
+  if (["Booked", "Checked In", "Delayed"].includes(newStatus)) {
+    updated.currentCountry = updated.originCountry;
+    updated.currentCity = updated.originCity;
+  } else if (["Arrived", "Withdrawn"].includes(newStatus)) {
+    updated.currentCountry = updated.destinationCountry;
+    updated.currentCity = updated.destinationCity;
+  }
+
+  setFormData(updated);
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -202,16 +235,16 @@ const CargoEdit = () => {
     } catch (err) {
       console.error(err);
       alert(err.message);
-    }finally {
-    setActionLoading(false);
-  }
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const handleDelete = async () => {
     if (!window.confirm("Delete this cargo?")) return;
     if (actionLoading) return;
     setActionLoading(true);
-    
+
     try {
       const res = await fetch(`${API_URL}/cargo/${airwaybill}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
@@ -220,9 +253,9 @@ const CargoEdit = () => {
     } catch (err) {
       console.error(err);
       alert(err.message);
-    }finally {
-    setActionLoading(false);
-  }
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const handleDownloadReceipt = () => {
@@ -384,6 +417,7 @@ const CargoEdit = () => {
           <select value={formData.status} onChange={handleStatusChange}>
             <option value="Booked">Booked</option>
             <option value="Checked In">Checked In</option>
+            <option value="Delayed">Delayed</option>
             <option value="In Transit">In Transit</option>
             <option value="Arrived">Arrived</option>
             <option value="Withdrawn">Withdrawn</option>
@@ -394,6 +428,31 @@ const CargoEdit = () => {
           <label>Departure Date</label>
           <input type="datetime-local" name="departureDate" value={formData.departureDate} onChange={handleChange} />
         </div>
+
+        {formData.status === "Delayed" && (
+          <>
+            <div className="form-group">
+              <label>Delayed Date</label>
+              <input
+                type="datetime-local"
+                name="delayedAt"
+                value={formData.delayedAt || ""}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Delay Reason</label>
+              <textarea
+                name="delayReason"
+                value={formData.delayReason || ""}
+                onChange={handleChange}
+                placeholder="Reason for delay (weather, documentation, technical issue)"
+              />
+            </div>
+          </>
+        )}
+
 
         {formData.status === "Arrived" && (
           <div className="form-group">

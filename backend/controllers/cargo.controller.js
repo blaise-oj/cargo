@@ -100,6 +100,26 @@ export const updateCargoByAirwaybill = async (req, res) => {
     const { airwaybill } = req.params;
     const cargo = await Cargo.findOne({ airwaybill });
     if (!cargo) return res.status(404).json({ message: "Cargo not found" });
+    // 🔒 STATUS ORDER ENFORCEMENT (ADD HERE)
+    const statusOrder = [
+      "Booked",
+      "Checked In",
+      "Delayed",
+      "In Transit",
+      "Arrived",
+      "Withdrawn",
+    ];
+
+    if (req.body.status) {
+      const currentIndex = statusOrder.indexOf(cargo.status);
+      const nextIndex = statusOrder.indexOf(req.body.status);
+
+      if (nextIndex < currentIndex) {
+        return res.status(400).json({
+          message: "Cannot move cargo backward in status",
+        });
+      }
+    }
 
     const allowedFields = [
       "customerName",
@@ -108,14 +128,16 @@ export const updateCargoByAirwaybill = async (req, res) => {
       "destination",
       "cargoDetails",
       "price",
-      "volume",
       "departureDate",
       "arrivalDate",
       "currentLocation",
       "status",
+      "delayedAt",
+      "delayReason",
       "withdrawnAt",
       "withdrawReason",
     ];
+
 
     let routeUpdated = false;
 
@@ -127,6 +149,18 @@ export const updateCargoByAirwaybill = async (req, res) => {
       }
     });
 
+    // If cargo is delayed → lock it at origin
+if (cargo.status === "Delayed") {
+  if (!cargo.delayedAt) cargo.delayedAt = new Date();
+  cargo.currentLocation = cargo.origin;
+}
+
+// If leaving Delayed → clear delay metadata
+if (cargo.status !== "Delayed") {
+  cargo.delayedAt = null;
+  cargo.delayReason = "";
+}
+
     // Safely push route entry if location/status updated
     if (routeUpdated && cargo.currentLocation) {
       const { city, country, lat, lng } = cargo.currentLocation;
@@ -137,7 +171,11 @@ export const updateCargoByAirwaybill = async (req, res) => {
           lat,
           lng,
           status: cargo.status,
-          note: "Cargo updated by admin",
+          note:
+  cargo.status === "Delayed"
+    ? `Delayed: ${cargo.delayReason || "No reason provided"}`
+    : `Status updated to ${cargo.status}`,
+
           timestamp: new Date(),
         });
       } else {
@@ -178,6 +216,24 @@ export const updateCargoStatus = async (req, res) => {
 
     const cargo = await Cargo.findOne({ airwaybill });
     if (!cargo) return res.status(404).json({ message: "Cargo not found" });
+
+    const statusOrder = [
+      "Booked",
+      "Checked In",
+      "Delayed",
+      "In Transit",
+      "Arrived",
+      "Withdrawn",
+    ];
+
+    const currentIndex = statusOrder.indexOf(cargo.status);
+    const nextIndex = statusOrder.indexOf(status);
+
+    if (nextIndex < currentIndex) {
+      return res.status(400).json({
+        message: "Cannot move cargo backward in status",
+      });
+    }
 
     cargo.status = status;
     cargo.currentLocation = { ...currentLocation, updatedAt: new Date() };
