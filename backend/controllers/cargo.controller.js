@@ -150,16 +150,21 @@ export const updateCargoByAirwaybill = async (req, res) => {
     });
 
     // If cargo is delayed → lock it at origin
-if (cargo.status === "Delayed") {
-  if (!cargo.delayedAt) cargo.delayedAt = new Date();
-  cargo.currentLocation = cargo.origin;
-}
+    const newStatus = req.body.status || cargo.status;
 
-// If leaving Delayed → clear delay metadata
-if (cargo.status !== "Delayed") {
-  cargo.delayedAt = null;
-  cargo.delayReason = "";
-}
+    // If cargo is delayed → lock it at origin
+    if (newStatus === "Delayed") {
+      if (!cargo.delayedAt) cargo.delayedAt = new Date();
+      cargo.currentLocation = cargo.origin;
+      cargo.delayReason = req.body.delayReason || cargo.delayReason || "No reason provided";
+    }
+
+    // If leaving Delayed → clear delay metadata
+    if (newStatus !== "Delayed") {
+      cargo.delayedAt = null;
+      cargo.delayReason = "";
+    }
+
 
     // Safely push route entry if location/status updated
     if (routeUpdated && cargo.currentLocation) {
@@ -172,9 +177,9 @@ if (cargo.status !== "Delayed") {
           lng,
           status: cargo.status,
           note:
-  cargo.status === "Delayed"
-    ? `Delayed: ${cargo.delayReason || "No reason provided"}`
-    : `Status updated to ${cargo.status}`,
+            cargo.status === "Delayed"
+              ? `Delayed: ${cargo.delayReason || "No reason provided"}`
+              : `Status updated to ${cargo.status}`,
 
           timestamp: new Date(),
         });

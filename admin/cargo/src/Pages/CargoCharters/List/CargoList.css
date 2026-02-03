@@ -210,7 +210,7 @@ td {
     border: none;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 6px 0;
     word-break: break-word;
   }
@@ -228,20 +228,34 @@ td {
     flex-wrap: wrap;
     gap: 8px;
     justify-content: flex-start;
+    margin-top: 6px;
   }
 
   .cargo-list-edit-btn,
   .cargo-list-download-btn {
     flex: 1;
   }
-  td[data-label="Description"] {
-    flex-basis: 100%;       /* take full width on mobile */
-    line-height: 1.8;       /* more spacing between lines */
+
+  /* Make long text fields full-width and spaced nicely */
+  td[data-label="Description"],
+  td[data-label="Delay Reason"],
+  td[data-label="Withdraw Reason"] {
+    flex-basis: 100%;       /* full width */
+    line-height: 1.8;       /* better readability */
     margin-top: 4px;        /* small gap from label */
+    word-wrap: break-word;
   }
 
-  td[data-label="Description"]::before {
+  td[data-label="Description"]::before,
+  td[data-label="Delay Reason"]::before,
+  td[data-label="Withdraw Reason"]::before {
     flex: none;
     margin-bottom: 4px;
+  }
+
+  /* Optional: add a small padding to status badges for mobile */
+  td[data-label="Status"] .status-badge {
+    padding: 2px 6px;
+    font-size: 0.85rem;
   }
 }

@@ -27,6 +27,7 @@ export const generateReceiptPDF = (cargo) => {
           case "IN TRANSIT": color = "blue"; break;
           case "ARRIVED": color = "green"; break;
           case "WITHDRAWN": color = "red"; break;
+          case "DELAYED": color = "purple"; break;
         }
         doc.fontSize(80)
           .fillColor(color)
@@ -51,25 +52,24 @@ export const generateReceiptPDF = (cargo) => {
       doc.text(`Address: ${cargo.origin.city}, ${cargo.origin.country}`, 35, 140);
       if (cargo.customerAccount) doc.text(`Account No: ${cargo.customerAccount}`, 35, 155);
 
-      doc.text(`Consignee: ${cargo.consigneeName}`, 320, 110);
+      doc.text(`Consignee: ${cargo.consigneeName || "-"}`, 320, 110);
       doc.text(`Address: ${cargo.destination.city}, ${cargo.destination.country}`, 320, 125);
 
       // ROUTING & FLIGHT
       doc.rect(30, 220, 535, 40).stroke();
-      doc.fontSize(10).text(`Departure: ${cargo.origin.code} (${cargo.origin.city})`, 35, 225);
-      doc.text(`Destination: ${cargo.destination.code} (${cargo.destination.city})`, 200, 225);
+      doc.fontSize(10).text(`Departure: ${cargo.origin.code || "-"}`, 35, 225);
+      doc.text(`Destination: ${cargo.destination.code || "-"}`, 200, 225);
       doc.text(
-        `Routing: ${cargo.route.map((r) => r.city).join(" → ") || cargo.origin.city + " → " + cargo.destination.city}`,
+        `Routing: ${cargo.origin.city} → ${cargo.destination.city}`,
         35,
-        240,
-        { width: 400 } // ensures long routes wrap nicely
+        240
       );
       doc.text(`Flight Date: ${cargo.departureDate ? new Date(cargo.departureDate).toLocaleString() : "-"}`, 400, 225);
 
       // CARGO DETAILS TABLE
       const tableTop = 270;
-      const colX = [30, 80, 150, 230, 310]; // Description gets largest space
-      const colWidth = [50, 70, 80, 80, 235]; // perfect alignment
+      const colX = [30, 80, 150, 230, 310]; // Description column largest
+      const colWidth = [50, 70, 80, 80, 235];
       const columns = ["Qty", "Weight (kg)", "Dimensions cm", "Volume cm³", "Description"];
 
       // HEADER
@@ -97,7 +97,6 @@ export const generateReceiptPDF = (cargo) => {
       rowData.forEach((text, i) => {
         doc.rect(colX[i], tableTop + 25, colWidth[i], rowHeight).stroke();
         if (i === 4) {
-          // Description column wraps
           doc.font("Helvetica").fontSize(10)
             .text(text.toString(), colX[i] + 5, tableTop + 25 + 5, { width: colWidth[i] - 10 });
         } else {
@@ -113,14 +112,33 @@ export const generateReceiptPDF = (cargo) => {
       doc.text(`Other Charges: $0`, 35, tableTop + 25 + rowHeight + 45);
       doc.text(`Total Charges: $${cargo.price || 0}`, 35, tableTop + 25 + rowHeight + 60);
 
-      // STATUS & HANDLING
-      doc.rect(315, tableTop + 25 + rowHeight + 10, 250, 60).stroke();
-      doc.fontSize(10).text(`Status: ${cargo.status}`, 320, tableTop + 25 + rowHeight + 15);
-      if (cargo.withdrawReason) doc.text(`Withdraw Reason: ${cargo.withdrawReason}`, 320, tableTop + 25 + rowHeight + 30);
-      if (cargo.withdrawnAt) doc.text(`Withdrawn At: ${new Date(cargo.withdrawnAt).toLocaleString()}`, 320, tableTop + 25 + rowHeight + 45);
+      // STATUS & HANDLING (DELAY & WITHDRAWN SEPARATE)
+      const statusSectionTop = tableTop + 25 + rowHeight + 80;
+      const statusSectionHeight = 80;
+      doc.rect(30, statusSectionTop, 535, statusSectionHeight).stroke();
+      doc.fontSize(10).font("Helvetica-Bold").text("Status & Handling", 35, statusSectionTop + 5);
+
+      let currentY = statusSectionTop + 25;
+      doc.font("Helvetica").fontSize(10).text(`Status: ${cargo.status}`, 35, currentY);
+      currentY += 15;
+
+      // Delayed info
+      if (cargo.status === "Delayed") {
+        doc.text(`Delayed At: ${cargo.delayedAt ? new Date(cargo.delayedAt).toLocaleString() : "-"}`, 35, currentY);
+        currentY += 15;
+        doc.text(`Delay Reason: ${cargo.delayReason || "-"}`, 35, currentY, { width: 500 });
+        currentY += 25;
+      }
+
+      // Withdraw info
+      if (cargo.status === "Withdrawn") {
+        doc.text(`Withdrawn At: ${cargo.withdrawnAt ? new Date(cargo.withdrawnAt).toLocaleString() : "-"}`, 35, currentY);
+        currentY += 15;
+        doc.text(`Withdraw Reason: ${cargo.withdrawReason || "-"}`, 35, currentY, { width: 500 });
+      }
 
       // DATES & SIGNATURE
-      const bottomY = tableTop + 25 + rowHeight + 80;
+      const bottomY = statusSectionTop + statusSectionHeight + 20;
       doc.rect(30, bottomY, 535, 40).stroke();
       doc.fontSize(10).text(`Issued Date: ${new Date(cargo.createdAt).toLocaleString()}`, 35, bottomY + 5);
       doc.text(`Place of Issue: ${cargo.origin.city}`, 200, bottomY + 5);

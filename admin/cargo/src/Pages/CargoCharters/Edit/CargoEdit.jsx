@@ -142,6 +142,10 @@ const CargoEdit = () => {
 
   let updated = { ...formData, status: newStatus };
 
+  if (newStatus === "Delayed" && !formData.delayedAt) {
+  updated.delayedAt = new Date().toISOString().slice(0, 16);
+  }
+
   if (newStatus === "In Transit" && !formData.departureDate) {
     updated.departureDate = new Date().toISOString().slice(0, 16);
   }
@@ -220,6 +224,8 @@ const CargoEdit = () => {
       withdrawnAt: formData.withdrawnAt || null,
       withdrawReason: formData.withdrawReason || "",
       status: formData.status,
+      delayedAt: formData.status === "Delayed" ? formData.delayedAt || new Date().toISOString() : null,
+      delayReason: formData.status === "Delayed" ? formData.delayReason || "" : "",
     };
 
     try {

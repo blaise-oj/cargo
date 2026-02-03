@@ -69,6 +69,9 @@ const cargoSchema = new mongoose.Schema(
     price: { type: Number, default: 0 },
     departureDate: { type: Date, default: null },
     arrivalDate: { type: Date, default: null },
+    delayedAt: { type: Date, default: null },
+    delayReason: { type: String, default: "" },
+
     withdrawnAt: { type: Date, default: null },
     withdrawReason: { type: String, default: "" },
     route: { type: [cargoRoutePointSchema], default: [] },

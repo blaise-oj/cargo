@@ -144,6 +144,8 @@ const CargoList = () => {
                 <th>Description</th>
                 <th>Price (USD)</th>
                 <th>Status</th>
+                <th>Delayed At</th>        
+                <th>Delay Reason</th>
                 <th>Departure</th>
                 <th>Arrival</th>
                 <th>Withdraw Reason</th>
@@ -182,6 +184,8 @@ const CargoList = () => {
                       {bill.status}
                     </div>
                   </td>
+                  <td data-label="Delayed At">{formatDate(bill.delayedAt)}</td>          
+                  <td data-label="Delay Reason">{bill.delayReason || "-"}</td>
                   <td data-label="Departure">{formatDate(bill.departureDate)}</td>
                   <td data-label="Arrival">{formatDate(bill.arrivalDate)}</td>
                   <td data-label="Withdraw Reason">{bill.withdrawReason || "-"}</td>
