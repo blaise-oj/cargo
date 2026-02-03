@@ -155,9 +155,9 @@ export const sendCargoStatusEmail = async (cargo) => {
   `;
 
   await transporter.sendMail({
-    from: `"Cargo Charters" <${process.env.SMTP_USER}>`,
+    from: `"AirRush Charters" <${process.env.SMTP_USER}>`,
     to: customerEmail,
     subject,
-    html: wrapTemplate("Cargo Shipment Update", htmlBody, "Cargo Charters"),
+    html: wrapTemplate("Cargo Shipment Update", htmlBody, "AirRush Charters"),
   });
 };
