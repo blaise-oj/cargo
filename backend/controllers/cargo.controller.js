@@ -155,41 +155,47 @@ export const updateCargoByAirwaybill = async (req, res) => {
     // If cargo is delayed → lock it at origin
     if (newStatus === "Delayed") {
       if (!cargo.delayedAt) cargo.delayedAt = new Date();
-      cargo.currentLocation = cargo.origin;
+      cargo.currentLocation = {
+        ...cargo.origin,
+        updatedAt: new Date(),
+      };
+
       cargo.delayReason = req.body.delayReason || cargo.delayReason || "No reason provided";
     }
 
-    // If leaving Delayed → clear delay metadata
-    if (newStatus !== "Delayed") {
+    if (req.body.status && newStatus !== "Delayed") {
       cargo.delayedAt = null;
       cargo.delayReason = "";
     }
-
-
     // Safely push route entry if location/status updated
-    if (routeUpdated && cargo.currentLocation) {
-      const { city, country, lat, lng } = cargo.currentLocation;
-      if (city && country && lat != null && lng != null) {
-        cargo.route.push({
-          city,
-          country,
-          lat,
-          lng,
-          status: cargo.status,
-          note:
-            cargo.status === "Delayed"
-              ? `Delayed: ${cargo.delayReason || "No reason provided"}`
-              : `Status updated to ${cargo.status}`,
+if (routeUpdated && cargo.currentLocation) {
+  const { city, country, lat, lng } = cargo.currentLocation;
 
-          timestamp: new Date(),
-        });
-      } else {
-        console.warn(
-          "Skipped adding route entry: incomplete currentLocation data",
-          cargo.currentLocation
-        );
-      }
-    }
+  // Only push if coordinates actually changed
+  const lastPoint = cargo.route[cargo.route.length - 1];
+  const locationChanged =
+    !lastPoint || lastPoint.lat !== lat || lastPoint.lng !== lng;
+
+  if (city && country && lat != null && lng != null && locationChanged) {
+    cargo.route.push({
+      city,
+      country,
+      lat,
+      lng,
+      status: cargo.status,
+      note:
+        cargo.status === "Delayed"
+          ? `Delayed: ${cargo.delayReason || "No reason provided"}`
+          : `Status updated to ${cargo.status}`,
+      timestamp: new Date(),
+    });
+  } else if (!locationChanged && cargo.status === "Delayed") {
+    // Update last route note if delayed at same location
+    lastPoint.note = `Delayed: ${cargo.delayReason || "No reason provided"}`;
+    lastPoint.timestamp = new Date();
+  }
+}
+
 
     await cargo.save();
     await sendCargoStatusEmail(cargo); // Send email on update
