@@ -1,29 +1,114 @@
-.hero{
-    width: 100%;
-    min-height: 100vh;
-    background: url('../../assets/jet5.png');
-    background: linear-gradient(rgba(8,0,58,0.7), rgba(8,0,58,0.7)), url('../../assets/jet5.png');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-.hero-text{
-    text-align: center;
-    max-width: 600px;
-
-}
-.hero-text h1{
-    font-size: 40px;
-    font-weight: 600;
-
-}
-.hero-text p{
-    max-width: 700px;
-    margin: 10px auto 20px;
-    line-height: 1.4;
+.airrush-hero {
+  height: 60vh; /* reduced height */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  transition: background-image 1s ease-in-out;
 }
 
+/* CONTENT */
+.hero-content {
+  max-width: 600px;
+  color: #fff;
+}
+
+/* TEXT */
+.hero-text h1 {
+  font-size: 2.7rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  animation: fadeInUp 0.6s ease;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+  animation: fadeInUp 0.8s ease;
+}
+
+/* LIST */
+.hero-list {
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+
+.hero-list li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* BUTTONS */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* BUTTON BASE */
+.btn {
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* PRIMARY */
+.btn.primary {
+  background: #00c2ff;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #009fd1;
+  transform: translateY(-2px);
+}
+
+/* SECONDARY */
+.btn.secondary {
+    background: #00c2ff;
+  color: #fff;
+}
+
+.btn.secondary:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* DOTS */
+.hero-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 8%;
+  display: flex;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot.active {
+  background: #00c2ff;
+  transform: scale(1.2);
+}
+
+/* ANIMATION */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
