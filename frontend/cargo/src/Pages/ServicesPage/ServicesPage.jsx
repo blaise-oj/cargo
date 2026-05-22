@@ -269,8 +269,19 @@ const ServicesPage = () => {
             charter solution that meets your exact needs.
           </p>
           <div className="cta-buttons">
-            <button className="services-primary-btn">Get a Quote</button>
-            <button className="services-secondary-btn">Contact Us</button>
+            <button
+              className="services-track-btn"
+              onClick={() => navigate("/contact")}
+            >
+              Get a Quote
+            </button>
+
+            <button
+              className="services-track-btn"
+              onClick={() => navigate("/contact")}
+            >
+              Contact Us
+            </button>
           </div>
         </div>
       </section>

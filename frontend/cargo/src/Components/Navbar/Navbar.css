@@ -29,7 +29,18 @@
   width: 400px;
   cursor: pointer;
 }
+/* DESKTOP ONLY - Change link colors on scroll */
+@media (min-width: 841px){
 
+  .navbar--sticky .navbar__menu a{
+    color: #111;
+  }
+
+  .navbar--sticky .navbar__menu a:hover{
+    color: #212EA0;
+  }
+
+}
 /* ================= DESKTOP MENU ================= */
 .navbar__menu {
   display: flex;
