@@ -2,5 +2,9 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.2",
     "vite": "^7.2.7"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1"
   }
 }
