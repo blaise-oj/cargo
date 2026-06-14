@@ -97,7 +97,11 @@ const CargoList = () => {
       bill.customerName?.toLowerCase().includes(query) ||
       bill.customerEmail?.toLowerCase().includes(query) ||
       bill.origin?.city?.toLowerCase().includes(query) ||
-      bill.destination?.city?.toLowerCase().includes(query)
+      bill.destination?.city?.toLowerCase().includes(query) ||
+      bill.shipper?.name?.toLowerCase().includes(query) ||
+      bill.consignee?.name?.toLowerCase().includes(query) ||
+      bill.flightDetails?.flightNumber?.toLowerCase().includes(query) ||
+      bill.flightDetails?.airline?.toLowerCase().includes(query)
     );
   });
 
@@ -111,7 +115,7 @@ const CargoList = () => {
       {/* ✅ Top bar with Create button + Search */}
       <div className="top-bar">
         <Link to="/cargocharters/create" className="cargo-list-create-btn">
-          + Create New Cargo Airwaybill
+          Create New Cargo Airwaybill
         </Link>
 
         <div className="search-container">
@@ -134,17 +138,14 @@ const CargoList = () => {
               <tr>
                 <th>Airwaybill</th>
                 <th>Customer</th>
-                <th>Email</th>
                 <th>Origin</th>
                 <th>Destination</th>
                 <th>Weight (kg)</th>
-                <th>Qty</th>
-                <th>Dimensions (L×W×H cm)</th>
-                <th>Volume (cm³)</th>
-                <th>Description</th>
-                <th>Price (USD)</th>
                 <th>Status</th>
-                <th>Delayed At</th>        
+                <th>Flight No</th>
+                <th>Airline</th>
+                <th>Shipper</th>
+                <th>Delayed At</th>
                 <th>Delay Reason</th>
                 <th>Departure</th>
                 <th>Arrival</th>
@@ -158,7 +159,6 @@ const CargoList = () => {
                 <tr key={bill.airwaybill}>
                   <td data-label="Airwaybill">{bill.airwaybill}</td>
                   <td data-label="Customer">{bill.customerName || "-"}</td>
-                  <td data-label="Email">{bill.customerEmail || "-"}</td>
                   <td data-label="Origin">
                     {bill.origin?.city || "-"}, {bill.origin?.country || ""}
                   </td>
@@ -166,17 +166,6 @@ const CargoList = () => {
                     {bill.destination?.city || "-"}, {bill.destination?.country || ""}
                   </td>
                   <td data-label="Weight (kg)">{bill.cargoDetails?.weight || 0}</td>
-                  <td data-label="Qty">{bill.cargoDetails?.quantity || 0}</td>
-                  <td data-label="Dimensions (L×W×H cm)">
-                    {bill.cargoDetails
-                      ? `${bill.cargoDetails.length || 0} × ${bill.cargoDetails.width || 0} × ${bill.cargoDetails.height || 0}`
-                      : "-"}
-                  </td>
-                  <td data-label="Volume (cm³)">
-                    {bill.cargoDetails?.volume?.toLocaleString() || 0}
-                  </td>
-                  <td data-label="Description">{bill.cargoDetails?.description || "-"}</td>
-                  <td data-label="Price (USD)">{bill.price?.toLocaleString() || 0}</td>
                   <td data-label="Status">
                     <div
                       className={`status-badge ${bill.status?.toLowerCase().replace(" ", "-")}`}
@@ -184,7 +173,12 @@ const CargoList = () => {
                       {bill.status}
                     </div>
                   </td>
-                  <td data-label="Delayed At">{formatDate(bill.delayedAt)}</td>          
+                  <td>{bill.flightDetails?.flightNumber || "-"}</td>
+
+                  <td>{bill.flightDetails?.airline || "-"}</td>
+
+                  <td>{bill.shipper?.name || "-"}</td>
+                  <td data-label="Delayed At">{formatDate(bill.delayedAt)}</td>
                   <td data-label="Delay Reason">{bill.delayReason || "-"}</td>
                   <td data-label="Departure">{formatDate(bill.departureDate)}</td>
                   <td data-label="Arrival">{formatDate(bill.arrivalDate)}</td>

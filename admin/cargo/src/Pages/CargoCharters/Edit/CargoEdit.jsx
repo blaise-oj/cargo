@@ -4,8 +4,18 @@ import { Country, City } from "country-state-city";
 import "./CargoEdit.css";
 import { API_URL } from "../../../config/api.js";
 
-const emptyCargoDetails = { length: "", width: "", height: "", weight: "", quantity: "", description: "", volume: 0 };
-
+const emptyCargoDetails = {
+  length: "",
+  width: "",
+  height: "",
+  weight: "",
+  quantity: "",
+  pieces: "",
+  natureOfGoods: "",
+  commodityItemNumber: "",
+  description: "",
+  volume: 0,
+};
 const CargoEdit = () => {
   const { airwaybill } = useParams();
   const navigate = useNavigate();
@@ -27,35 +37,85 @@ const CargoEdit = () => {
         const data = await res.json();
         if (!data.success || !data.cargo) throw new Error("No cargo data found");
         const cargo = data.cargo;
+        console.log("EDIT CARGO DATA:", cargo);
 
         setFormData({
           customerName: cargo.customerName || "",
           customerEmail: cargo.customerEmail || "",
+
+          shipperName: cargo.shipper?.name || "",
+          shipperAddress: cargo.shipper?.address || "",
+          shipperAccountNumber: cargo.shipper?.accountNumber || "",
+
+          consigneeName: cargo.consignee?.name || "",
+          consigneeAddress: cargo.consignee?.address || "",
+          consigneeAccountNumber: cargo.consignee?.accountNumber || "",
+
+          flightNumber: cargo.flightDetails?.flightNumber || "",
+          airline: cargo.flightDetails?.airline || "",
+          departureAirport: cargo.flightDetails?.departureAirport || "",
+          destinationAirport: cargo.flightDetails?.destinationAirport || "",
+          departureTime: cargo.flightDetails?.departureTime
+            ? new Date(cargo.flightDetails.departureTime).toISOString().slice(0, 16)
+            : "",
+
           originCountry: cargo.origin?.country || "",
           originCity: cargo.origin?.city || "",
           destinationCountry: cargo.destination?.country || "",
           destinationCity: cargo.destination?.city || "",
           currentCountry: cargo.currentLocation?.country || cargo.origin?.country || "",
           currentCity: cargo.currentLocation?.city || cargo.origin?.city || "",
+
           cargoDetails: {
             ...emptyCargoDetails,
-            ...cargo.cargoDetails,
             length: cargo.cargoDetails?.length?.toString() || "",
             width: cargo.cargoDetails?.width?.toString() || "",
             height: cargo.cargoDetails?.height?.toString() || "",
             weight: cargo.cargoDetails?.weight?.toString() || "",
             quantity: cargo.cargoDetails?.quantity?.toString() || "",
+            pieces: cargo.cargoDetails?.pieces?.toString() || "",
+            natureOfGoods: cargo.cargoDetails?.natureOfGoods || "",
+            commodityItemNumber: cargo.cargoDetails?.commodityItemNumber || "",
+            description: cargo.cargoDetails?.description || "",
             volume: cargo.cargoDetails?.volume || 0,
           },
-          price: cargo.price || 0,
+
+          price: cargo.price?.toString() || "",
+
+          currency: cargo.awbDetails?.currency || "USD",
+          declaredValueCarriage: cargo.awbDetails?.declaredValueCarriage || "NVD",
+          declaredValueCustoms: cargo.awbDetails?.declaredValueCustoms || "NCV",
+          insuranceAmount: cargo.awbDetails?.insuranceAmount || "",
+          handlingInformation: cargo.awbDetails?.handlingInformation || "",
+          accountingInformation: cargo.awbDetails?.accountingInformation || "",
+
+          rateClass: cargo.charges?.rateClass || "",
+          chargeableWeight: cargo.charges?.chargeableWeight?.toString() || "",
+          rate: cargo.charges?.rate?.toString() || "",
+          weightCharge: cargo.charges?.weightCharge?.toString() || "",
+          valuationCharge: cargo.charges?.valuationCharge?.toString() || "",
+          tax: cargo.charges?.tax?.toString() || "",
+          totalOtherChargesDueAgent:
+            cargo.charges?.totalOtherChargesDueAgent?.toString() || "",
+          totalOtherChargesDueCarrier:
+            cargo.charges?.totalOtherChargesDueCarrier?.toString() || "",
+          totalPrepaid: cargo.charges?.totalPrepaid?.toString() || "",
+          totalCollect: cargo.charges?.totalCollect?.toString() || "",
+
           delayedAt: cargo.delayedAt
             ? new Date(cargo.delayedAt).toISOString().slice(0, 16)
             : "",
           delayReason: cargo.delayReason || "",
           withdrawReason: cargo.withdrawReason || "",
-          departureDate: cargo.departureDate ? new Date(cargo.departureDate).toISOString().slice(0, 16) : "",
-          arrivalDate: cargo.arrivalDate ? new Date(cargo.arrivalDate).toISOString().slice(0, 16) : "",
-          withdrawnAt: cargo.withdrawnAt ? new Date(cargo.withdrawnAt).toISOString().slice(0, 16) : "",
+          departureDate: cargo.departureDate
+            ? new Date(cargo.departureDate).toISOString().slice(0, 16)
+            : "",
+          arrivalDate: cargo.arrivalDate
+            ? new Date(cargo.arrivalDate).toISOString().slice(0, 16)
+            : "",
+          withdrawnAt: cargo.withdrawnAt
+            ? new Date(cargo.withdrawnAt).toISOString().slice(0, 16)
+            : "",
           status: cargo.status || "Booked",
         });
 
@@ -130,54 +190,54 @@ const CargoEdit = () => {
 
 
   const handleStatusChange = (e) => {
-  const newStatus = e.target.value;
+    const newStatus = e.target.value;
 
-  const currentIndex = statusOrder.indexOf(formData.status);
-  const nextIndex = statusOrder.indexOf(newStatus);
+    const currentIndex = statusOrder.indexOf(formData.status);
+    const nextIndex = statusOrder.indexOf(newStatus);
 
-  if (nextIndex < currentIndex) {
-    alert("⚠️ You cannot move cargo backward in status.");
-    return;
-  }
+    if (nextIndex < currentIndex) {
+      alert("⚠️ You cannot move cargo backward in status.");
+      return;
+    }
 
-  let updated = { ...formData, status: newStatus };
+    let updated = { ...formData, status: newStatus };
 
-  if (newStatus === "Delayed" && !formData.delayedAt) {
-  updated.delayedAt = new Date().toISOString().slice(0, 16);
-  }
+    if (newStatus === "Delayed" && !formData.delayedAt) {
+      updated.delayedAt = new Date().toISOString().slice(0, 16);
+    }
 
-  if (newStatus === "In Transit" && !formData.departureDate) {
-    updated.departureDate = new Date().toISOString().slice(0, 16);
-  }
+    if (newStatus === "In Transit" && !formData.departureDate) {
+      updated.departureDate = new Date().toISOString().slice(0, 16);
+    }
 
-  if (newStatus === "Arrived" && !formData.arrivalDate) {
-    updated.arrivalDate = new Date().toISOString().slice(0, 16);
-  }
+    if (newStatus === "Arrived" && !formData.arrivalDate) {
+      updated.arrivalDate = new Date().toISOString().slice(0, 16);
+    }
 
-  if (newStatus === "Withdrawn" && !formData.withdrawnAt) {
-    updated.withdrawnAt = new Date().toISOString().slice(0, 16);
-  }
+    if (newStatus === "Withdrawn" && !formData.withdrawnAt) {
+      updated.withdrawnAt = new Date().toISOString().slice(0, 16);
+    }
 
-  if (formData.status === "Withdrawn" && newStatus !== "Withdrawn") {
-    updated.withdrawnAt = "";
-    updated.withdrawReason = "";
-  }
+    if (formData.status === "Withdrawn" && newStatus !== "Withdrawn") {
+      updated.withdrawnAt = "";
+      updated.withdrawReason = "";
+    }
 
-  if (formData.status === "Delayed" && newStatus !== "Delayed") {
-    updated.delayedAt = "";
-    updated.delayReason = "";
-  }
+    if (formData.status === "Delayed" && newStatus !== "Delayed") {
+      updated.delayedAt = "";
+      updated.delayReason = "";
+    }
 
-  if (["Booked", "Checked In", "Delayed"].includes(newStatus)) {
-    updated.currentCountry = updated.originCountry;
-    updated.currentCity = updated.originCity;
-  } else if (["Arrived", "Withdrawn"].includes(newStatus)) {
-    updated.currentCountry = updated.destinationCountry;
-    updated.currentCity = updated.destinationCity;
-  }
+    if (["Booked", "Checked In", "Delayed"].includes(newStatus)) {
+      updated.currentCountry = updated.originCountry;
+      updated.currentCity = updated.originCity;
+    } else if (["Arrived", "Withdrawn"].includes(newStatus)) {
+      updated.currentCountry = updated.destinationCountry;
+      updated.currentCity = updated.destinationCity;
+    }
 
-  setFormData(updated);
-};
+    setFormData(updated);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -215,8 +275,56 @@ const CargoEdit = () => {
         height: parseFloat(formData.cargoDetails.height) || 0,
         weight: parseFloat(formData.cargoDetails.weight) || 0,
         quantity: parseInt(formData.cargoDetails.quantity) || 0,
+        pieces:
+          parseInt(formData.cargoDetails.pieces) ||
+          parseInt(formData.cargoDetails.quantity) ||
+          0,
+        natureOfGoods: formData.cargoDetails.natureOfGoods,
+        commodityItemNumber: formData.cargoDetails.commodityItemNumber,
         description: formData.cargoDetails.description,
         volume: parseFloat(formData.cargoDetails.volume) || 0,
+      },
+      shipper: {
+        name: formData.shipperName,
+        address: formData.shipperAddress,
+        accountNumber: formData.shipperAccountNumber,
+      },
+
+      consignee: {
+        name: formData.consigneeName,
+        address: formData.consigneeAddress,
+        accountNumber: formData.consigneeAccountNumber,
+      },
+
+      flightDetails: {
+        flightNumber: formData.flightNumber,
+        departureAirport: formData.departureAirport,
+        destinationAirport: formData.destinationAirport,
+        departureTime: formData.departureTime,
+        airline: formData.airline,
+      },
+      awbDetails: {
+        currency: formData.currency,
+        declaredValueCarriage: formData.declaredValueCarriage,
+        declaredValueCustoms: formData.declaredValueCustoms,
+        insuranceAmount: formData.insuranceAmount,
+        handlingInformation: formData.handlingInformation,
+        accountingInformation: formData.accountingInformation,
+      },
+
+      charges: {
+        rateClass: formData.rateClass,
+        chargeableWeight: parseFloat(formData.chargeableWeight) || 0,
+        rate: parseFloat(formData.rate) || 0,
+        weightCharge: parseFloat(formData.weightCharge) || 0,
+        valuationCharge: parseFloat(formData.valuationCharge) || 0,
+        tax: parseFloat(formData.tax) || 0,
+        totalOtherChargesDueAgent:
+          parseFloat(formData.totalOtherChargesDueAgent) || 0,
+        totalOtherChargesDueCarrier:
+          parseFloat(formData.totalOtherChargesDueCarrier) || 0,
+        totalPrepaid: parseFloat(formData.totalPrepaid) || 0,
+        totalCollect: parseFloat(formData.totalCollect) || 0,
       },
       price: parseFloat(formData.price) || 0,
       departureDate: formData.departureDate || null,
@@ -289,6 +397,103 @@ const CargoEdit = () => {
           <label>Customer Email</label>
           <input type="email" name="customerEmail" value={formData.customerEmail} onChange={handleChange} required />
         </div>
+        <div className="form-group">
+          <label>Shipper Name</label>
+          <input
+            name="shipperName"
+            value={formData.shipperName}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Shipper Address</label>
+          <textarea
+            name="shipperAddress"
+            value={formData.shipperAddress}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Shipper Account Number</label>
+          <input
+            name="shipperAccountNumber"
+            value={formData.shipperAccountNumber}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Consignee Name</label>
+          <input
+            name="consigneeName"
+            value={formData.consigneeName}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Consignee Address</label>
+          <textarea
+            name="consigneeAddress"
+            value={formData.consigneeAddress}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Consignee Account Number</label>
+          <input
+            name="consigneeAccountNumber"
+            value={formData.consigneeAccountNumber}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Flight Number</label>
+          <input
+            name="flightNumber"
+            value={formData.flightNumber}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Airline</label>
+          <input
+            name="airline"
+            value={formData.airline}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Departure Airport</label>
+          <input
+            name="departureAirport"
+            value={formData.departureAirport}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Destination Airport</label>
+          <input
+            name="destinationAirport"
+            value={formData.destinationAirport}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Flight Departure Time</label>
+          <input
+            type="datetime-local"
+            name="departureTime"
+            value={formData.departureTime}
+            onChange={handleChange}
+          />
+        </div>
 
         {/* Locations */}
         <div className="form-group">
@@ -303,7 +508,12 @@ const CargoEdit = () => {
           <label>Origin City</label>
           <select
             value={formData.originCity}
-            onChange={(e) => handleCargoDetailChange("originCity", e.target.value)}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                originCity: e.target.value,
+              })
+            }
             disabled={!formData.originCountry}
           >
             <option value="">Select City</option>
@@ -324,7 +534,12 @@ const CargoEdit = () => {
           <label>Destination City</label>
           <select
             value={formData.destinationCity}
-            onChange={(e) => handleCargoDetailChange("destinationCity", e.target.value)}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                destinationCity: e.target.value,
+              })
+            }
             disabled={!formData.destinationCountry}
           >
             <option value="">Select City</option>
@@ -345,7 +560,12 @@ const CargoEdit = () => {
           <label>Current City</label>
           <select
             value={formData.currentCity}
-            onChange={(e) => handleCargoDetailChange("currentCity", e.target.value)}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                currentCity: e.target.value,
+              })
+            }
             disabled={!formData.currentCountry}
           >
             <option value="">Select City</option>
@@ -411,10 +631,115 @@ const CargoEdit = () => {
             onChange={(e) => handleCargoDetailChange("description", e.target.value)}
           />
         </div>
+        <div className="form-group">
+          <label>Pieces</label>
+          <input
+            type="number"
+            value={formData.cargoDetails.pieces || ""}
+            onChange={(e) => handleCargoDetailChange("pieces", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Nature of Goods</label>
+          <input
+            value={formData.cargoDetails.natureOfGoods || ""}
+            onChange={(e) => handleCargoDetailChange("natureOfGoods", e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Commodity Item Number</label>
+          <input
+            value={formData.cargoDetails.commodityItemNumber || ""}
+            onChange={(e) => handleCargoDetailChange("commodityItemNumber", e.target.value)}
+          />
+        </div>
 
         <div className="form-group">
           <label>Price</label>
           <input type="number" name="price" value={formData.price} onChange={handleChange} />
+        </div>
+        <h3>Charges / AWB Information</h3>
+
+        <div className="form-group">
+          <label>Currency</label>
+          <input name="currency" value={formData.currency || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Rate Class</label>
+          <input name="rateClass" value={formData.rateClass || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Chargeable Weight</label>
+          <input type="number" name="chargeableWeight" value={formData.chargeableWeight || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Rate</label>
+          <input type="number" name="rate" value={formData.rate || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Weight Charge</label>
+          <input type="number" name="weightCharge" value={formData.weightCharge || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Valuation Charge</label>
+          <input type="number" name="valuationCharge" value={formData.valuationCharge || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Tax</label>
+          <input type="number" name="tax" value={formData.tax || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Total Other Charges Due Agent</label>
+          <input type="number" name="totalOtherChargesDueAgent" value={formData.totalOtherChargesDueAgent || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Total Other Charges Due Carrier</label>
+          <input type="number" name="totalOtherChargesDueCarrier" value={formData.totalOtherChargesDueCarrier || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Total Prepaid</label>
+          <input type="number" name="totalPrepaid" value={formData.totalPrepaid || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Total Collect</label>
+          <input type="number" name="totalCollect" value={formData.totalCollect || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Declared Value for Carriage</label>
+          <input name="declaredValueCarriage" value={formData.declaredValueCarriage || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Declared Value for Customs</label>
+          <input name="declaredValueCustoms" value={formData.declaredValueCustoms || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Insurance Amount</label>
+          <input name="insuranceAmount" value={formData.insuranceAmount || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Handling Information</label>
+          <textarea name="handlingInformation" value={formData.handlingInformation || ""} onChange={handleChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Accounting Information</label>
+          <textarea name="accountingInformation" value={formData.accountingInformation || ""} onChange={handleChange} />
         </div>
 
         {/* Status */}

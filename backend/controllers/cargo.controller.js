@@ -20,6 +20,11 @@ export const createCargo = async (req, res) => {
       destination,
       customerName,
       customerEmail,
+      shipper,
+      consignee,
+      flightDetails,
+      awbDetails,
+      charges,
       cargoDetails,
       price,
       departureDate,
@@ -35,6 +40,13 @@ export const createCargo = async (req, res) => {
       destination,
       customerName,
       customerEmail,
+
+      shipper,
+      consignee,
+      flightDetails,
+      awbDetails,
+      charges,
+
       cargoDetails,
       status: "Booked",
       price,
@@ -124,6 +136,13 @@ export const updateCargoByAirwaybill = async (req, res) => {
     const allowedFields = [
       "customerName",
       "customerEmail",
+
+      "shipper",
+      "consignee",
+      "flightDetails",
+      "awbDetails",
+      "charges",
+
       "origin",
       "destination",
       "cargoDetails",
@@ -168,33 +187,33 @@ export const updateCargoByAirwaybill = async (req, res) => {
       cargo.delayReason = "";
     }
     // Safely push route entry if location/status updated
-if (routeUpdated && cargo.currentLocation) {
-  const { city, country, lat, lng } = cargo.currentLocation;
+    if (routeUpdated && cargo.currentLocation) {
+      const { city, country, lat, lng } = cargo.currentLocation;
 
-  // Only push if coordinates actually changed
-  const lastPoint = cargo.route[cargo.route.length - 1];
-  const locationChanged =
-    !lastPoint || lastPoint.lat !== lat || lastPoint.lng !== lng;
+      // Only push if coordinates actually changed
+      const lastPoint = cargo.route[cargo.route.length - 1];
+      const locationChanged =
+        !lastPoint || lastPoint.lat !== lat || lastPoint.lng !== lng;
 
-  if (city && country && lat != null && lng != null && locationChanged) {
-    cargo.route.push({
-      city,
-      country,
-      lat,
-      lng,
-      status: cargo.status,
-      note:
-        cargo.status === "Delayed"
-          ? `Delayed: ${cargo.delayReason || "No reason provided"}`
-          : `Status updated to ${cargo.status}`,
-      timestamp: new Date(),
-    });
-  } else if (!locationChanged && cargo.status === "Delayed") {
-    // Update last route note if delayed at same location
-    lastPoint.note = `Delayed: ${cargo.delayReason || "No reason provided"}`;
-    lastPoint.timestamp = new Date();
-  }
-}
+      if (city && country && lat != null && lng != null && locationChanged) {
+        cargo.route.push({
+          city,
+          country,
+          lat,
+          lng,
+          status: cargo.status,
+          note:
+            cargo.status === "Delayed"
+              ? `Delayed: ${cargo.delayReason || "No reason provided"}`
+              : `Status updated to ${cargo.status}`,
+          timestamp: new Date(),
+        });
+      } else if (!locationChanged && cargo.status === "Delayed") {
+        // Update last route note if delayed at same location
+        lastPoint.note = `Delayed: ${cargo.delayReason || "No reason provided"}`;
+        lastPoint.timestamp = new Date();
+      }
+    }
 
 
     await cargo.save();

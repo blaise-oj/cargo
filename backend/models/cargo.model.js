@@ -35,7 +35,65 @@ const cargoLocationSchema = new mongoose.Schema(
   },
   { _id: false }
 );
+const partySchema = new mongoose.Schema(
+  {
+    name: { type: String, default: "" },
+    address: { type: String, default: "" },
+    accountNumber: { type: String, default: "" },
+  },
+  { _id: false }
+);
 
+const flightDetailsSchema = new mongoose.Schema(
+  {
+    airline: { type: String, default: "" },
+    flightNumber: { type: String, default: "" },
+    departureAirport: { type: String, default: "" },
+    destinationAirport: { type: String, default: "" },
+    departureTime: { type: String, default: "" },
+  },
+  { _id: false }
+);
+
+const awbDetailsSchema = new mongoose.Schema(
+  {
+    issuedBy: { type: String, default: "Airrush Charters Ltd" },
+    issuingCarrierAgent: { type: String, default: "" },
+    agentIataCode: { type: String, default: "" },
+    accountNumber: { type: String, default: "" },
+    airportOfDeparture: { type: String, default: "" },
+    airportOfDestination: { type: String, default: "" },
+    routingTo: { type: String, default: "" },
+    routingBy: { type: String, default: "" },
+    currency: { type: String, default: "USD" },
+    declaredValueCarriage: { type: String, default: "NVD" },
+    declaredValueCustoms: { type: String, default: "NCV" },
+    insuranceAmount: { type: String, default: "" },
+    handlingInformation: { type: String, default: "" },
+    accountingInformation: { type: String, default: "" },
+    shipperSignature: { type: String, default: "" },
+    carrierSignature: { type: String, default: "" },
+    executedAtPlace: { type: String, default: "" },
+    executedOnDate: { type: Date, default: null },
+  },
+  { _id: false }
+);
+
+const chargesSchema = new mongoose.Schema(
+  {
+    rateClass: { type: String, default: "" },
+    chargeableWeight: { type: Number, default: 0 },
+    rate: { type: Number, default: 0 },
+    weightCharge: { type: Number, default: 0 },
+    valuationCharge: { type: Number, default: 0 },
+    tax: { type: Number, default: 0 },
+    totalOtherChargesDueAgent: { type: Number, default: 0 },
+    totalOtherChargesDueCarrier: { type: Number, default: 0 },
+    totalPrepaid: { type: Number, default: 0 },
+    totalCollect: { type: Number, default: 0 },
+  },
+  { _id: false }
+);
 // ===== Cargo Details Schema =====
 const cargoDetailsSchema = new mongoose.Schema(
   {
@@ -46,6 +104,9 @@ const cargoDetailsSchema = new mongoose.Schema(
     width: { type: Number, default: 0 },  // cm
     height: { type: Number, default: 0 }, // cm
     volume: { type: Number, default: 0 }, // cm³
+    pieces: { type: Number, default: 0 },
+    natureOfGoods: { type: String, default: "" },
+    commodityItemNumber: { type: String, default: "" },
   },
   { _id: false }
 );
@@ -57,8 +118,13 @@ const cargoSchema = new mongoose.Schema(
     charterType: { type: String, default: "cargo" },
     customerName: { type: String, required: true },
     customerEmail: { type: String, required: true },
+    shipper: { type: partySchema, default: () => ({}) },
+    consignee: { type: partySchema, default: () => ({}) },
     origin: { type: cargoLocationSchema, required: true },
     destination: { type: cargoLocationSchema, required: true },
+    flightDetails: { type: flightDetailsSchema, default: () => ({}) },
+    awbDetails: { type: awbDetailsSchema, default: () => ({}) },
+    charges: { type: chargesSchema, default: () => ({}) },
     currentLocation: { type: cargoLocationSchema, default: null },
     cargoDetails: { type: cargoDetailsSchema, required: true },
     status: {
