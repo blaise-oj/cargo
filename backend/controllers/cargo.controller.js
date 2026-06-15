@@ -343,7 +343,7 @@ export const downloadCargoReceipt = async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader(
       "Content-Disposition",
-      `inline; filename=Airwaybill_${airwaybill}.pdf`
+      `attachment; filename=Airwaybill_${airwaybill}.pdf`
     );
 
     res.status(200).send(pdfBuffer);
