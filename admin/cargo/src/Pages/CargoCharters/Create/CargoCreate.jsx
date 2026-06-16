@@ -193,7 +193,7 @@ const CargoCreate = () => {
       cargoDetails: {
         weight: parseFloat(formData.weight) || 0,
         quantity: parseInt(formData.quantity) || 0,
-        pieces: parseInt(formData.pieces) || parseInt(formData.quantity) || 0,
+        pieces: formData.pieces,
         description: formData.description,
         natureOfGoods: formData.natureOfGoods,
         commodityItemNumber: formData.commodityItemNumber,
@@ -305,7 +305,13 @@ const CargoCreate = () => {
           <label>Flight Departure Time</label>
           <input type="datetime-local" name="departureTime" value={formData.departureTime} onChange={handleChange} />
           <label>Pieces</label>
-          <input name="pieces" type="number" value={formData.pieces} onChange={handleChange} />
+          <input
+  name="pieces"
+  type="text"
+  value={formData.pieces}
+  onChange={handleChange}
+  placeholder="e.g. 10 Boxes"
+/>
 
           <label>Nature of Goods</label>
           <input name="natureOfGoods" value={formData.natureOfGoods} onChange={handleChange} />

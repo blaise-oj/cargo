@@ -276,9 +276,9 @@ const CargoEdit = () => {
         weight: parseFloat(formData.cargoDetails.weight) || 0,
         quantity: parseInt(formData.cargoDetails.quantity) || 0,
         pieces:
-          parseInt(formData.cargoDetails.pieces) ||
-          parseInt(formData.cargoDetails.quantity) ||
-          0,
+          formData.cargoDetails.pieces ||
+          formData.cargoDetails.quantity?.toString() ||
+          "",
         natureOfGoods: formData.cargoDetails.natureOfGoods,
         commodityItemNumber: formData.cargoDetails.commodityItemNumber,
         description: formData.cargoDetails.description,
@@ -634,7 +634,7 @@ const CargoEdit = () => {
         <div className="form-group">
           <label>Pieces</label>
           <input
-            type="number"
+            type="text"
             value={formData.cargoDetails.pieces || ""}
             onChange={(e) => handleCargoDetailChange("pieces", e.target.value)}
           />

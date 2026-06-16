@@ -104,7 +104,7 @@ const cargoDetailsSchema = new mongoose.Schema(
     width: { type: Number, default: 0 },  // cm
     height: { type: Number, default: 0 }, // cm
     volume: { type: Number, default: 0 }, // cm³
-    pieces: { type: Number, default: 0 },
+    pieces: { type: String, default: "" },
     natureOfGoods: { type: String, default: "" },
     commodityItemNumber: { type: String, default: "" },
   },

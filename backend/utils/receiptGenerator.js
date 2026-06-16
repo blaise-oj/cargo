@@ -85,7 +85,8 @@ draw(cargo.airwaybill, 470, 705, 8, 90, true);
   // =========================
   // AGENT / ACCOUNTING
   // =========================
-  draw(awb.issuingCarrierAgent || "AIRRUSH CHARTERS", 75, 175, 6.5, 170);
+  draw(awb.issuingCarrierAgent || "AIRRUSH CHARTERS, NAIROBI, KENYA"
+    , 75, 175, 6.5, 170);
   draw(awb.agentIataCode, 75, 175, 6.5,170);
   draw(awb.accountNumber, 75, 175, 6.5, 170);
   draw(awb.accountingInformation,225, 220,6.5,170);
